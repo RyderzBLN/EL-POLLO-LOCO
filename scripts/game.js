@@ -11,3 +11,5 @@ function init() {
 }
 
 console.log(character);
+console.log(enemies);
+
