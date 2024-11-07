@@ -4,7 +4,8 @@ class World {
   clouds = [new Cloud()];
   backgroundObjekts = [
     new BackgroundObjekt(
-      "../assets/img/5_background/layers/air.png", 0
+      "../assets/img/5_background/layers/air.png",
+       0
     ),
     new BackgroundObjekt(
       "../assets/img/5_background/layers/3_third_layer/1.png",
