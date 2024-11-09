@@ -20,7 +20,6 @@ class Character extends MovableObjekt {
   }
 
   animate() {
-
     setInterval(() => {
       if (this.world.keyboard.RIGHT) {
         this.x += 4;
@@ -30,10 +29,22 @@ class Character extends MovableObjekt {
         this.x -= 4;
         this.otherDirection = true;
       }
+      // HIER  JUMP START
+      if (this.world.keyboard.SPACE) {
+        this.y -= 20;
+      } else {
+        this.y += 7;
+      }
+      if (this.y >= 173) {
+        this.y = 173
+      }
+      // END
+      this.world.camera_x = -this.x;
     }, 1000 / 60);
 
+    // HIER JUMP / SPACE BEACHTEN!
     setInterval(() => {
-      if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT  ) {
+      if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.SPACE ) {
         let i = this.currentImage % this.ImagesIdle.length;
         let path = this.ImagesIdle[i];
         this.img = this.imgCache[path];
