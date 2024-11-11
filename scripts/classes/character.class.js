@@ -11,6 +11,18 @@ class Character extends MovableObjekt {
     "../assets/img/2_character_pepe/2_walk/W-25.png",
   ];
 
+  images_Jump = [
+    "../assets/img/2_character_pepe/3_jump/J-31.png",
+    "../assets/img/2_character_pepe/3_jump/J-32.png",
+    "../assets/img/2_character_pepe/3_jump/J-33.png",
+    "../assets/img/2_character_pepe/3_jump/J-34.png",
+    "../assets/img/2_character_pepe/3_jump/J-35.png",
+    "../assets/img/2_character_pepe/3_jump/J-36.png",
+    "../assets/img/2_character_pepe/3_jump/J-37.png",
+    "../assets/img/2_character_pepe/3_jump/J-38.png",
+    "../assets/img/2_character_pepe/3_jump/J-39.png",
+  ];
+
   world;
   walking_sound = new Audio("../assets/audio/walk.mp3");
 
@@ -18,6 +30,7 @@ class Character extends MovableObjekt {
     super();
     this.loadImage("../assets/img/2_character_pepe/1_idle/idle/I-1.png");
     this.loadImages(this.ImagesIdle);
+    this.loadImages(this.images_Jump);
     this.applyGravity();
     this.animate();
   }
@@ -44,11 +57,11 @@ class Character extends MovableObjekt {
 
     // HIER JUMP / SPACE BEACHTEN!
     setInterval(() => {
-      if (
-        this.world.keyboard.RIGHT ||
-        this.world.keyboard.LEFT ||
-        this.world.keyboard.SPACE
-      ) {
+      if (this.isAboveGround()) {
+        this.playAnimation(this.images_Jump);
+      }
+
+      if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.ImagesIdle);
       }
     }, 100);
