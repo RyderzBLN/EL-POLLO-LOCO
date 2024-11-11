@@ -59,11 +59,12 @@ class Character extends MovableObjekt {
     setInterval(() => {
       if (this.isAboveGround()) {
         this.playAnimation(this.images_Jump);
-      }
+      } else {
 
       if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.ImagesIdle);
-      }
+      } 
+    }
     }, 100);
   }
 
