@@ -1,52 +1,8 @@
 class World {
   character = new Character();
-  enemies = [new Chicken(), new Chicken(), new Chicken()];
-  clouds = [new Cloud()];
-  backgroundObjekts = [
-    new BackgroundObjekt(
-      "../assets/img/5_background/layers/air.png",
-       -719),
-    new BackgroundObjekt(
-      "../assets/img/5_background/layers/3_third_layer/2.png",
-      -719
-    ),
-    new BackgroundObjekt(
-      "../assets/img/5_background/layers/2_second_layer/2.png",
-      -719
-    ),
-    new BackgroundObjekt(
-      "../assets/img/5_background/layers/1_first_layer/2.png",
-      -719
-    ),
-    new BackgroundObjekt("../assets/img/5_background/layers/air.png", 0),
-    new BackgroundObjekt(
-      "../assets/img/5_background/layers/3_third_layer/1.png",
-      0
-    ),
-    new BackgroundObjekt(
-      "../assets/img/5_background/layers/2_second_layer/1.png",
-      0
-    ),
-    new BackgroundObjekt(
-      "../assets/img/5_background/layers/1_first_layer/1.png",
-      0
-    ),
-    new BackgroundObjekt(
-      "../assets/img/5_background/layers/air.png",
-       719),
-    new BackgroundObjekt(
-      "../assets/img/5_background/layers/3_third_layer/2.png",
-      719
-    ),
-    new BackgroundObjekt(
-      "../assets/img/5_background/layers/2_second_layer/2.png",
-      719
-    ),
-    new BackgroundObjekt(
-      "../assets/img/5_background/layers/1_first_layer/2.png",
-      719
-    )
-  ];
+  enemies = level1.enemies;
+  clouds = level1.clouds;
+  backgroundObjekts = level1.backgroundObjekts
   canvas;
   ctx;
   keyboard;
