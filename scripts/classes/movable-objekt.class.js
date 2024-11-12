@@ -21,6 +21,7 @@ class MovableObjekt {
     }, 1000 / 25)
   }
 
+
   isAboveGround(){
     return this.y < 173;
   }
@@ -46,11 +47,17 @@ class MovableObjekt {
   }
 
   moveRight() {
-    console.log("move right");
+    this.x += this.speed;
+    
+
   }
   moveLeft() {
-    setInterval(() => {
+
       this.x -= this.speed;
-    }, 1000 / 60);
+      
+  }
+
+  jump(){
+    this.speedY += 30;
   }
 }
