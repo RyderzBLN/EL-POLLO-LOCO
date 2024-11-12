@@ -20,6 +20,13 @@ class MovableObjekt {
     }, 1000 / 40);
   }
 
+  isColliding(mo){
+    return this.x + this.width > mo.x &&
+    this.y + this.height > mo.y &&
+    this.x < mo.x &&
+    this.y < mo.y + mo.height;
+ }
+
   isAboveGround() {
     return this.y < 173;
   }
@@ -34,13 +41,12 @@ class MovableObjekt {
   }
 
   drawBorder(ctx) {
-
     if (this instanceof Character || this instanceof Chicken) {
-    ctx.beginPath();
-    ctx.lineWidth = "6";
-    ctx.strokeStyle = "red";
-    ctx.rect(this.x, this.y, this.width, this.height);
-    ctx.stroke();
+      ctx.beginPath();
+      ctx.lineWidth = "6";
+      ctx.strokeStyle = "red";
+      ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.stroke();
     }
   }
 
