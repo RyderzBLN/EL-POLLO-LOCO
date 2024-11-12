@@ -11,24 +11,34 @@ class MovableObjekt {
   speedY = 0;
   acceleration = 2.5;
 
-
   applyGravity() {
     setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
-      this.y -= this.speedY;
-      this.speedY -= this.acceleration;
+        this.y -= this.speedY;
+        this.speedY -= this.acceleration;
       }
-    }, 1000 / 25)
+    }, 1000 / 40);
   }
 
-
-  isAboveGround(){
+  isAboveGround() {
     return this.y < 173;
   }
 
   loadImage(path) {
     this.img = new Image();
     this.img.src = path;
+  }
+
+  draw(ctx) {
+    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+  }
+
+  drawBorder(ctx) {
+    ctx.beginPath();
+    ctx.lineWidth = "6";
+    ctx.strokeStyle = "red";
+    ctx.rect(this.x, this.y, this.width, this.height);
+    ctx.stroke();
   }
 
   loadImages(arr) {
@@ -48,16 +58,12 @@ class MovableObjekt {
 
   moveRight() {
     this.x += this.speed;
-    
-
   }
   moveLeft() {
-
-      this.x -= this.speed;
-      
+    this.x -= this.speed;
   }
 
-  jump(){
+  jump() {
     this.speedY += 30;
   }
 }
