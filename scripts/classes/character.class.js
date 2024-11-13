@@ -31,7 +31,13 @@ class Character extends MovableObjekt {
     "../assets/img/2_character_pepe/5_dead/D-55.png",
     "../assets/img/2_character_pepe/5_dead/D-56.png",
     "../assets/img/2_character_pepe/5_dead/D-57.png",
-  ]
+  ];
+
+  images_Hurt = [
+    "../assets/img/2_character_pepe/4_hurt/H-41.png",
+    "../assets/img/2_character_pepe/4_hurt/H-42.png",
+    "../assets/img/2_character_pepe/4_hurt/H-43.png",
+  ];
 
   world;
   walking_sound = new Audio("../assets/audio/walk.mp3");
@@ -42,6 +48,7 @@ class Character extends MovableObjekt {
     this.loadImages(this.ImagesIdle);
     this.loadImages(this.images_Jump);
     this.loadImages(this.images_Dead);
+    this.loadImages(this.images_Hurt);
     this.applyGravity();
     this.animate();
   }
@@ -72,8 +79,12 @@ class Character extends MovableObjekt {
 
     // HIER JUMP / SPACE BEACHTEN!
     setInterval(() => {
-      if (this.isDead()){
+      if (this.isDead()) {
         this.playAnimation(this.images_Dead);
+      }
+
+      if (this.isHurt()) {
+        this.playAnimation(this.images_Hurt);
       }
 
       if (this.isAboveGround()) {
