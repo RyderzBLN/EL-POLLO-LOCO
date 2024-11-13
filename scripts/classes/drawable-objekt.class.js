@@ -17,6 +17,16 @@ class DrawableObejekt {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 
+  drawBorder(ctx) {
+    if (this instanceof Character || this instanceof Chicken) {
+      ctx.beginPath();
+      ctx.lineWidth = "6";
+      ctx.strokeStyle = "red";
+      ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.stroke();
+    }
+  }
+
   loadImages(arr) {
     arr.forEach((path) => {
       let img = new Image();
