@@ -26,6 +26,7 @@ class World {
         if (this.character.isColliding(enemy)) {
           console.log("kolliediert", enemy);
           this.character.hit()
+          this.statusBar.setPercentage(this.character.energy);
           console.log(this.character.energy);
           
         }
@@ -37,7 +38,11 @@ class World {
     this.ctx.clearRect(0, 0, this.canvas.height, this.canvas.width);
     this.ctx.translate(this.camera_x, 0);
     this.addObjektToMap(this.level.backgroundObjekts);
+
+    this.ctx.translate(-this.camera_x, 0);
     this.addToMap(this.statusBar)
+    this.ctx.translate(this.camera_x, 0);
+
     this.addToMap(this.character);
     this.addObjektToMap(this.level.clouds);
     this.addObjektToMap(this.level.enemies);
