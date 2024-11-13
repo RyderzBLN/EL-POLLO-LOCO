@@ -1,5 +1,5 @@
 class DrawableObejekt {
-    x = 100;
+  x = 100;
   y = 280;
   height = 150;
   width = 100;
@@ -7,7 +7,6 @@ class DrawableObejekt {
   currentImage = 0;
   imgCache = {};
 
-  
   loadImage(path) {
     this.img = new Image();
     this.img.src = path;
