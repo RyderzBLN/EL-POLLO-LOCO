@@ -10,7 +10,7 @@ class MovableObjekt {
   otherDirection = false;
   speedY = 0;
   acceleration = 2.5;
-  energy = 100;
+  energy = 20;
 
   applyGravity() {
     setInterval(() => {
@@ -64,6 +64,17 @@ class MovableObjekt {
     let path = images[i];
     this.img = this.imgCache[path];
     this.currentImage++;
+  }
+
+  hit(){
+    this.energy -= 5;
+    if (this.energy < 0) {
+      this.energy = 0;
+    }
+  }
+
+  isDead(){
+    return this.energy == 0;
   }
 
   moveRight() {
