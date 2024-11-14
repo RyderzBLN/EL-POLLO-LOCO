@@ -4,7 +4,7 @@ class Character extends MovableObjekt {
   y = 173;
   speed = 4;
   coin = 0;
-  salsaBottle = 0;
+  salsaBottle;
   ImagesIdle = [
     "../assets/img/2_character_pepe/2_walk/W-21.png",
     "../assets/img/2_character_pepe/2_walk/W-22.png",
@@ -51,6 +51,7 @@ class Character extends MovableObjekt {
     this.loadImages(this.images_Jump);
     this.loadImages(this.images_Dead);
     this.loadImages(this.images_Hurt);
+    this.salsaBottle = 0
     this.applyGravity();
     this.animate();
 

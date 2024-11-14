@@ -30,12 +30,14 @@ class World {
   }
 
   checkThrowObjeks() {
-    if (this.keyboard.D) {
+    if (this.keyboard.D && this.character.salsaBottle > 0) {
       let bottle = new ThrowableObject(
         this.character.x + 100,
         this.character.y + 100
       );
+
       this.throwableObjekts.push(bottle);
+      this.character.salsaBottle--;
     }
   }
 
@@ -51,20 +53,22 @@ class World {
   }
 
   checkCollections() {
-    this.level.coins.forEach((coin) => {
+    this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin)) {
         console.log("kolliediert", coin);
         this.character.coin += 1;
         coin.isCollect = true;
         console.log(coin);
+        this.level.coins.splice(index, 1)
       }
     });
-    this.level.salsaBottles.forEach((bottle) => {
+    this.level.salsaBottles.forEach((bottle, index) => {
       if (this.character.isColliding(bottle)) {
         console.log("kolliediert", bottle);
-        this.character.salsaBottle += 1;  
+        this.character.salsaBottle += 1;
         bottle.isCollect = true;
-        console.log(bottle);
+        console.log(this.character.salsaBottle);
+        this.level.salsaBottles.splice(index, 1)
       }
     });
   }
@@ -80,7 +84,7 @@ class World {
 
     this.addToMap(this.character);
     this.addObjektToMap(this.level.clouds);
-   
+
     this.addObjektToMap(this.level.coins);
     this.addObjektToMap(this.level.salsaBottles);
     this.addObjektToMap(this.level.enemies);
