@@ -1,0 +1,7 @@
+Start screen
+music sounds
+coins / flaschen einsammeln 
+flasche nur werfen wenn da
+collision
+engegner besiegen
+game over
