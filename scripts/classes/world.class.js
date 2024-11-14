@@ -59,6 +59,14 @@ class World {
         console.log(coin);
       }
     });
+    this.level.salsaBottles.forEach((bottle) => {
+      if (this.character.isColliding(bottle)) {
+        console.log("kolliediert", bottle);
+        this.character.salsaBottle += 1;  
+        bottle.isCollect = true;
+        console.log(bottle);
+      }
+    });
   }
 
   draw() {
@@ -72,7 +80,9 @@ class World {
 
     this.addToMap(this.character);
     this.addObjektToMap(this.level.clouds);
+   
     this.addObjektToMap(this.level.coins);
+    this.addObjektToMap(this.level.salsaBottles);
     this.addObjektToMap(this.level.enemies);
 
     this.addObjektToMap(this.throwableObjekts);

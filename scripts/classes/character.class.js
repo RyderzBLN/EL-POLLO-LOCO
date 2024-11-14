@@ -4,6 +4,7 @@ class Character extends MovableObjekt {
   y = 173;
   speed = 4;
   coin = 0;
+  salsaBottle = 0;
   ImagesIdle = [
     "../assets/img/2_character_pepe/2_walk/W-21.png",
     "../assets/img/2_character_pepe/2_walk/W-22.png",
