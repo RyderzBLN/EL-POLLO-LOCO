@@ -7,7 +7,6 @@ class World {
   camera_x = 0;
   statusBar = new Statusbar();
   throwableObjekts = [];
-  coin = [];
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -26,6 +25,7 @@ class World {
     setInterval(() => {
       this.checkCollisions();
       this.checkThrowObjeks();
+      this.checkCollections();
     }, 200);
   }
 
@@ -50,6 +50,17 @@ class World {
     });
   }
 
+  checkCollections() {
+    this.level.coins.forEach((coin) => {
+      if (this.character.isColliding(coin)) {
+        console.log("kolliediert", coin);
+        this.character.coin += 1;
+        coin.isCollect = true;
+        console.log(coin);
+      }
+    });
+  }
+
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.height, this.canvas.width);
     this.ctx.translate(this.camera_x, 0);
@@ -61,6 +72,7 @@ class World {
 
     this.addToMap(this.character);
     this.addObjektToMap(this.level.clouds);
+    this.addObjektToMap(this.level.coins);
     this.addObjektToMap(this.level.enemies);
 
     this.addObjektToMap(this.throwableObjekts);
@@ -73,7 +85,13 @@ class World {
 
   addObjektToMap(objects) {
     objects.forEach((o) => {
-      this.addToMap(o);
+      if (o.hasOwnProperty("isCollect")) {
+        if (!o.isCollect) {
+          this.addToMap(o);
+        }
+      } else {
+        this.addToMap(o);
+      }
     });
   }
 

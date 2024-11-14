@@ -3,6 +3,7 @@ class Character extends MovableObjekt {
   width = 120;
   y = 173;
   speed = 4;
+  coin = 0;
   ImagesIdle = [
     "../assets/img/2_character_pepe/2_walk/W-21.png",
     "../assets/img/2_character_pepe/2_walk/W-22.png",
@@ -51,6 +52,8 @@ class Character extends MovableObjekt {
     this.loadImages(this.images_Hurt);
     this.applyGravity();
     this.animate();
+
+    
   }
 
   animate() {
@@ -77,6 +80,7 @@ class Character extends MovableObjekt {
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
 
+
     // HIER JUMP / SPACE BEACHTEN!
     setInterval(() => {
       if (this.isDead()) {
@@ -96,4 +100,8 @@ class Character extends MovableObjekt {
       }
     }, 100);
   }
+
+
+
+  
 }

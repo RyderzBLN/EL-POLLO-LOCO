@@ -1,6 +1,6 @@
 class Level {
   enemies;
-    coins;
+  coins;
   clouds;
   backgroundObjekts;
 
@@ -8,7 +8,7 @@ class Level {
 
   constructor(enemies, coins, clouds, backgroundObjekts) {
     this.enemies = enemies;
-
+    this.coins = coins;
     this.clouds = clouds;
     this.backgroundObjekts = backgroundObjekts;
   }
