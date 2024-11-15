@@ -4,7 +4,7 @@ class Character extends MovableObjekt {
   y = 173;
   speed = 4;
   coin = 0;
-  salsaBottle;
+  salsaBottle = 0;
   idleCounter = 0;
 
   Images_Idle = [
@@ -80,7 +80,6 @@ class Character extends MovableObjekt {
     this.loadImages(this.images_Jump);
     this.loadImages(this.images_Dead);
     this.loadImages(this.images_Hurt);
-    this.salsaBottle = 0;
     this.applyGravity();
     this.animate();
   }
@@ -120,18 +119,19 @@ class Character extends MovableObjekt {
         this.playAnimation(this.images_Hurt);
       } else if (this.isAboveGround()) {
         this.playAnimation(this.images_Jump);
-        this.idleCounter = 0;
       } else {
         if (
           !this.world.keyboard.RIGHT &&
           !this.world.keyboard.LEFT &&
-          !this.world.keyboard.SPACE && this.idleCounter < 10
+          !this.world.keyboard.SPACE &&
+          this.idleCounter < 10
         ) {
           this.playAnimation(this.Images_Idle);
         } else if (
           !this.world.keyboard.RIGHT &&
           !this.world.keyboard.LEFT &&
-          !this.world.keyboard.SPACE && this.idleCounter >= 10
+          !this.world.keyboard.SPACE &&
+          this.idleCounter >= 10
         ) {
           this.playAnimation(this.Images_LongIdle);
         }
@@ -142,11 +142,10 @@ class Character extends MovableObjekt {
       if (
         !this.world.keyboard.RIGHT &&
         !this.world.keyboard.LEFT &&
-        !this.world.keyboard.SPACE 
+        !this.world.keyboard.SPACE
       ) {
-        this.idleCounter++
+        this.idleCounter++;
         console.log(this.idleCounter);
-        
       }
     }, 1000);
   }
