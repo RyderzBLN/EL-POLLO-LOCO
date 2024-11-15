@@ -5,7 +5,35 @@ class Character extends MovableObjekt {
   speed = 4;
   coin = 0;
   salsaBottle;
-  ImagesIdle = [
+  idleCounter = 0;
+
+  Images_Idle = [
+    "../assets/img/2_character_pepe/1_idle/idle/I-1.png",
+    "../assets/img/2_character_pepe/1_idle/idle/I-2.png",
+    "../assets/img/2_character_pepe/1_idle/idle/I-3.png",
+    "../assets/img/2_character_pepe/1_idle/idle/I-4.png",
+    "../assets/img/2_character_pepe/1_idle/idle/I-5.png",
+    "../assets/img/2_character_pepe/1_idle/idle/I-6.png",
+    "../assets/img/2_character_pepe/1_idle/idle/I-7.png",
+    "../assets/img/2_character_pepe/1_idle/idle/I-8.png",
+    "../assets/img/2_character_pepe/1_idle/idle/I-9.png",
+    "../assets/img/2_character_pepe/1_idle/idle/I-10.png",
+  ];
+
+  Images_LongIdle = [
+    "../assets/img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "../assets/img/2_character_pepe/1_idle/long_idle/I-12.png",
+    "../assets/img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "../assets/img/2_character_pepe/1_idle/long_idle/I-14.png",
+    "../assets/img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "../assets/img/2_character_pepe/1_idle/long_idle/I-16.png",
+    "../assets/img/2_character_pepe/1_idle/long_idle/I-17.png",
+    "../assets/img/2_character_pepe/1_idle/long_idle/I-18.png",
+    "../assets/img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "../assets/img/2_character_pepe/1_idle/long_idle/I-20.png",
+  ];
+
+  Images_Walk = [
     "../assets/img/2_character_pepe/2_walk/W-21.png",
     "../assets/img/2_character_pepe/2_walk/W-22.png",
     "../assets/img/2_character_pepe/2_walk/W-23.png",
@@ -47,15 +75,14 @@ class Character extends MovableObjekt {
   constructor() {
     super();
     this.loadImage("../assets/img/2_character_pepe/1_idle/idle/I-1.png");
-    this.loadImages(this.ImagesIdle);
+    this.loadImages(this.Images_Idle);
+    this.loadImages(this.Images_LongIdle);
     this.loadImages(this.images_Jump);
     this.loadImages(this.images_Dead);
     this.loadImages(this.images_Hurt);
-    this.salsaBottle = 0
+    this.salsaBottle = 0;
     this.applyGravity();
     this.animate();
-
-    
   }
 
   animate() {
@@ -66,6 +93,7 @@ class Character extends MovableObjekt {
         this.walking_sound.playbackRate = 3;
         this.walking_sound.play();
         this.otherDirection = false;
+        this.idleCounter = 0;
       }
 
       if (this.world.keyboard.LEFT && this.x > 0) {
@@ -73,37 +101,53 @@ class Character extends MovableObjekt {
         this.walking_sound.playbackRate = 3;
         this.walking_sound.play();
         this.otherDirection = true;
+        this.idleCounter = 0;
       }
 
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.jump();
+        this.idleCounter = 0;
       }
 
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
 
-
     // HIER JUMP / SPACE BEACHTEN!
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.images_Dead);
-      }
-
-      if (this.isHurt()) {
+      } else if (this.isHurt()) {
         this.playAnimation(this.images_Hurt);
-      }
-
-      if (this.isAboveGround()) {
+      } else if (this.isAboveGround()) {
         this.playAnimation(this.images_Jump);
+        this.idleCounter = 0;
       } else {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-          this.playAnimation(this.ImagesIdle);
+        if (
+          !this.world.keyboard.RIGHT &&
+          !this.world.keyboard.LEFT &&
+          !this.world.keyboard.SPACE && this.idleCounter < 10
+        ) {
+          this.playAnimation(this.Images_Idle);
+        } else if (
+          !this.world.keyboard.RIGHT &&
+          !this.world.keyboard.LEFT &&
+          !this.world.keyboard.SPACE && this.idleCounter >= 10
+        ) {
+          this.playAnimation(this.Images_LongIdle);
         }
       }
     }, 100);
+
+    setInterval(() => {
+      if (
+        !this.world.keyboard.RIGHT &&
+        !this.world.keyboard.LEFT &&
+        !this.world.keyboard.SPACE 
+      ) {
+        this.idleCounter++
+        console.log(this.idleCounter);
+        
+      }
+    }, 1000);
   }
-
-
-
-  
 }
