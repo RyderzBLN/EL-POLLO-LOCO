@@ -6,6 +6,8 @@ class MovableObjekt extends DrawableObejekt {
   acceleration = 2.5;
   energy = 100;
 
+  isKilled = false;
+
   lasthit = 0;
 
   applyGravity() {
@@ -24,6 +26,10 @@ class MovableObjekt extends DrawableObejekt {
       this.x < mo.x &&
       this.y < mo.y + mo.height
     );
+  }
+
+  isCollidingFromTop(mo) {
+    return this.isColliding(mo) && this.speedY < 0;
   }
 
   isAboveGround() {

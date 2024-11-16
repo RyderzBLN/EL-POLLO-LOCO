@@ -42,12 +42,20 @@ class World {
   }
 
   checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
+    this.level.enemies.forEach((enemy, index) => {
       if (this.character.isColliding(enemy)) {
         console.log("kolliediert", enemy);
         this.character.hit();
         this.statusBar.setPercentage(this.character.energy);
         console.log(this.character.energy);
+      } 
+      if (this.character.isCollidingFromTop(enemy)) {
+        enemy.isKilled = true;
+        enemy.chicken_isKilled_sound.play();
+        this.character.speedY = 20;
+        this.level.enemies.splice(index, 1)
+        console.log("kolliediert oben", enemy);
+
       }
     });
   }
@@ -57,7 +65,9 @@ class World {
       if (this.character.isColliding(coin)) {
         console.log("kolliediert", coin);
         this.character.coin += 1;
+        
         coin.isCollect = true;
+        coin.collect_coin_sound.play();
         console.log(coin);
         this.level.coins.splice(index, 1)
       }
@@ -67,6 +77,7 @@ class World {
         console.log("kolliediert", bottle);
         this.character.salsaBottle += 1;
         bottle.isCollect = true;
+        bottle.open_bottle_sound.play()
         console.log(this.character.salsaBottle);
         this.level.salsaBottles.splice(index, 1)
       }
@@ -99,13 +110,19 @@ class World {
 
   addObjektToMap(objects) {
     objects.forEach((o) => {
-      if (o.hasOwnProperty("isCollect")) {
-        if (!o.isCollect) {
-          this.addToMap(o);
+        
+        if (o.hasOwnProperty("isCollect")) {
+            if (!o.isCollect) {
+                this.addToMap(o);
+            }
+     
+        } else if (o.hasOwnProperty("isKilled")) {
+            if (!o.isKilled) {
+                this.addToMap(o); 
+            }
+        } else {
+            this.addToMap(o);
         }
-      } else {
-        this.addToMap(o);
-      }
     });
   }
 

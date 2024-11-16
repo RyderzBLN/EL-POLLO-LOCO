@@ -12,6 +12,7 @@ class Endboss extends MovableObjekt {
     "../assets/img/4_enemie_boss_chicken/2_alert/G11.png",
     "../assets/img/4_enemie_boss_chicken/2_alert/G12.png",
   ];
+  
 
   constructor() {
     super();
