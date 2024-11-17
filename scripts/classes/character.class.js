@@ -4,7 +4,7 @@ class Character extends MovableObjekt {
   y = 173;
   speed = 4;
   coin = 0;
-  salsaBottle = 0;
+  salsaBottle = 500;
   idleCounter = 0;
 
   Images_Idle = [
