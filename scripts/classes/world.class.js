@@ -63,7 +63,10 @@ class World {
       this.level.enemies.forEach((enemy, enemyIndex) => {
         if (bottle.isColliding(enemy) || bottle.isCollidingFromTop(enemy)) {
           enemy.hitEnemy();
-
+          if (!(enemy instanceof Endboss)) {
+            enemy.isKilled = true;
+            this.level.enemies.splice(enemyIndex, 1);
+          }
 
           console.log("Bottle hit enemy!", enemy);
         }
