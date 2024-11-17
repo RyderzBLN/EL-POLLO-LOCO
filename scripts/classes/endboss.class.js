@@ -12,13 +12,21 @@ class Endboss extends MovableObjekt {
     "../assets/img/4_enemie_boss_chicken/2_alert/G11.png",
     "../assets/img/4_enemie_boss_chicken/2_alert/G12.png",
   ];
+
+  Images_Dead = [
+    "../assets/img/4_enemie_boss_chicken/5_dead/G24.png",
+    "../assets/img/4_enemie_boss_chicken/5_dead/G25.png",
+    "../assets/img/4_enemie_boss_chicken/5_dead/G26.png"
+
+  ]
   
 
   constructor() {
     super();
     this.loadImage(this.ImagesIdle[0]);
     this.loadImages(this.ImagesIdle);
-    this.x = 1700;
+    this.loadImages(this.Images_Dead);
+    this.x = 1400;
     this.animate();
   }
 

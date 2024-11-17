@@ -42,6 +42,7 @@ class World {
   }
 
   checkCollisions() {
+    // Check character collisions with enemies
     this.level.enemies.forEach((enemy, index) => {
       if (this.character.isColliding(enemy)) {
         console.log("kolliediert", enemy);
@@ -55,8 +56,20 @@ class World {
         this.character.speedY = 20;
         this.level.enemies.splice(index, 1)
         console.log("kolliediert oben", enemy);
-
       }
+    });
+
+  
+    this.throwableObjekts.forEach((bottle, bottleIndex) => {
+      this.level.enemies.forEach((enemy, enemyIndex) => {
+        if (bottle.isColliding(enemy)) {
+          enemy.isKilled = true;
+          enemy.chicken_isKilled_sound.play();
+          this.level.enemies.splice(enemyIndex, 1);
+          this.throwableObjekts.splice(bottleIndex, 1);
+          console.log("Bottle hit enemy!", enemy);
+        }
+      });
     });
   }
 
