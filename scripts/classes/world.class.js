@@ -26,14 +26,18 @@ class World {
       this.checkCollisions();
       this.checkThrowObjeks();
       this.checkCollections();
-    }, 200);
+    }, 100);
   }
 
   checkThrowObjeks() {
     if (this.keyboard.D && this.character.salsaBottle > 0) {
+      let bottleX = this.character.otherDirection
+        ? this.character.x - 25
+        : this.character.x + 100;
       let bottle = new ThrowableObject(
-        this.character.x + 100,
-        this.character.y + 100
+        bottleX,
+        this.character.y + 100,
+        this.character.otherDirection 
       );
 
       this.throwableObjekts.push(bottle);
@@ -42,7 +46,6 @@ class World {
   }
 
   checkCollisions() {
-    // Check character collisions with enemies
     this.level.enemies.forEach((enemy, index) => {
       if (this.character.isColliding(enemy)) {
         console.log("kolliediert", enemy);
@@ -51,10 +54,12 @@ class World {
         console.log(this.character.energy);
       }
       if (this.character.isCollidingFromTop(enemy)) {
-        enemy.isKilled = true;
-        enemy.chicken_isKilled_sound.play();
-        this.character.speedY = 20;
-        this.level.enemies.splice(index, 1);
+        if (enemy instanceof Chicken) {
+          enemy.isKilled = true;
+          enemy.chicken_isKilled_sound.play();
+          this.character.speedY = 20;
+          this.level.enemies.splice(index, 1);
+        }
         console.log("kolliediert oben", enemy);
       }
     });
@@ -62,10 +67,11 @@ class World {
     this.throwableObjekts.forEach((bottle) => {
       this.level.enemies.forEach((enemy, enemyIndex) => {
         if (bottle.isColliding(enemy) || bottle.isCollidingFromTop(enemy)) {
-          enemy.hitEnemy();
           if (!(enemy instanceof Endboss)) {
             enemy.isKilled = true;
             this.level.enemies.splice(enemyIndex, 1);
+          } else {
+            enemy.hitEnemy();
           }
 
           console.log("Bottle hit enemy!", enemy);

@@ -77,6 +77,7 @@ class Character extends MovableObjekt {
     this.loadImage("../assets/img/2_character_pepe/1_idle/idle/I-1.png");
     this.loadImages(this.Images_Idle);
     this.loadImages(this.Images_LongIdle);
+    this.loadImages(this.Images_Walk);
     this.loadImages(this.images_Jump);
     this.loadImages(this.images_Dead);
     this.loadImages(this.images_Hurt);
@@ -89,6 +90,7 @@ class Character extends MovableObjekt {
       this.walking_sound.pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
+        this.play;
         this.walking_sound.playbackRate = 3;
         this.walking_sound.play();
         this.otherDirection = false;
@@ -120,6 +122,9 @@ class Character extends MovableObjekt {
       } else if (this.isAboveGround()) {
         this.playAnimation(this.images_Jump);
       } else {
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+          this.playAnimation(this.Images_Walk);
+        }
         if (
           !this.world.keyboard.RIGHT &&
           !this.world.keyboard.LEFT &&
