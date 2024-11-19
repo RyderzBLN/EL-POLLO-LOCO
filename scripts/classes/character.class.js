@@ -92,7 +92,7 @@ class Character extends MovableObjekt {
   animate() {
     setInterval(() => {
       this.walking_sound.pause();
-      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
         this.moveRight();
         this.play;
         this.walking_sound.playbackRate = 3;
@@ -101,7 +101,7 @@ class Character extends MovableObjekt {
         this.idleCounter = 0;
       }
 
-      if (this.world.keyboard.LEFT && this.x > 0) {
+      if (this.world.keyboard.LEFT && this.x > 0 && !this.isDead()) {
         this.moveLeft();
         this.walking_sound.playbackRate = 3;
         this.walking_sound.play();
