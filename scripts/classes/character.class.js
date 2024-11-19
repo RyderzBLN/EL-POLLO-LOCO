@@ -6,6 +6,7 @@ class Character extends MovableObjekt {
   coin = 0;
   salsaBottle = 500;
   idleCounter = 0;
+  character_is_dead = false;
 
   Images_Idle = [
     "../assets/img/2_character_pepe/1_idle/idle/I-1.png",
@@ -63,6 +64,8 @@ class Character extends MovableObjekt {
     "../assets/img/2_character_pepe/5_dead/D-57.png",
   ];
 
+  image_final_dead = ["../assets/img/2_character_pepe/5_dead/D-57.png"];
+
   images_Hurt = [
     "../assets/img/2_character_pepe/4_hurt/H-41.png",
     "../assets/img/2_character_pepe/4_hurt/H-42.png",
@@ -80,6 +83,7 @@ class Character extends MovableObjekt {
     this.loadImages(this.Images_Walk);
     this.loadImages(this.images_Jump);
     this.loadImages(this.images_Dead);
+    this.loadImages(this.image_final_dead);
     this.loadImages(this.images_Hurt);
     this.applyGravity();
     this.animate();
@@ -116,7 +120,14 @@ class Character extends MovableObjekt {
     // HIER JUMP / SPACE BEACHTEN!
     setInterval(() => {
       if (this.isDead()) {
-        this.playAnimation(this.images_Dead);
+        if (!this.character_is_dead) {
+          this.playAnimation(this.images_Dead);
+          setTimeout(() => {
+            this.character_is_dead = true;
+          }, 220);
+        } else {
+          this.playAnimation(this.image_final_dead);
+        }
       } else if (this.isHurt()) {
         this.playAnimation(this.images_Hurt);
       } else if (this.isAboveGround()) {
