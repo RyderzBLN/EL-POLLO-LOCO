@@ -6,7 +6,7 @@ class Character extends MovableObjekt {
   coin = 0;
   salsaBottle = 500;
   idleCounter = 0;
-  character_is_dead = false;
+  
 
   Images_Idle = [
     "../assets/img/2_character_pepe/1_idle/idle/I-1.png",
@@ -92,7 +92,11 @@ class Character extends MovableObjekt {
   animate() {
     setInterval(() => {
       this.walking_sound.pause();
-      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead()) {
+      if (
+        this.world.keyboard.RIGHT &&
+        this.x < this.world.level.level_end_x &&
+        !this.isDead()
+      ) {
         this.moveRight();
         this.play;
         this.walking_sound.playbackRate = 3;
@@ -109,7 +113,11 @@ class Character extends MovableObjekt {
         this.idleCounter = 0;
       }
 
-      if (this.world.keyboard.SPACE && !this.isAboveGround() && !this.isDead()) {
+      if (
+        this.world.keyboard.SPACE &&
+        !this.isAboveGround() &&
+        !this.isDead()
+      ) {
         this.jump();
         this.idleCounter = 0;
       }
@@ -117,13 +125,12 @@ class Character extends MovableObjekt {
       this.world.camera_x = -this.x + 270;
     }, 1000 / 60);
 
-    // HIER JUMP / SPACE BEACHTEN!
     setInterval(() => {
       if (this.isDead()) {
-        if (!this.character_is_dead) {
+        if (!this.objekt_is_dead) {
           this.playAnimation(this.images_Dead);
           setTimeout(() => {
-            this.character_is_dead = true;
+            this.objekt_is_dead = true;
           }, 220);
         } else {
           this.playAnimation(this.image_final_dead);

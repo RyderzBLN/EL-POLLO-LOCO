@@ -7,6 +7,8 @@ class MovableObjekt extends DrawableObejekt {
   energy = 100;
 
   isKilled = false;
+  objekt_is_dead = false;
+
 
   lasthit = 0;
 
