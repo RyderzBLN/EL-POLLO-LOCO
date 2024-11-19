@@ -109,12 +109,12 @@ class Character extends MovableObjekt {
         this.idleCounter = 0;
       }
 
-      if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+      if (this.world.keyboard.SPACE && !this.isAboveGround() && !this.isDead()) {
         this.jump();
         this.idleCounter = 0;
       }
 
-      this.world.camera_x = -this.x + 100;
+      this.world.camera_x = -this.x + 270;
     }, 1000 / 60);
 
     // HIER JUMP / SPACE BEACHTEN!

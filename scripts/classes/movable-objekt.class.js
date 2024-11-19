@@ -33,14 +33,12 @@ class MovableObjekt extends DrawableObejekt {
   }
 
   isAboveGround() {
-    if (this instanceof ThrowableObject){
+    if (this instanceof ThrowableObject) {
       return true;
     } else {
-    return this.y < 173; 
+      return this.y < 173;
+    }
   }
-}
-
-  
 
   playAnimation(images) {
     let i = this.currentImage % images.length;
@@ -58,11 +56,12 @@ class MovableObjekt extends DrawableObejekt {
     }
   }
 
-  hitEnemy(){
+  hitEnemy() {
     this.energy -= 33;
     if (this.energy < 0) {
       this.energy = 0;
-  } }
+    }
+  }
 
   isHurt() {
     let timePassed = new Date().getTime() - this.lasthit;
@@ -83,5 +82,8 @@ class MovableObjekt extends DrawableObejekt {
 
   jump() {
     this.speedY += 30;
+    if (this.speedY >= 35) {
+      this.speedY = 35;
+    }
   }
 }
