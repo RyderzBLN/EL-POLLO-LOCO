@@ -52,7 +52,7 @@ class Endboss extends MovableObjekt {
     "../assets/img/4_enemie_boss_chicken/4_hurt/G23.png",
     "../assets/img/4_enemie_boss_chicken/4_hurt/G23.png",
     "../assets/img/4_enemie_boss_chicken/4_hurt/G23.png",
-    "../assets/img/4_enemie_boss_chicken/4_hurt/G23.png"
+    "../assets/img/4_enemie_boss_chicken/4_hurt/G23.png",
   ];
 
   image_final_dead = ["../assets/img/2_character_pepe/5_dead/D-57.png"];
@@ -69,6 +69,7 @@ class Endboss extends MovableObjekt {
     this.x = 1400;
     this.energy = 15;
     this.animate();
+    this.fastAnimate();
   }
 
   animate() {
@@ -81,9 +82,11 @@ class Endboss extends MovableObjekt {
     setInterval(() => {
       if (this.isDead() && !this.isKilled) {
         this.playAnimation(this.Images_Dead);
+
         setTimeout(() => {
           this.isKilled = true;
-        }, 2000);
+          this.y = 312;
+        }, 1270);
       }
 
       if (this.isKilled && this.isDead()) {
@@ -94,5 +97,16 @@ class Endboss extends MovableObjekt {
         this.playAnimation(this.ImagesIdle);
       }
     }, 200);
+  }
+
+  fastAnimate() {
+    setInterval(() => {
+      if (this.isDead() && !this.isKilled) {
+        this.height -= 5;
+        this.width -= 2.75;
+        this.x += 1.5;
+        this.y += 4.8
+      }
+    }, 25);
   }
 }
