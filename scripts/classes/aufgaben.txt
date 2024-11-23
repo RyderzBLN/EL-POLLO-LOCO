@@ -5,3 +5,9 @@ flasche nur werfen wenn da
 collision
 engegner besiegen
 game over
+
+
+
+
+this.y muss auf 173 bei char beim laufen konstant sein, damit
+gegner gegner nicht unberrechtigt schaden bekoommt

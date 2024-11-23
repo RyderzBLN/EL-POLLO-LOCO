@@ -37,7 +37,7 @@ class World {
       let bottle = new ThrowableObject(
         bottleX,
         this.character.y + 100,
-        this.character.otherDirection 
+        this.character.otherDirection
       );
 
       this.throwableObjekts.push(bottle);
@@ -46,32 +46,34 @@ class World {
   }
 
   checkCollisions() {
-    this.level.enemies.forEach((enemy, index) => {
-      if (this.character.isColliding(enemy)) {
+    this.level.enemies.forEach((enemy, enemyIndex) => {
+      if (this.character.isColliding(enemy) && this.character.speedY == 0) {
         console.log("kolliediert", enemy);
         this.character.hit();
         this.statusBar.setPercentage(this.character.energy);
         console.log(this.character.energy);
       }
-      if (this.character.isCollidingFromTop(enemy)) {
+      if (this.character.isCollidingFromTop(enemy) && this.character.y <= 155) {
         if (enemy instanceof Chicken) {
-          enemy.isKilled = true;
+          enemy.hitEnemy();
           enemy.chicken_isKilled_sound.play();
           this.character.speedY = 20;
-          this.level.enemies.splice(index, 1);
+          
+          setTimeout(() => {
+            enemy.isKilled = true;
+            this.level.enemies.splice(enemyIndex, 1);
+          }, 1500);
         }
-        console.log("kolliediert oben", enemy);
+        console.log("kolliediert oben", enemy.energy);
       }
     });
 
     this.throwableObjekts.forEach((bottle) => {
-      this.level.enemies.forEach((enemy, enemyIndex) => {
+      this.level.enemies.forEach((enemy) => {
         if (bottle.isColliding(enemy) || bottle.isCollidingFromTop(enemy)) {
           if (!(enemy instanceof Endboss)) {
-            enemy.isKilled = true;
-            this.level.enemies.splice(enemyIndex, 1);
           } else {
-            enemy.hitEnemy();
+            enemy.hit();
           }
 
           console.log("Bottle hit enemy!", enemy);
@@ -134,7 +136,7 @@ class World {
         if (!o.isCollect) {
           this.addToMap(o);
         }
-      } else if (o.hasOwnProperty("isKilled")) {
+      } else if (o.hasOwnProperty("isKilled") && ! o instanceof Endboss) {
         if (!o.isKilled) {
           this.addToMap(o);
         }

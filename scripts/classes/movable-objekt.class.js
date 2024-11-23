@@ -7,7 +7,7 @@ class MovableObjekt extends DrawableObejekt {
   energy = 100;
 
   isKilled = false;
-  objekt_is_dead = false;
+
 
 
   lasthit = 0;
@@ -62,13 +62,13 @@ class MovableObjekt extends DrawableObejekt {
     this.energy -= 33;
     if (this.energy < 0) {
       this.energy = 0;
-    }
+    }  
   }
 
   isHurt() {
     let timePassed = new Date().getTime() - this.lasthit;
     timePassed = timePassed / 1000;
-    return timePassed < 1.1;
+    return timePassed < 0.75;
   }
 
   isDead() {
