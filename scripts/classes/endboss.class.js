@@ -57,8 +57,9 @@ class Endboss extends MovableObjekt {
 
   image_final_dead = ["../assets/img/2_character_pepe/5_dead/D-57.png"];
 
-  constructor() {
+  constructor(world) {
     super();
+    this.world = world;
     this.loadImage(this.ImagesIdle[0]);
     this.loadImages(this.ImagesIdle);
     this.loadImages(this.Images_Dead);
@@ -68,16 +69,23 @@ class Endboss extends MovableObjekt {
     this.loadImages(this.image_final_dead);
     this.x = 1400;
     this.energy = 15;
+
     this.animate();
     this.fastAnimate();
   }
+
+
 
   animate() {
     setInterval(() => {
       if (this.isHurt() && !this.isDead()) {
         this.playAnimation(this.Images_Hurt);
       }
+
+      
     }, 100);
+
+
 
     setInterval(() => {
       if (this.isDead() && !this.isKilled) {
@@ -105,7 +113,7 @@ class Endboss extends MovableObjekt {
         this.height -= 5;
         this.width -= 2.75;
         this.x += 1.5;
-        this.y += 4.8
+        this.y += 4.8;
       }
     }, 25);
   }

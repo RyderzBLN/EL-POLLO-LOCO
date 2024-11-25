@@ -9,10 +9,11 @@ class Chicken extends MovableObjekt {
     "../assets/img/3_enemies_chicken/chicken_normal/1_walk/3_w.png",
   ];
 
-  Image_Dead = ["../assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png"]
+  Image_Dead = [
+    "../assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png",
+  ];
 
   chicken_isKilled_sound = new Audio("../assets/audio/chicken_small_dead.mp3");
-
 
   constructor() {
     super();
@@ -28,21 +29,14 @@ class Chicken extends MovableObjekt {
   }
 
   animate() {
-
-
-
     setInterval(() => {
-
-       if (!this.isDead()) {
-        this.moveLeft()
-this.playAnimation(this.ImagesIdle)
-       }
-       if (this.energy <= 0){
-
+      if (!this.isDead()) {
+        this.moveLeft();
+        this.playAnimation(this.ImagesIdle);
+      }
+      if (this.energy <= 0) {
         this.playAnimation(this.Image_Dead);
-
       }
     }, 95);
-
   }
 }

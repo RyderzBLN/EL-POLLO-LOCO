@@ -1,5 +1,6 @@
 class World {
   character = new Character();
+
   level = level1;
   canvas;
   ctx;
@@ -26,7 +27,16 @@ class World {
       this.checkCollisions();
       this.checkThrowObjeks();
       this.checkCollections();
+      this.ifCharacterUnderGround();
+      this.deleteEnemyFromGame();
+
     }, 100);
+  }
+
+  ifCharacterUnderGround() {
+    if (this.character.y > 173) {
+      this.character.y = 173;
+    }
   }
 
   checkThrowObjeks() {
@@ -45,23 +55,34 @@ class World {
     }
   }
 
-  checkCollisions() {
+  deleteEnemyFromGame() {
     this.level.enemies.forEach((enemy, enemyIndex) => {
-      if (this.character.isColliding(enemy) && this.character.speedY == 0) {
+      if (enemy.isKilled) {
+        this.level.enemies.splice(enemyIndex, 1);
+      }
+    });
+  }
+
+  checkCollisions() {
+    this.level.enemies.forEach((enemy) => {
+      if (
+        this.character.isColliding(enemy) &&
+        this.character.speedY == 0 &&
+        !enemy.isKilled
+      ) {
         console.log("kolliediert", enemy);
         this.character.hit();
         this.statusBar.setPercentage(this.character.energy);
         console.log(this.character.energy);
       }
       if (this.character.isCollidingFromTop(enemy) && this.character.y <= 155) {
-        if (enemy instanceof Chicken) {
+        if (enemy instanceof Chicken && !enemy.isDead()) {
           enemy.hitEnemy();
           enemy.chicken_isKilled_sound.play();
           this.character.speedY = 20;
-          
+
           setTimeout(() => {
             enemy.isKilled = true;
-            this.level.enemies.splice(enemyIndex, 1);
           }, 1500);
         }
         console.log("kolliediert oben", enemy.energy);
@@ -71,7 +92,12 @@ class World {
     this.throwableObjekts.forEach((bottle) => {
       this.level.enemies.forEach((enemy) => {
         if (bottle.isColliding(enemy) || bottle.isCollidingFromTop(enemy)) {
-          if (!(enemy instanceof Endboss)) {
+          if (enemy instanceof Chicken && !enemy.isDead()) {
+            enemy.hitEnemy();
+            enemy.chicken_isKilled_sound.play();
+            setTimeout(() => {
+              enemy.isKilled = true;
+            }, 1500);
           } else {
             enemy.hit();
           }
@@ -81,6 +107,8 @@ class World {
       });
     });
   }
+
+
 
   checkCollections() {
     this.level.coins.forEach((coin, index) => {
@@ -136,7 +164,7 @@ class World {
         if (!o.isCollect) {
           this.addToMap(o);
         }
-      } else if (o.hasOwnProperty("isKilled") && ! o instanceof Endboss) {
+      } else if (o.hasOwnProperty("isKilled") && !o instanceof Endboss) {
         if (!o.isKilled) {
           this.addToMap(o);
         }

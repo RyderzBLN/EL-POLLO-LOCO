@@ -8,6 +8,9 @@ game over
 
 
 
+einstellen das flasche wenn oben trifft = > KILL 
+
+
 
 this.y muss auf 173 bei char beim laufen konstant sein, damit
 gegner gegner nicht unberrechtigt schaden bekoommt
