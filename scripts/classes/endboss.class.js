@@ -1,9 +1,12 @@
 class Endboss extends MovableObjekt {
   height = 400;
   width = 250;
+  energy = 15;
+  speed = 2;
   y = 60;
+  x = 1200;
 
-  ImagesIdle = [
+  ImagesAlert = [
     "../assets/img/4_enemie_boss_chicken/2_alert/G5.png",
     "../assets/img/4_enemie_boss_chicken/2_alert/G6.png",
     "../assets/img/4_enemie_boss_chicken/2_alert/G7.png",
@@ -40,11 +43,6 @@ class Endboss extends MovableObjekt {
 
   Images_Hurt = [
     "../assets/img/4_enemie_boss_chicken/4_hurt/G21.png",
-    "../assets/img/4_enemie_boss_chicken/4_hurt/G21.png",
-    "../assets/img/4_enemie_boss_chicken/4_hurt/G21.png",
-    "../assets/img/4_enemie_boss_chicken/4_hurt/G21.png",
-    "../assets/img/4_enemie_boss_chicken/4_hurt/G21.png",
-
     "../assets/img/4_enemie_boss_chicken/4_hurt/G22.png",
     "../assets/img/4_enemie_boss_chicken/4_hurt/G22.png",
     "../assets/img/4_enemie_boss_chicken/4_hurt/G22.png",
@@ -60,61 +58,73 @@ class Endboss extends MovableObjekt {
   constructor(world) {
     super();
     this.world = world;
-    this.loadImage(this.ImagesIdle[0]);
-    this.loadImages(this.ImagesIdle);
+    this.loadImage(this.ImagesAlert[0]);
+    this.loadImages(this.ImagesAlert);
     this.loadImages(this.Images_Dead);
     this.loadImages(this.Images_Walk);
     this.loadImages(this.Images_Attack);
     this.loadImages(this.Images_Hurt);
     this.loadImages(this.image_final_dead);
-    this.x = 1400;
-    this.energy = 15;
-
+    this.BossMove = false;
+    this.isAttacking = false;
     this.animate();
-    this.fastAnimate();
   }
-
-
 
   animate() {
     setInterval(() => {
       if (this.isHurt() && !this.isDead()) {
+        this.BossMove = false;
         this.playAnimation(this.Images_Hurt);
       }
-
-      
     }, 100);
 
+    setTimeout(() => {
+      setInterval(() => {
+        let distance = this.x - world.character.x;
+        if (distance < 400 && !this.isHurt() && !this.isDead()) {
+          this.BossMove = true;
+        } if (distance < 50) {
+          this.BossMove = false;
+          this.attack();
+        }
+      }, 100);
+    }, 150);
 
+    ///log Daten
+    setInterval(() => {
+      console.log("BOSSMOVE = ", this.BossMove);
+    }, 1000);
+
+    setInterval(() => {
+      if (this.BossMove) {
+        this.moveLeft();
+      }
+    }, 100);
 
     setInterval(() => {
       if (this.isDead() && !this.isKilled) {
         this.playAnimation(this.Images_Dead);
-
-        setTimeout(() => {
-          this.isKilled = true;
-          this.y = 312;
-        }, 1270);
-      }
-
-      if (this.isKilled && this.isDead()) {
+      } else if (this.isKilled && this.isDead()) {
         this.playAnimation(this.image_final_dead);
+      } else if (this.BossMove) {
+        this.playAnimation(this.Images_Walk);
+      } else if (this.isAttacking) {
+        this.playAnimation(this.Images_Attack);
       }
-
-      if (!this.isDead()) {
-        this.playAnimation(this.ImagesIdle);
+      else {
+        this.playAnimation(this.ImagesAlert);
       }
-    }, 200);
+    }, 100);
   }
 
-  fastAnimate() {
-    setInterval(() => {
-      if (this.isDead() && !this.isKilled) {
-        this.height -= 5;
-        this.width -= 2.75;
-        this.x += 1.5;
-        this.y += 4.8;
-      }
-    }, 25);
+  attack() {
+    if (!this.isAttacking) {
+      this.isAttacking = true;
+      
+      setTimeout(() => {
+        this.isAttacking = false;
+        this.BossMove = true;
+      }, 500); // Attack duration
+    }
   }
 }

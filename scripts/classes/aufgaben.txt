@@ -1,14 +1,23 @@
 Start screen
 music sounds
-coins / flaschen einsammeln 
-flasche nur werfen wenn da
-collision
-engegner besiegen
+coins / flaschen einsammeln  = X
+flasche nur werfen wenn da = X
+collision = X
+engegner besiegen = X<
 game over
 
 
 
-einstellen das flasche wenn oben trifft = > KILL 
+1. einstellen das flasche wenn oben trifft = > KILL 
+-----
+2. idle counter zurück setzen wenn schaden+
+unverwundbar temporär , und move Blocking bei schaden 
+= > wegen abspielenn der animation ( walk bug )
+------
+3. opt. coins / bottle -  collect animation 
+////
+
+4. Endboss ( moveLeft mit moves umschreiben )
 
 
 

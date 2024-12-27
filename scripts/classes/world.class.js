@@ -29,7 +29,6 @@ class World {
       this.checkCollections();
       this.ifCharacterUnderGround();
       this.deleteEnemyFromGame();
-
     }, 100);
   }
 
@@ -108,8 +107,6 @@ class World {
     });
   }
 
-
-
   checkCollections() {
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin)) {
@@ -128,7 +125,7 @@ class World {
         this.character.salsaBottle += 1;
         bottle.isCollect = true;
         bottle.open_bottle_sound.play();
-        console.log(this.character.salsaBottle);
+        console.log("salsabottles: ", this.character.salsaBottle);
         this.level.salsaBottles.splice(index, 1);
       }
     });

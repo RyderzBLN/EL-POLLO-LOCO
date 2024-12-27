@@ -1,16 +1,13 @@
 class MovableObjekt extends DrawableObejekt {
   speed = 0.3;
-
   otherDirection = false;
   speedY = 0;
   acceleration = 2.5;
   energy = 100;
-
   isKilled = false;
-
-
-
+  move = false;
   lasthit = 0;
+
 
   applyGravity() {
     setInterval(() => {
@@ -20,6 +17,8 @@ class MovableObjekt extends DrawableObejekt {
       }
     }, 1000 / 40);
   }
+
+
 
   isColliding(mo) {
     return (
@@ -31,14 +30,23 @@ class MovableObjekt extends DrawableObejekt {
   }
 
   isCollidingFromTop(mo) {
-    return this.isColliding(mo) && this.speedY < 0;
+    return this.isColliding(mo) && this.world.character.isAboveGround() -110;
   }
+
 
   isAboveGround() {
     if (this instanceof ThrowableObject) {
       return true;
     } else {
       return this.y < 173;
+    }
+  }
+
+  isAboveGroundBoss() {
+    if (this instanceof ThrowableObject) {
+      return true;
+    } else {
+      return this.y < 60;
     }
   }
 
@@ -80,10 +88,19 @@ class MovableObjekt extends DrawableObejekt {
   }
   moveLeft() {
     this.x -= this.speed;
+
   }
 
   jump() {
     this.speedY += 30;
+    if (this.speedY >= 35) {
+      this.speedY = 35;
+    }
+  }
+
+  jumpBoss(){
+    this.speedY += 30;
+
     if (this.speedY >= 35) {
       this.speedY = 35;
     }

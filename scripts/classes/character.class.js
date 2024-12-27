@@ -2,6 +2,7 @@ class Character extends MovableObjekt {
   height = 260;
   width = 120;
   y = 173;
+ 
   speed = 4;
   coin = 0;
   salsaBottle = 500;
@@ -77,7 +78,7 @@ class Character extends MovableObjekt {
 
   constructor() {
     super();
-    this.loadImage("../assets/img/2_character_pepe/1_idle/idle/I-1.png");
+    this.loadImage(this.Images_Idle[0]);
     this.loadImages(this.Images_Idle);
     this.loadImages(this.Images_LongIdle);
     this.loadImages(this.Images_Walk);
@@ -86,19 +87,22 @@ class Character extends MovableObjekt {
     this.loadImages(this.image_final_dead);
     this.loadImages(this.images_Hurt);
     this.applyGravity();
+    this.x = 200;
     this.animate();
-    this.energy = 999;
+    this.energy = 100;
   }
 
   animate() {
     setInterval(() => {
       this.walking_sound.pause();
       if (
+        this.world &&
         this.world.keyboard.RIGHT &&
         this.x < this.world.level.level_end_x &&
         !this.isDead()
       ) {
         this.moveRight();
+
         this.play;
         this.walking_sound.playbackRate = 3;
         this.walking_sound.play();
@@ -108,6 +112,7 @@ class Character extends MovableObjekt {
 
       if (this.world.keyboard.LEFT && this.x > - 719 * 1.5 && !this.isDead()) {
         this.moveLeft();
+
         this.walking_sound.playbackRate = 3;
         this.walking_sound.play();
         this.otherDirection = true;
@@ -120,6 +125,8 @@ class Character extends MovableObjekt {
         !this.isDead()
       ) {
         this.jump();
+
+        
         this.idleCounter = 0;
       }
 
@@ -138,6 +145,7 @@ class Character extends MovableObjekt {
         }
       } else if (this.isHurt()) {
         this.playAnimation(this.images_Hurt);
+        this.idleCounter = 0;
       } else if (this.isAboveGround()) {
         this.playAnimation(this.images_Jump);
       } else {
