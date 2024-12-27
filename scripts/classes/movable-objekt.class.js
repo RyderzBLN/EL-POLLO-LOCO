@@ -18,6 +18,14 @@ class MovableObjekt extends DrawableObejekt {
     }, 1000 / 40);
   }
 
+  applyGravityBoss() {
+    setInterval(() => {
+      if (this.isAboveGroundBoss() || this.speedY > 0) {
+        this.y -= this.speedY;
+        this.speedY -= this.acceleration;
+      }
+    }, 1000 / 40);
+  }
 
 
   isColliding(mo) {

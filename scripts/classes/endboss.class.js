@@ -2,7 +2,7 @@ class Endboss extends MovableObjekt {
   height = 400;
   width = 250;
   energy = 15;
-  speed = 2;
+  speed = 5;
   y = 60;
   x = 1200;
 
@@ -83,9 +83,10 @@ class Endboss extends MovableObjekt {
         let distance = this.x - world.character.x;
         if (distance < 400 && !this.isHurt() && !this.isDead()) {
           this.BossMove = true;
-        } if (distance < 50) {
+        }
+        if (distance < 50) {
           this.BossMove = false;
-          this.attack();
+          this.isAttacking = true;
         }
       }, 100);
     }, 150);
@@ -104,23 +105,26 @@ class Endboss extends MovableObjekt {
     setInterval(() => {
       if (this.isDead() && !this.isKilled) {
         this.playAnimation(this.Images_Dead);
+        this.BossMove = false;
       } else if (this.isKilled && this.isDead()) {
         this.playAnimation(this.image_final_dead);
       } else if (this.BossMove) {
         this.playAnimation(this.Images_Walk);
       } else if (this.isAttacking) {
         this.playAnimation(this.Images_Attack);
-      }
-      else {
+        world.character.hit();
+        world.statusBar.setPercentage(world.character.energy);
+        console.log(world.character.energy);
+      } else if (this.isHurt()) {
+        this.playAnimation(this.Images_Hurt);
+      } else {
         this.playAnimation(this.ImagesAlert);
       }
     }, 100);
   }
 
   attack() {
-    if (!this.isAttacking) {
-      this.isAttacking = true;
-      
+    if (this.isAttacking) {
       setTimeout(() => {
         this.isAttacking = false;
         this.BossMove = true;
