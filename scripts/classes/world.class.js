@@ -30,8 +30,7 @@ class World {
       this.checkCollections();
       this.ifCharacterUnderGround();
       this.deleteEnemyFromGame();
-      this.checkBottleHitBoss();
-      this.checkBottleHitEnemy();
+      this.checkCollisions();
       this.checkGameOver();
     }, 100);
   }
@@ -78,6 +77,34 @@ class World {
   }
 
   checkCollisions() {
+    this.checkEnemyCollisionAbove();
+    this.checkEnemyCollision();
+    this.checkBottleHitEnemy();
+    this.checkBottleHitBoss();
+  }
+
+  checkEnemyCollisionAbove() {
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isCollidingFromTop(enemy) && this.character.y <= 155) {
+        if (!enemy.isDead()) {
+          this.enemyIsKilledProcess(enemy);
+          this.character.speedY = 20;
+
+          setTimeout(() => {
+            enemy.isKilled = true;
+          }, 1200);
+        }
+      }
+    });
+  }
+
+  enemyIsKilledProcess(enemy) {
+    enemy.hitEnemy();
+    enemy.DamageMode = false;
+    enemy.chicken_isKilled_sound.play();
+  }
+
+  checkEnemyCollision() {
     this.level.enemies.forEach((enemy) => {
       if (
         this.character.isColliding(enemy) &&
@@ -89,19 +116,6 @@ class World {
         this.character.hit();
         this.statusBar.setPercentage(this.character.energy);
         console.log(this.character.energy);
-      }
-      if (this.character.isCollidingFromTop(enemy) && this.character.y <= 155) {
-        if (enemy instanceof Chicken || (SmallChicken && !enemy.isDead())) {
-          enemy.hitEnemy();
-          enemy.DamageMode = false;
-          enemy.chicken_isKilled_sound.play();
-          this.character.speedY = 20;
-
-          setTimeout(() => {
-            enemy.isKilled = true;
-          }, 1200);
-        }
-        console.log("kolliediert oben", enemy.energy);
       }
     });
   }
