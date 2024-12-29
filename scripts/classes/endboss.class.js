@@ -1,10 +1,10 @@
 class Endboss extends MovableObjekt {
   height = 400;
   width = 250;
-  energy = 15;
+  energy = 100;
   speed = 5;
   y = 60;
-  x = 1600;
+  x = 200;
 
   ImagesAlert = [
     "../assets/img/4_enemie_boss_chicken/2_alert/G5.png",
@@ -95,7 +95,7 @@ class Endboss extends MovableObjekt {
           
         }
         if (distance < 150) {
-          this.speed = 12;
+          this.speed = 15;
           
         }
 

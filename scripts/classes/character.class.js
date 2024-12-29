@@ -5,7 +5,7 @@ class Character extends MovableObjekt {
  
   speed = 4;
   coin = 0;
-  salsaBottle = 0;
+  salsaBottle = 20;
   idleCounter = 0;
   
   

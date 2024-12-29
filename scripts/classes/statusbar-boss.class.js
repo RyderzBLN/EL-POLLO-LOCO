@@ -1,7 +1,4 @@
 class StatusbarBoss extends DrawableObejekt {
-
-
-
     IMAGES = [
       "../assets/img/7_statusbars/2_statusbar_endboss/blue/blue0.png",
       "../assets/img/7_statusbars/2_statusbar_endboss/blue/blue20.png",
@@ -9,20 +6,20 @@ class StatusbarBoss extends DrawableObejekt {
       "../assets/img/7_statusbars/2_statusbar_endboss/blue/blue60.png",
       "../assets/img/7_statusbars/2_statusbar_endboss/blue/blue80.png",
       "../assets/img/7_statusbars/2_statusbar_endboss/blue/blue100.png",
-
     ];
   
     percentage = 100;
   
     constructor(world) {
-        super();
-        this.world = world;
-        this.loadImages(this.IMAGES);
-        this.y = 40;
-        this.width = 150;
-        this.height = 50;
-        this.setPercentage(100);
-      }
+      super();
+      this.world = world;
+      this.loadImages(this.IMAGES);
+      this.y = 45;
+      this.width = 150;
+      this.height = 50;
+      this.setPercentage(100);
+
+    }
   
     setPercentage(percentage) {
       this.percentage = percentage;
@@ -45,19 +42,18 @@ class StatusbarBoss extends DrawableObejekt {
         return 0;
       }
     }
-
+  
     updatePosition() {
-        let endboss = this.world.level.enemies.find(enemy => enemy instanceof Endboss);
-        if (endboss) {
-          this.x = endboss.x;
-        }
-      }
-    
-      draw(ctx) {
-        this.updatePosition();
-        super.draw(ctx);
+      let endboss = this.world.level.endboss[0];
+      if (endboss) {
+        this.x = endboss.x;
+        this.x += 70;
       }
 
-}
+    }
   
-  
+    draw(ctx) {
+      this.updatePosition();
+      super.draw(ctx);
+    }
+  }

@@ -30,6 +30,8 @@ class World {
       this.checkCollections();
       this.ifCharacterUnderGround();
       this.deleteEnemyFromGame();
+      this.checkBottleHitBoss();
+      this.checkBottleHitEnemy();
       this.checkGameOver();
     }, 100);
   }
@@ -65,8 +67,8 @@ class World {
   }
 
   checkGameOver() {
-    this.level.enemies.forEach((enemy) => {
-      if (enemy instanceof Endboss && enemy.isDead() && !this.gameOver) {
+    this.level.endboss.forEach((boss) => {
+      if (boss.isDead() && !this.gameOver) {
         this.gameOver = true;
       }
       if (this.gameOver) {
@@ -102,22 +104,32 @@ class World {
         console.log("kolliediert oben", enemy.energy);
       }
     });
+  }
 
+  checkBottleHitEnemy() {
     this.throwableObjekts.forEach((bottle) => {
       this.level.enemies.forEach((enemy) => {
         if (bottle.isColliding(enemy) || bottle.isCollidingFromTop(enemy)) {
-          if (enemy instanceof Chicken || (SmallChicken && !enemy.isDead())) {
+          if (!enemy.isDead()) {
             enemy.hitEnemy();
             enemy.DamageMode = false;
             enemy.chicken_isKilled_sound.play();
             setTimeout(() => {
               enemy.isKilled = true;
             }, 1500);
-          } else {
-            enemy.hit();
           }
+        }
+      });
+    });
+  }
 
-          console.log("Bottle hit enemy!", enemy);
+  checkBottleHitBoss() {
+    this.throwableObjekts.forEach((bottle) => {
+      this.level.endboss.forEach((boss) => {
+        if (bottle.isColliding(boss) || bottle.isCollidingFromTop(boss)) {
+          boss.hit();
+          this.statusBarBoss.setPercentage(boss.energy);
+          console.log("Bottle hit endboss!", boss);
         }
       });
     });
@@ -162,11 +174,9 @@ class World {
 
     this.ctx.translate(-this.camera_x, 0);
     this.addToMap(this.statusBar);
-    this.addToMap(this.statusBarBoss);
 
     this.ctx.translate(this.camera_x, 0);
-
-
+    this.addToMap(this.statusBarBoss);
 
     this.addToMap(this.character);
     this.addObjektToMap(this.level.clouds);
@@ -175,6 +185,7 @@ class World {
     this.addObjektToMap(this.level.drawObjects);
     this.addObjektToMap(this.level.salsaBottles);
     this.addObjektToMap(this.level.enemies);
+    this.addObjektToMap(this.level.endboss);
 
     this.addObjektToMap(this.throwableObjekts);
     this.ctx.translate(-this.camera_x, 0);
