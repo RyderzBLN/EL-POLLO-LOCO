@@ -5,8 +5,9 @@ class Character extends MovableObjekt {
  
   speed = 4;
   coin = 0;
-  salsaBottle = 500;
+  salsaBottle = 0;
   idleCounter = 0;
+  
   
 
   Images_Idle = [
@@ -87,7 +88,7 @@ class Character extends MovableObjekt {
     this.loadImages(this.image_final_dead);
     this.loadImages(this.images_Hurt);
     this.applyGravity();
-    this.x = 200;
+    this.x = -300;
     this.animate();
     this.energy = 100;
   }

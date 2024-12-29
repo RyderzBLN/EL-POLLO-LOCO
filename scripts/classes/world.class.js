@@ -1,12 +1,13 @@
 class World {
   character = new Character();
-
   level = level1;
   canvas;
   ctx;
   keyboard;
+  gameOver = false;
   camera_x = 0;
   statusBar = new Statusbar();
+  statusBarBoss = new StatusbarBoss(this);
   throwableObjekts = [];
 
   constructor(canvas, keyboard) {
@@ -29,6 +30,7 @@ class World {
       this.checkCollections();
       this.ifCharacterUnderGround();
       this.deleteEnemyFromGame();
+      this.checkGameOver();
     }, 100);
   }
 
@@ -62,12 +64,24 @@ class World {
     });
   }
 
+  checkGameOver() {
+    this.level.enemies.forEach((enemy) => {
+      if (enemy instanceof Endboss && enemy.isDead() && !this.gameOver) {
+        this.gameOver = true;
+      }
+      if (this.gameOver) {
+        console.log("Game Over");
+      }
+    });
+  }
+
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
       if (
         this.character.isColliding(enemy) &&
-        this.character.speedY == 0 &&
-        !enemy.isKilled
+        !this.character.isAboveGround() &&
+        !enemy.isKilled &&
+        enemy.DamageMode
       ) {
         console.log("kolliediert", enemy);
         this.character.hit();
@@ -75,14 +89,15 @@ class World {
         console.log(this.character.energy);
       }
       if (this.character.isCollidingFromTop(enemy) && this.character.y <= 155) {
-        if (enemy instanceof Chicken && !enemy.isDead()) {
+        if (enemy instanceof Chicken || (SmallChicken && !enemy.isDead())) {
           enemy.hitEnemy();
+          enemy.DamageMode = false;
           enemy.chicken_isKilled_sound.play();
           this.character.speedY = 20;
 
           setTimeout(() => {
             enemy.isKilled = true;
-          }, 1500);
+          }, 1200);
         }
         console.log("kolliediert oben", enemy.energy);
       }
@@ -91,8 +106,9 @@ class World {
     this.throwableObjekts.forEach((bottle) => {
       this.level.enemies.forEach((enemy) => {
         if (bottle.isColliding(enemy) || bottle.isCollidingFromTop(enemy)) {
-          if (enemy instanceof Chicken && !enemy.isDead()) {
+          if (enemy instanceof Chicken || (SmallChicken && !enemy.isDead())) {
             enemy.hitEnemy();
+            enemy.DamageMode = false;
             enemy.chicken_isKilled_sound.play();
             setTimeout(() => {
               enemy.isKilled = true;
@@ -108,6 +124,11 @@ class World {
   }
 
   checkCollections() {
+    this.checkCoinCollection();
+    this.checkBottleCollection();
+  }
+
+  checkCoinCollection() {
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin)) {
         console.log("kolliediert", coin);
@@ -119,6 +140,9 @@ class World {
         this.level.coins.splice(index, 1);
       }
     });
+  }
+
+  checkBottleCollection() {
     this.level.salsaBottles.forEach((bottle, index) => {
       if (this.character.isColliding(bottle)) {
         console.log("kolliediert", bottle);
@@ -138,12 +162,17 @@ class World {
 
     this.ctx.translate(-this.camera_x, 0);
     this.addToMap(this.statusBar);
+    this.addToMap(this.statusBarBoss);
+
     this.ctx.translate(this.camera_x, 0);
+
+
 
     this.addToMap(this.character);
     this.addObjektToMap(this.level.clouds);
 
     this.addObjektToMap(this.level.coins);
+    this.addObjektToMap(this.level.drawObjects);
     this.addObjektToMap(this.level.salsaBottles);
     this.addObjektToMap(this.level.enemies);
 

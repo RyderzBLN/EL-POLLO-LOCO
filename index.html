@@ -8,84 +8,79 @@
     <script src="./scripts/classes/drawable-objekt.class.js"></script>
     <script src="./scripts/classes/movable-objekt.class.js"></script>
     <script src="./scripts/classes/character.class.js"></script>
+    <script src="./scripts/classes/smallChicken.class.js"></script>
     <script src="./scripts/classes/chicken.class.js"></script>
     <script src="./scripts/classes/cloud.class.js"></script>
     <script src="./scripts/classes/background.class.js"></script>
-
+    <script src="./scripts/classes/shield.class.js"></script>
     <script src="./scripts/classes/status-bar.class.js"></script>
+
     <script src="./scripts/classes/world.class.js"></script>
     <script src="./scripts/keyboard.class.js"></script>
     <script src="./scripts/classes/level.class.js"></script>
     <script src="./scripts/classes/salsa-bottle.class.js"></script>
     <script src="./scripts/classes/coin.class.js"></script>
-
+    <script src="./scripts/classes/sounds.class.js"></script>
     <script src="./scripts/classes/throwable-objekt.class.js"></script>
     <script src="./scripts/classes/endboss.class.js"></script>
+    <script src="./scripts/classes/statusbar-boss.class.js"></script>
     <script src="./scripts/level1.js"></script>
     <script src="./scripts/game.js"></script>
   </head>
   <body onload="init()">
     <h1>EL POLLO LOCO</h1>
 
-
-      <div id="koordinatenAnzeige">Koordinaten: (0, 0)</div>
-      <div class="scale">
+    <div id="koordinatenAnzeige">Koordinaten: (0, 0)</div>
+    <div class="scale">
       <canvas id="canvas" width="720" height="480"> </canvas>
-      </div>
+    </div>
 
+    <script>
+      const zeichenCanvas = document.getElementById("canvas");
+      const zeichenContext = zeichenCanvas.getContext("2d");
+      const koordinatenAnzeige = document.getElementById("koordinatenAnzeige");
 
+      function zeichneAchsen() {
+        const mitteX = zeichenCanvas.width / 2;
+        const mitteY = zeichenCanvas.height / 2;
 
-      <script>
-        const zeichenCanvas = document.getElementById("canvas");
-        const zeichenContext = zeichenCanvas.getContext("2d");
-        const koordinatenAnzeige = document.getElementById("koordinatenAnzeige");
+        zeichenContext.beginPath();
+        zeichenContext.moveTo(0, mitteY);
+        zeichenContext.lineTo(zeichenCanvas.width, mitteY);
+        zeichenContext.strokeStyle = "gray";
+        zeichenContext.stroke();
+        zeichenContext.closePath();
 
+        zeichenContext.beginPath();
+        zeichenContext.moveTo(mitteX, 0);
+        zeichenContext.lineTo(mitteX, zeichenCanvas.height);
+        zeichenContext.strokeStyle = "gray";
+        zeichenContext.stroke();
+        zeichenContext.closePath();
 
-        function zeichneAchsen() {
-            const mitteX = zeichenCanvas.width / 2;
-            const mitteY = zeichenCanvas.height / 2;
-
-
-            zeichenContext.beginPath();
-            zeichenContext.moveTo(0, mitteY);
-            zeichenContext.lineTo(zeichenCanvas.width, mitteY);
-            zeichenContext.strokeStyle = "gray";
-            zeichenContext.stroke();
-            zeichenContext.closePath();
-
-            zeichenContext.beginPath();
-            zeichenContext.moveTo(mitteX, 0);
-            zeichenContext.lineTo(mitteX, zeichenCanvas.height);
-            zeichenContext.strokeStyle = "gray";
-            zeichenContext.stroke();
-            zeichenContext.closePath();
-
-
-            for (let x = 0; x <= zeichenCanvas.width; x += 50) {
-                const xPos = x;
-                if (x !== mitteX) { 
-                    zeichenContext.fillText(xPos, x, mitteY + 15);
-                }
-            }
-
-            for (let y = 0; y <= zeichenCanvas.height; y += 50) {
-                const yPos = y;
-                if (y !== mitteY) { 
-                    zeichenContext.fillText(yPos, mitteX + 5, y);
-                }
-            }
+        for (let x = 0; x <= zeichenCanvas.width; x += 50) {
+          const xPos = x;
+          if (x !== mitteX) {
+            zeichenContext.fillText(xPos, x, mitteY + 15);
+          }
         }
 
-        zeichenCanvas.addEventListener("mousemove", (event) => {
-            const rect = zeichenCanvas.getBoundingClientRect();
-            const x = event.clientX - rect.left; 
-            const y = event.clientY - rect.top;
-            koordinatenAnzeige.textContent = `Koordinaten: X: (${x.toFixed()})   /   Y:  (${y.toFixed()})`; // Koordinatenanzeige aktualisieren
-        });
+        for (let y = 0; y <= zeichenCanvas.height; y += 50) {
+          const yPos = y;
+          if (y !== mitteY) {
+            zeichenContext.fillText(yPos, mitteX + 5, y);
+          }
+        }
+      }
 
-        zeichneAchsen();
+      zeichenCanvas.addEventListener("mousemove", (event) => {
+        const rect = zeichenCanvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        koordinatenAnzeige.textContent = `Koordinaten: X: (${x.toFixed()})   /   Y:  (${y.toFixed()})`; // Koordinatenanzeige aktualisieren
+      });
+
+      zeichneAchsen();
     </script>
-      
-
   </body>
 </html>

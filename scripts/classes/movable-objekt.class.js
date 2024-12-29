@@ -7,6 +7,7 @@ class MovableObjekt extends DrawableObejekt {
   isKilled = false;
   move = false;
   lasthit = 0;
+  DamageMode = true;
 
 
   applyGravity() {

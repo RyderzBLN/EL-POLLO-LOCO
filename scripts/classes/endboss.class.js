@@ -4,7 +4,7 @@ class Endboss extends MovableObjekt {
   energy = 15;
   speed = 5;
   y = 60;
-  x = 1200;
+  x = 1600;
 
   ImagesAlert = [
     "../assets/img/4_enemie_boss_chicken/2_alert/G5.png",
@@ -55,6 +55,9 @@ class Endboss extends MovableObjekt {
 
   image_final_dead = ["../assets/img/2_character_pepe/5_dead/D-57.png"];
 
+  chicken_isKilled_sound = new Audio("../assets/audio/chicken_small_dead.mp3");
+  boss_attack_sound = new Audio("../assets/audio/Boss_Attack.mp3");
+
   constructor(world) {
     super();
     this.world = world;
@@ -83,11 +86,19 @@ class Endboss extends MovableObjekt {
         let distance = this.x - world.character.x;
         if (distance < 400 && !this.isHurt() && !this.isDead()) {
           this.BossMove = true;
+          this.speed = 5;
+       
         }
         if (distance < 50) {
           this.BossMove = false;
           this.isAttacking = true;
+          
         }
+        if (distance < 150) {
+          this.speed = 12;
+          
+        }
+
       }, 100);
     }, 150);
 
@@ -112,6 +123,7 @@ class Endboss extends MovableObjekt {
         this.playAnimation(this.Images_Walk);
       } else if (this.isAttacking) {
         this.playAnimation(this.Images_Attack);
+        this.boss_attack_sound.play();
         world.character.hit();
         world.statusBar.setPercentage(world.character.energy);
         console.log(world.character.energy);
@@ -125,7 +137,9 @@ class Endboss extends MovableObjekt {
 
   attack() {
     if (this.isAttacking) {
+
       setTimeout(() => {
+        
         this.isAttacking = false;
         this.BossMove = true;
       }, 500); // Attack duration

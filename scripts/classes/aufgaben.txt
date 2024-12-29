@@ -1,10 +1,4 @@
-Start screen
-music sounds
-coins / flaschen einsammeln  = X
-flasche nur werfen wenn da = X
-collision = X
-engegner besiegen = X<
-game over
+
 
 
 
@@ -23,3 +17,18 @@ unverwundbar temporär , und move Blocking bei schaden
 
 this.y muss auf 173 bei char beim laufen konstant sein, damit
 gegner gegner nicht unberrechtigt schaden bekoommt
+
+
+! ---- ! ------- !
+1. kleine Chicken
+2. Endboss Angriff sounds
+3. Anfangs Animation und Sound Boss ( Intro )
+4. Statusbar bottle
+5. StatusBar Coins
+6. Game Over screen
+7. Start Screen 
+8.  Buttons
+9. Responsiv
+10. Sound Lautstärke
+11. Map vergrößern
+12. Statusbar BOSS

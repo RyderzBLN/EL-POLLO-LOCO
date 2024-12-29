@@ -17,7 +17,7 @@ class DrawableObejekt {
   }
 
   drawBorder(ctx) {
-    if (this instanceof Character || this instanceof Chicken || this instanceof Coin || this instanceof SalsaBottle || this instanceof Endboss) {
+    if (this instanceof Character || this instanceof Chicken || this instanceof Coin || this instanceof SalsaBottle ||this instanceof SmallChicken || this instanceof Endboss) {
       ctx.beginPath();
       ctx.lineWidth = "6";
       ctx.strokeStyle = "red";
