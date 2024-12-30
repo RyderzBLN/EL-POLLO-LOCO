@@ -20,8 +20,8 @@ gegner gegner nicht unberrechtigt schaden bekoommt
 
 
 ! ---- ! ------- !
-1. kleine Chicken
-2. Endboss Angriff sounds
+1. kleine Chicken | ✔️
+2. Endboss Angriff sounds | ✔️
 3. Anfangs Animation und Sound Boss ( Intro )
 4. Statusbar bottle
 5. StatusBar Coins
@@ -30,5 +30,8 @@ gegner gegner nicht unberrechtigt schaden bekoommt
 8.  Buttons
 9. Responsiv
 10. Sound Lautstärke
-11. Map vergrößern
-12. Statusbar BOSS
+11. Map vergrößern | ✔️
+12. Statusbar BOSS | ✔️
+13. Throw entfernung Anpassen.
+14. Boss Intro Sound Anpassen.
+15. SalsaBottle (collect) Animation anpassen oder entfernen.

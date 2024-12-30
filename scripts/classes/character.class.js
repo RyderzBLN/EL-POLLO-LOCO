@@ -88,9 +88,9 @@ class Character extends MovableObjekt {
     this.loadImages(this.image_final_dead);
     this.loadImages(this.images_Hurt);
     this.applyGravity();
-    this.x = -300;
+    this.x = 200;
     this.animate();
-    this.energy = 100;
+    this.energy = 10990;
   }
 
   animate() {

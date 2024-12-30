@@ -24,7 +24,7 @@ class SmallChicken extends MovableObjekt {
     this.loadImages(this.Image_Dead);
     this.animate();
     this.energy = 32;
-    this.x = 500 + Math.random() - Math.random() * 500;
+    this.x = Math.random() * 4500;
     this.speed += Math.random() * 0.5;
   }
 

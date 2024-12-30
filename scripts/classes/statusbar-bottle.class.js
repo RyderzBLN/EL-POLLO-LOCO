@@ -1,11 +1,11 @@
-class StatusbarBoss extends Statusbar {
+class StatusbarBottle extends Statusbar {
     IMAGES = [
-      "../assets/img/7_statusbars/2_statusbar_endboss/blue/blue0.png",
-      "../assets/img/7_statusbars/2_statusbar_endboss/blue/blue20.png",
-      "../assets/img/7_statusbars/2_statusbar_endboss/blue/blue40.png",
-      "../assets/img/7_statusbars/2_statusbar_endboss/blue/blue60.png",
-      "../assets/img/7_statusbars/2_statusbar_endboss/blue/blue80.png",
-      "../assets/img/7_statusbars/2_statusbar_endboss/blue/blue100.png",
+   "../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/0.png",
+   "../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/20.png",
+   "../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/40.png",
+   "../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/60.png",
+   "../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/80.png",
+   "../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/100.png",
     ];
   
     percentage = 100;
@@ -14,7 +14,8 @@ class StatusbarBoss extends Statusbar {
       super();
       this.world = world;
       this.loadImages(this.IMAGES);
-      this.y = 45;
+      this.y = 60;
+      this.x = 20;
       this.width = 150;
       this.height = 50;
       this.setPercentage(100);
@@ -43,17 +44,5 @@ class StatusbarBoss extends Statusbar {
       }
     }
   
-    updatePosition() {
-      let endboss = this.world.level.endboss[0];
-      if (endboss) {
-        this.x = endboss.x;
-        this.x += 70;
-      }
 
-    }
-  
-    draw(ctx) {
-      this.updatePosition();
-      super.draw(ctx);
-    }
   }

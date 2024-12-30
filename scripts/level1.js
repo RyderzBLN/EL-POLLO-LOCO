@@ -5,6 +5,16 @@ const level1 = new Level(
     new SmallChicken(),
     new Chicken(),
     new Chicken(), 
+    new Chicken(),
+    new Chicken(),
+    new SmallChicken(),
+    new Chicken(),
+    new Chicken(), 
+    new Chicken(),
+    new Chicken(),
+    new SmallChicken(),
+    new Chicken(),
+    new Chicken(), 
   ],
   [new Endboss()],
   [new Coin(), new Coin(), new Coin()],
@@ -14,7 +24,7 @@ const level1 = new Level(
   [new Cloud()],
 
   [
-    new BackgroundObjekt("../assets/img/5_background/layers/air.png", -719 * 2),
+    new BackgroundObjekt("../assets/img/5_background/layers/air-3.png", -719 * 2),
     new BackgroundObjekt(
       "../assets/img/5_background/layers/3_third_layer/1.png",
       -719 * 2
@@ -27,7 +37,7 @@ const level1 = new Level(
       "../assets/img/5_background/layers/1_first_layer/1.png",
       -719 * 2
     ),
-    new BackgroundObjekt("../assets/img/5_background/layers/air.png", -719),
+    new BackgroundObjekt("../assets/img/5_background/layers/air-3.png", -719),
     new BackgroundObjekt(
       "../assets/img/5_background/layers/3_third_layer/2.png",
       -719
@@ -40,7 +50,7 @@ const level1 = new Level(
       "../assets/img/5_background/layers/1_first_layer/2.png",
       -719
     ),
-    new BackgroundObjekt("../assets/img/5_background/layers/air.png", 0),
+    new BackgroundObjekt("../assets/img/5_background/layers/air-3.png", 0),
     new BackgroundObjekt(
       "../assets/img/5_background/layers/3_third_layer/1.png",
       0
@@ -53,7 +63,7 @@ const level1 = new Level(
       "../assets/img/5_background/layers/1_first_layer/1.png",
       0
     ),
-    new BackgroundObjekt("../assets/img/5_background/layers/air.png", 719),
+    new BackgroundObjekt("../assets/img/5_background/layers/air-3.png", 719),
     new BackgroundObjekt(
       "../assets/img/5_background/layers/3_third_layer/2.png",
       719
@@ -66,7 +76,7 @@ const level1 = new Level(
       "../assets/img/5_background/layers/1_first_layer/2.png",
       719
     ),
-    new BackgroundObjekt("../assets/img/5_background/layers/air.png", 719 * 2),
+    new BackgroundObjekt("../assets/img/5_background/layers/air-3.png", 719 * 2),
     new BackgroundObjekt(
       "../assets/img/5_background/layers/3_third_layer/1.png",
       719 * 2
@@ -79,5 +89,71 @@ const level1 = new Level(
       "../assets/img/5_background/layers/1_first_layer/1.png",
       719 * 2
     ),
+    new BackgroundObjekt("../assets/img/5_background/layers/air-3.png", 719 * 3),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/3_third_layer/2.png",
+      719 * 3
+    ),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/2_second_layer/2.png",
+      719 * 3
+    ),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/1_first_layer/2.png",
+      719 * 3
+    ),
+    new BackgroundObjekt("../assets/img/5_background/layers/air-3.png", 719 * 4),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/3_third_layer/1.png",
+      719 * 4
+    ),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/2_second_layer/1.png",
+      719 * 4
+    ),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/1_first_layer/1.png",
+      719 * 4
+    ),
+    new BackgroundObjekt("../assets/img/5_background/layers/air-3.png", 719 * 5),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/3_third_layer/2.png",
+      719 * 5
+    ),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/2_second_layer/2.png",
+      719 * 5
+    ),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/1_first_layer/2.png",
+      719 * 5
+    ),
+    new BackgroundObjekt("../assets/img/5_background/layers/air-3.png", 719 * 6),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/3_third_layer/1.png",
+      719 * 6
+    ),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/2_second_layer/1.png",
+      719 * 6
+    ),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/1_first_layer/1.png",
+      719 * 6
+    ),
+    new BackgroundObjekt("../assets/img/5_background/layers/air-3.png", 719 * 7),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/3_third_layer/2.png",
+      719 * 7
+    ),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/2_second_layer/2.png",
+      719 * 7
+    ),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/1_first_layer/2.png",
+      719 * 7
+    ),
+
   ]
 );

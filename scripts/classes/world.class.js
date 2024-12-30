@@ -1,4 +1,5 @@
 class World {
+  
   character = new Character();
   level = level1;
   canvas;
@@ -8,6 +9,7 @@ class World {
   camera_x = 0;
   statusBar = new Statusbar();
   statusBarBoss = new StatusbarBoss(this);
+  statusBarBottle = new StatusbarBottle();
   throwableObjekts = [];
 
   constructor(canvas, keyboard) {
@@ -159,11 +161,15 @@ class World {
       if (this.character.isColliding(coin)) {
         console.log("kolliediert", coin);
         this.character.coin += 1;
-
-        coin.isCollect = true;
+        coin.collectAnimation(this.character);
+       
         coin.collect_coin_sound.play();
         console.log(coin);
-        this.level.coins.splice(index, 1);
+        setTimeout(() => {
+          this.level.coins.splice(index, 1);
+          coin.isCollect = true;
+        }, 700);
+        
       }
     });
   }
@@ -188,8 +194,11 @@ class World {
 
     this.ctx.translate(-this.camera_x, 0);
     this.addToMap(this.statusBar);
+    this.addToMap(this.statusBarBottle);
 
     this.ctx.translate(this.camera_x, 0);
+    
+
     this.addToMap(this.statusBarBoss);
 
     this.addToMap(this.character);
