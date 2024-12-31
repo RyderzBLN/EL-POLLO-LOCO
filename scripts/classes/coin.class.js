@@ -1,4 +1,6 @@
 class Coin extends DrawableObejekt {
+
+
   Images = [
     "../assets/img/8_coin/coin_1.png",
     "../assets/img/8_coin/coin_2.png",
@@ -13,8 +15,9 @@ class Coin extends DrawableObejekt {
     this.loadImages(this.Images);
     this.animate();
 
-    this.isCollect = false;
-    this.x = 200 + Math.random() * 500;
+    this.isCollect = false; 
+    this.oneTimeCollect = false;
+    this.x = Math.random() * 4500 + 250; 
     this.y = 200; 
     this.yDirection = 1; 
   }
@@ -41,6 +44,6 @@ class Coin extends DrawableObejekt {
         clearInterval(interval); 
         this.isCollect = true;
       }
-    }, 35); 
+    }, 15); 
   }
 }

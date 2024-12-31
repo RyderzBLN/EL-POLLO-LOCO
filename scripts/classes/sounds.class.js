@@ -18,7 +18,7 @@ class Sounds {
     if (world.character.x > 1000 && !this.BossStompIntroSound.played.length) {
       this.BossStompIntroSound.play();
       this.BossStompIntroSound.playbackRate = 1.5;
-      this.BossStompIntroSound.volume = 2;
+      this.BossStompIntroSound.volume = 1;
     }
     if (world.character.x > 1200 && !this.BossThemeSound.played.length) {
       this.BossThemeSound.play();

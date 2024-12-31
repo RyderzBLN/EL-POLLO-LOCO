@@ -2,10 +2,9 @@ class Character extends MovableObjekt {
   height = 260;
   width = 120;
   y = 173;
- 
   speed = 4;
   coin = 0;
-  salsaBottle = 20;
+  salsaBottle = 0;
   idleCounter = 0;
   
   

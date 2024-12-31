@@ -10,6 +10,7 @@ class World {
   statusBar = new Statusbar();
   statusBarBoss = new StatusbarBoss(this);
   statusBarBottle = new StatusbarBottle();
+  statusBarCoin = new StatusbarCoin();
   throwableObjekts = [];
 
   constructor(canvas, keyboard) {
@@ -32,8 +33,10 @@ class World {
       this.checkCollections();
       this.ifCharacterUnderGround();
       this.deleteEnemyFromGame();
-      this.checkCollisions();
+
       this.checkGameOver();
+      console.log("Character: ", this.character.coin);
+      
     }, 100);
   }
 
@@ -56,6 +59,7 @@ class World {
 
       this.throwableObjekts.push(bottle);
       this.character.salsaBottle--;
+      this.statusBarBottle.setPercentage(this.character.salsaBottle);
     }
   }
 
@@ -158,18 +162,19 @@ class World {
 
   checkCoinCollection() {
     this.level.coins.forEach((coin, index) => {
-      if (this.character.isColliding(coin)) {
+      if (this.character.isColliding(coin) && !coin.isCollect && !coin.oneTimeCollect) {
         console.log("kolliediert", coin);
         this.character.coin += 1;
+        coin.oneTimeCollect = true;
+        this.statusBarCoin.setPercentage(this.character.coin);
         coin.collectAnimation(this.character);
-       
         coin.collect_coin_sound.play();
         console.log(coin);
+
         setTimeout(() => {
           this.level.coins.splice(index, 1);
           coin.isCollect = true;
-        }, 700);
-        
+        }, 900);
       }
     });
   }
@@ -179,6 +184,7 @@ class World {
       if (this.character.isColliding(bottle)) {
         console.log("kolliediert", bottle);
         this.character.salsaBottle += 1;
+        this.statusBarBottle.setPercentage(this.character.salsaBottle);
         bottle.isCollect = true;
         bottle.open_bottle_sound.play();
         console.log("salsabottles: ", this.character.salsaBottle);
@@ -195,6 +201,7 @@ class World {
     this.ctx.translate(-this.camera_x, 0);
     this.addToMap(this.statusBar);
     this.addToMap(this.statusBarBottle);
+    this.addToMap(this.statusBarCoin);
 
     this.ctx.translate(this.camera_x, 0);
     
