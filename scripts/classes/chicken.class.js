@@ -13,7 +13,7 @@ class Chicken extends MovableObjekt {
     "../assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png",
   ];
 
-  chicken_isKilled_sound = new Audio("../assets/audio/chicken_small_dead.mp3");
+  
 
   constructor(world) {
     super();
@@ -26,9 +26,11 @@ class Chicken extends MovableObjekt {
     this.loadImages(this.Image_Dead);
     this.animate();
     this.energy = 32;
-    this.x = Math.random() * 4500; 
-    this.speed += Math.random() * 0.5 
+    this.x = Math.random() * 4500 + Math.random() + Math.random()  + Math.random()  * 100;
+    this.speed += Math.random() + 2 * 3; 
   }
+
+
 
   animate() {
     setInterval(() => {

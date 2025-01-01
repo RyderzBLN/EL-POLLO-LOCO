@@ -1,17 +1,21 @@
 class SalsaBottle extends MovableObjekt {
-  y = 280;
-  isCollect = false;
+  y = 340;
+  height =  100;
+  width =  85;
+  isCollect = false; 
 
 
 
-  open_bottle_sound = new Audio("../assets/audio/bottle_open_fluo.mp3");
 
   constructor() {
     super();
     this.loadImage("../assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png");
-
     this.isCollect = false;
-    this.x = 200 + Math.random() * 500;
+    this.x =
+      Math.random() * 4500 +
+      Math.random() +
+      Math.random() +
+      Math.random() * 100;
 
   }
 

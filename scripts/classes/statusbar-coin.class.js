@@ -38,7 +38,7 @@ class StatusbarCoin extends Statusbar {
         return 3;
       } else if (this.percentage > 3) {
         return 2;
-      } else if (this.percentage > 1) {
+      } else if (this.percentage = 1) {
         return 1;
       } else if (this.percentage >= 0) {
         return 0;

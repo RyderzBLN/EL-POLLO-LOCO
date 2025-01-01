@@ -6,6 +6,7 @@ class Character extends MovableObjekt {
   coin = 0;
   salsaBottle = 0;
   idleCounter = 0;
+
   
   
 
@@ -89,7 +90,8 @@ class Character extends MovableObjekt {
     this.applyGravity();
     this.x = 200;
     this.animate();
-    this.energy = 10990;
+    this.energy = 100;
+    this.invulnerableTime = false;
   }
 
   animate() {
@@ -99,7 +101,7 @@ class Character extends MovableObjekt {
         this.world &&
         this.world.keyboard.RIGHT &&
         this.x < this.world.level.level_end_x &&
-        !this.isDead()
+        !this.isDead() && !this.isHurt()
       ) {
         this.moveRight();
 
@@ -110,7 +112,9 @@ class Character extends MovableObjekt {
         this.idleCounter = 0;
       }
 
-      if (this.world.keyboard.LEFT && this.x > - 719 * 1.5 && !this.isDead()) {
+      if (this.world.keyboard.LEFT &&
+         this.x > - 719 * 1.5 && 
+         !this.isDead() && !this.isHurt()) {   
         this.moveLeft();
 
         this.walking_sound.playbackRate = 3;
@@ -122,7 +126,8 @@ class Character extends MovableObjekt {
       if (
         this.world.keyboard.SPACE &&
         !this.isAboveGround() &&
-        !this.isDead()
+        !this.isDead() &&
+        !this.isHurt()
       ) {
         this.jump();
 
@@ -170,6 +175,9 @@ class Character extends MovableObjekt {
       }
     }, 100);
 
+this.invulnerableTime();
+    
+
     setInterval(() => {
       if (
         !this.world.keyboard.RIGHT &&
@@ -180,5 +188,21 @@ class Character extends MovableObjekt {
         console.log(this.idleCounter);
       }
     }, 1000);
+  }
+
+  invulnerableTime(){
+    setInterval(() => {
+      if(this.isHurt() && !this.invulnerableMode){
+        this.invulnerableMode = true;
+        console.log("INVULNERABLE");
+        
+        setTimeout(() => {
+          this.invulnerableMode = false;
+          console.log("NOT INVULNERABLE");
+          
+        }, 1500);       
+      }
+    }, 100);
+    
   }
 }

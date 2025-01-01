@@ -35,7 +35,6 @@ class World {
       this.deleteEnemyFromGame();
 
       this.checkGameOver();
-      console.log("Character: ", this.character.coin);
       
     }, 100);
   }
@@ -107,7 +106,7 @@ class World {
   enemyIsKilledProcess(enemy) {
     enemy.hitEnemy();
     enemy.DamageMode = false;
-    enemy.chicken_isKilled_sound.play();
+    sounds.enemyKillSound();
   }
 
   checkEnemyCollision() {
@@ -116,14 +115,18 @@ class World {
         this.character.isColliding(enemy) &&
         !this.character.isAboveGround() &&
         !enemy.isKilled &&
-        enemy.DamageMode
+        enemy.DamageMode && !this.character.invulnerableMode
       ) {
-        console.log("kolliediert", enemy);
-        this.character.hit();
-        this.statusBar.setPercentage(this.character.energy);
+
+        this.characterHitedProcess();
         console.log(this.character.energy);
       }
     });
+  }
+
+  characterHitedProcess(){
+    this.character.hit();
+    this.statusBar.setPercentage(this.character.energy);
   }
 
   checkBottleHitEnemy() {
@@ -131,9 +134,7 @@ class World {
       this.level.enemies.forEach((enemy) => {
         if (bottle.isColliding(enemy) || bottle.isCollidingFromTop(enemy)) {
           if (!enemy.isDead()) {
-            enemy.hitEnemy();
-            enemy.DamageMode = false;
-            enemy.chicken_isKilled_sound.play();
+            this.enemyIsKilledProcess(enemy);
             setTimeout(() => {
               enemy.isKilled = true;
             }, 1500);
@@ -163,34 +164,50 @@ class World {
   checkCoinCollection() {
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin) && !coin.isCollect && !coin.oneTimeCollect) {
-        console.log("kolliediert", coin);
-        this.character.coin += 1;
-        coin.oneTimeCollect = true;
-        this.statusBarCoin.setPercentage(this.character.coin);
-        coin.collectAnimation(this.character);
-        coin.collect_coin_sound.play();
+
+        this.coinCollectProcess(coin);
+
         console.log(coin);
 
         setTimeout(() => {
-          this.level.coins.splice(index, 1);
+          this.removeElementFromArray(this.level.coins, index);
+
+          
           coin.isCollect = true;
         }, 900);
       }
     });
   }
 
+  coinCollectProcess(coin) { 
+    this.character.coin += 1;
+    coin.oneTimeCollect = true;
+    this.statusBarCoin.setPercentage(this.character.coin);
+    coin.collectAnimation(this.character);
+  }
+
   checkBottleCollection() {
     this.level.salsaBottles.forEach((bottle, index) => {
       if (this.character.isColliding(bottle)) {
-        console.log("kolliediert", bottle);
-        this.character.salsaBottle += 1;
-        this.statusBarBottle.setPercentage(this.character.salsaBottle);
-        bottle.isCollect = true;
-        bottle.open_bottle_sound.play();
+
+        this.bottleCollectProcess(bottle);
         console.log("salsabottles: ", this.character.salsaBottle);
-        this.level.salsaBottles.splice(index, 1);
+        this.removeElementFromArray(this.level.salsaBottles, index);
+
+        
       }
     });
+  }
+
+  removeElementFromArray(array, index) {
+    array.splice(index, 1);
+  }
+
+  bottleCollectProcess(bottle) {
+    this.character.salsaBottle += 1;
+    this.statusBarBottle.setPercentage(this.character.salsaBottle);
+    bottle.isCollect = true;
+    sounds.openBottleSound();
   }
 
   draw() {

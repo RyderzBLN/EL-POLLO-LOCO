@@ -5,6 +5,7 @@ class ThrowableObject extends MovableObjekt {
     "../assets/img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png",
     "../assets/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png",
   ];
+  
 
   constructor(x, y, characterOtherDirection, world) {
     super().loadImage(

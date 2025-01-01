@@ -31,7 +31,7 @@ window.addEventListener("keydown", (e) => {
     keyboard.D = true;
   }
 
-  console.log(e);
+
   
 });
 
