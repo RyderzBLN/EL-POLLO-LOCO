@@ -75,11 +75,13 @@ class MovableObjekt extends DrawableObejekt {
     }
   }
 
-  hitEnemy() {
-    this.energy -= 33;
+  hitFromBoss() {
+    this.energy -= 60;
     if (this.energy < 0) {
       this.energy = 0;
-    }  
+    } else {
+      this.lasthit = new Date().getTime();
+    }
   }
 
   isHurt() {
@@ -99,6 +101,7 @@ class MovableObjekt extends DrawableObejekt {
     this.x -= this.speed;
 
   }
+  
 
   jump() {
     this.speedY += 30;

@@ -4,7 +4,7 @@ class Character extends MovableObjekt {
   y = 173;
   speed = 4;
   coin = 0;
-  salsaBottle = 0;
+  salsaBottle = 10;
   idleCounter = 0;
 
   
@@ -91,7 +91,7 @@ class Character extends MovableObjekt {
     this.x = 200;
     this.animate();
     this.energy = 100;
-    this.invulnerableTime = false;
+    this.invulnerableMode = true;
   }
 
   animate() {

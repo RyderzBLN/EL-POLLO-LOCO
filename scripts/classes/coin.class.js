@@ -10,7 +10,7 @@ class Coin extends DrawableObejekt {
 
 
   image = [
-    
+
   ]
 
   collect_coin_sound = new Audio("../assets/audio/collect_coin.mp3");
@@ -25,7 +25,7 @@ class Coin extends DrawableObejekt {
     this.isCollect = false; 
     this.oneTimeCollect = false;
     this.x = Math.random() * 4500 + Math.random() + Math.random()  + Math.random()  * 100;
-    this.y = 200; 
+    this.y = Math.random() * 300 + 50; 
     this.yDirection = 1; 
   }
 
@@ -52,5 +52,12 @@ class Coin extends DrawableObejekt {
         this.isCollect = true;
       }
     }, 15); 
+  }
+
+
+  notToHeight(){
+    if (this.y > 85) {
+      this.y +  (Math.random() * 10 + 20);
+    }
   }
 }

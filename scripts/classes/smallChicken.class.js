@@ -24,8 +24,12 @@ class SmallChicken extends MovableObjekt {
     this.loadImages(this.Image_Dead);
     this.animate();
     this.energy = 32;
-    this.x = Math.random() * 4500 + Math.random() + Math.random()  + Math.random()  * 100;
-    this.speed += Math.random() + 4 * 3; 
+    this.x =
+      Math.random() * 4500 +
+      Math.random() +
+      Math.random() +
+      Math.random() * 100;
+    this.speed = (Math.random() + 0.5) * 15;
   }
 
   animate() {
@@ -37,6 +41,6 @@ class SmallChicken extends MovableObjekt {
       if (this.energy <= 0) {
         this.playAnimation(this.Image_Dead);
       }
-    }, 95);
+    }, 55);
   }
 }

@@ -11,7 +11,10 @@ class World {
   statusBarBoss = new StatusbarBoss(this);
   statusBarBottle = new StatusbarBottle();
   statusBarCoin = new StatusbarCoin();
+  displayBottle = new BottleDisplay(this);
   throwableObjekts = [];
+  explosions = [];
+  specialAttack = false;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -33,7 +36,7 @@ class World {
       this.checkCollections();
       this.ifCharacterUnderGround();
       this.deleteEnemyFromGame();
-
+this.checkSpecialAttack();
       this.checkGameOver();
       
     }, 100);
@@ -44,6 +47,17 @@ class World {
       this.character.y = 173;
     }
   }
+
+    checkSpecialAttack() {
+      if (this.keyboard.O) {
+        let explosionX = this.character.x + 200;
+        let explosionY = this.character.y;
+        let explosion = new Explosion(explosionX, explosionY, this);
+        this.explosions.push(explosion);
+        this.specialAttack = false; // Setzen Sie die Spezialangriffsflagge zurück
+      }
+    }
+  
 
   checkThrowObjeks() {
     if (this.keyboard.D && this.character.salsaBottle > 0) {
@@ -211,30 +225,38 @@ class World {
   }
 
   draw() {
+
+    
     this.ctx.clearRect(0, 0, this.canvas.height, this.canvas.width);
+    
     this.ctx.translate(this.camera_x, 0);
+    
     this.addObjektToMap(this.level.backgroundObjekts);
 
-    this.ctx.translate(-this.camera_x, 0);
-    this.addToMap(this.statusBar);
-    this.addToMap(this.statusBarBottle);
-    this.addToMap(this.statusBarCoin);
-
-    this.ctx.translate(this.camera_x, 0);
+  
     
 
     this.addToMap(this.statusBarBoss);
 
     this.addToMap(this.character);
     this.addObjektToMap(this.level.clouds);
+    this.ctx.translate(-this.camera_x, 0);
+    this.addToMap(this.statusBar);
+    this.addToMap(this.statusBarBottle);
+    this.addToMap(this.statusBarCoin);
+    this.addToMap(this.displayBottle);
+
+    this.ctx.translate(this.camera_x, 0);
 
     this.addObjektToMap(this.level.coins);
     this.addObjektToMap(this.level.drawObjects);
     this.addObjektToMap(this.level.salsaBottles);
     this.addObjektToMap(this.level.enemies);
     this.addObjektToMap(this.level.endboss);
+    
 
     this.addObjektToMap(this.throwableObjekts);
+    this.addObjektToMap(this.explosions)
     this.ctx.translate(-this.camera_x, 0);
     let self = this;
     requestAnimationFrame(function () {

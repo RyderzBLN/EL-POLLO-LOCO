@@ -4,7 +4,7 @@ class Endboss extends MovableObjekt {
   energy = 100;
   speed = 5;
   y = 60;
-  x = 300;
+  x = 5300;
 
   ImagesAlert = [
     "../assets/img/4_enemie_boss_chicken/2_alert/G5.png",
@@ -121,7 +121,7 @@ class Endboss extends MovableObjekt {
       } else if (this.isAttacking) {
         this.playAnimation(this.Images_Attack);
         sounds.bossAttacksCharSound();
-        world.character.hit();
+        world.character.hitFromBoss();
         world.statusBar.setPercentage(world.character.energy);
         console.log(world.character.energy);
       } else if (this.isHurt()) {
