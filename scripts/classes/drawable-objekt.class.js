@@ -13,11 +13,20 @@ class DrawableObejekt {
   }
 
   draw(ctx) {
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    if (this.img) {
+      ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
   }
 
   drawBorder(ctx) {
-    if (this instanceof Character || this instanceof Chicken || this instanceof Coin || this instanceof SalsaBottle ||this instanceof SmallChicken || this instanceof Endboss) {
+    if (
+      this instanceof Character ||
+      this instanceof Chicken ||
+      this instanceof Coin ||
+      this instanceof SalsaBottle ||
+      this instanceof SmallChicken ||
+      this instanceof Endboss
+    ) {
       ctx.beginPath();
       ctx.lineWidth = "6";
       ctx.strokeStyle = "red";

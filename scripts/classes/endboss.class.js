@@ -4,7 +4,7 @@ class Endboss extends MovableObjekt {
   energy = 100;
   speed = 5;
   y = 60;
-  x = 5300;
+  x = 500;
 
   ImagesAlert = [
     "../assets/img/4_enemie_boss_chicken/2_alert/G5.png",
@@ -57,7 +57,6 @@ class Endboss extends MovableObjekt {
 
   chicken_isKilled_sound = new Audio("../assets/audio/chicken_small_dead.mp3");
 
-
   constructor(world, sounds) {
     super();
     this.world = world;
@@ -75,13 +74,22 @@ class Endboss extends MovableObjekt {
   }
 
   animate() {
+    this.handleHurt();
+    this.handleMovement();
+    this.logBossMove();
+    this.handleAnimations();
+  }
+
+  handleHurt() {
     setInterval(() => {
       if (this.isHurt() && !this.isDead()) {
         this.BossMove = false;
         this.playAnimation(this.Images_Hurt);
       }
     }, 100);
+  }
 
+  handleMovement() {
     setTimeout(() => {
       setInterval(() => {
         let distance = this.x - world.character.x;
@@ -89,21 +97,24 @@ class Endboss extends MovableObjekt {
           this.BossMove = true;
           this.speed = 5;
         }
-        if (Math.abs(distance) < 50 && distance > 0) { 
+        if (Math.abs(distance) < 50 && distance > 0) {
           this.BossMove = false;
           this.isAttacking = true;
         }
-        if (Math.abs(distance) < 150 && distance > 0) { 
+        if (Math.abs(distance) < 150 && distance > 0) {
           this.speed = 15;
         }
       }, 100);
     }, 3000);
+  }
 
-
+  logBossMove() {
     setInterval(() => {
       console.log("BOSSMOVE = ", this.BossMove);
     }, 1000);
+  }
 
+  handleAnimations() {
     setInterval(() => {
       if (this.BossMove) {
         this.moveLeft();
@@ -111,35 +122,44 @@ class Endboss extends MovableObjekt {
     }, 100);
 
     setInterval(() => {
-      if (this.isDead() && !this.isKilled) {
-        this.playAnimation(this.Images_Dead);
-        this.BossMove = false;
-      } else if (this.isKilled && this.isDead()) {
-        this.playAnimation(this.image_final_dead);
-      } else if (this.BossMove) {
-        this.playAnimation(this.Images_Walk);
-      } else if (this.isAttacking) {
-        this.playAnimation(this.Images_Attack);
-        sounds.bossAttacksCharSound();
-        world.character.hitFromBoss();
-        world.statusBar.setPercentage(world.character.energy);
-        console.log(world.character.energy);
-      } else if (this.isHurt()) {
-        this.playAnimation(this.Images_Hurt);
-      } else {
-        this.playAnimation(this.ImagesAlert);
-      }
+      this.updateAnimations();
     }, 100);
   }
 
+  updateAnimations() {
+    if (this.isDead() && !this.isKilled) {
+      this.playAnimation(this.Images_Dead);
+      this.BossMove = false;
+    } else if (this.isKilled && this.isDead()) {
+      this.playAnimation(this.image_final_dead);
+    } else if (this.BossMove) {
+      this.playAnimation(this.Images_Walk);
+    } else if (this.isAttacking && !world.character.energy == 0) {
+      this.playAttackAnimation();
+    } else if (this.isHurt()) {
+      this.playAnimation(this.Images_Hurt);
+    } else {
+      this.playAnimation(this.ImagesAlert);
+    }
+  }
+
+  playAttackAnimation() {
+    this.playAnimation(this.Images_Attack);
+    sounds.bossAttacksCharSound();
+
+    world.character.hitFromBoss();
+    world.statusBar.setPercentage(world.character.energy);
+    console.log(world.character.energy);
+  }
+
+
+
   attack() {
     if (this.isAttacking) {
-
       setTimeout(() => {
-        
         this.isAttacking = false;
         this.BossMove = true;
-      }, 500); 
+      }, 100);
     }
   }
 }

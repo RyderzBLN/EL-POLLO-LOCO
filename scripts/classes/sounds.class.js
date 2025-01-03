@@ -5,6 +5,7 @@ class Sounds {
   chicken_isKilled_sound = new Audio("../assets/audio/chicken_small_dead.mp3");
   open_bottle_sound = new Audio("../assets/audio/bottle_open_fluo.mp3");
   boss_attack_sound = new Audio("../assets/audio/Boss_Attack.mp3");
+  explosion_sound = new Audio("../assets/audio/explosion.mp3");
 
   constructor(world) {
     this.world = world;
@@ -29,19 +30,24 @@ class Sounds {
     }
   }
 
-  collectCoinSound(){
+  collectCoinSound() {
     this.CoinCollectSound.play();
   }
 
-  enemyKillSound(){
+  enemyKillSound() {
     this.chicken_isKilled_sound.play();
   }
 
-  openBottleSound(){
+  openBottleSound() {
     this.open_bottle_sound.play();
   }
 
-  bossAttacksCharSound(){
+  bossAttacksCharSound() {
     this.boss_attack_sound.play();
+  }
+
+  explosionSound() {
+    this.explosion_sound.play();
+    this.explosion_sound.playbackRate = 2;
   }
 }

@@ -2,13 +2,12 @@ class MovableObjekt extends DrawableObejekt {
   speed = 0.3;
   otherDirection = false;
   speedY = 0;
-  acceleration = 2.5;
+  acceleration = 1.6;
   energy = 100;
   isKilled = false;
   move = false;
   lasthit = 0;
   DamageMode = true;
-
 
   applyGravity() {
     setInterval(() => {
@@ -16,7 +15,7 @@ class MovableObjekt extends DrawableObejekt {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
       }
-    }, 1000 / 40);
+    }, 1000 / 30);
   }
 
   applyGravityBoss() {
@@ -28,7 +27,6 @@ class MovableObjekt extends DrawableObejekt {
     }, 1000 / 40);
   }
 
-
   isColliding(mo) {
     return (
       this.x + this.width > mo.x &&
@@ -39,9 +37,8 @@ class MovableObjekt extends DrawableObejekt {
   }
 
   isCollidingFromTop(mo) {
-    return this.isColliding(mo) && this.world.character.isAboveGround() -110;
+    return this.isColliding(mo) && this.world.character.isAboveGround() - 110;
   }
-
 
   isAboveGround() {
     if (this instanceof ThrowableObject) {
@@ -67,7 +64,7 @@ class MovableObjekt extends DrawableObejekt {
   }
 
   hit() {
-    this.energy -= 20;
+    this.energy -= 55;
     if (this.energy < 0) {
       this.energy = 0;
     } else {
@@ -75,8 +72,12 @@ class MovableObjekt extends DrawableObejekt {
     }
   }
 
+  hitEnemy() {
+    this.energy = 0;
+  }
+
   hitFromBoss() {
-    this.energy -= 60;
+    this.energy -= 30;
     if (this.energy < 0) {
       this.energy = 0;
     } else {
@@ -87,7 +88,7 @@ class MovableObjekt extends DrawableObejekt {
   isHurt() {
     let timePassed = new Date().getTime() - this.lasthit;
     timePassed = timePassed / 1000;
-    return timePassed < 1.5;
+    return timePassed <= 1;
   }
 
   isDead() {
@@ -99,22 +100,11 @@ class MovableObjekt extends DrawableObejekt {
   }
   moveLeft() {
     this.x -= this.speed;
-
   }
-  
 
   jump() {
-    this.speedY += 30;
-    if (this.speedY >= 35) {
-      this.speedY = 35;
-    }
+    this.speedY += 24;
   }
 
-  jumpBoss(){
-    this.speedY += 30;
 
-    if (this.speedY >= 35) {
-      this.speedY = 35;
-    }
-  }
 }

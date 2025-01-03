@@ -5,46 +5,71 @@ class ThrowableObject extends MovableObjekt {
     "../assets/img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png",
     "../assets/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png",
   ];
-  
+
+  splash_Image = [
+    "../assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",
+    "../assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png",
+    "../assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png",
+    "../assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png",
+    "../assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png",
+    "../assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
+  ];
 
   constructor(x, y, characterOtherDirection, world) {
     super().loadImage(
       "../assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png"
     );
     this.loadImages(this.Images);
+    this.loadImages(this.splash_Image);
     this.x = x;
     this.y = y;
     this.height = 60;
     this.width = 50;
     this.characterOtherDirection = characterOtherDirection;
-    this.world = world
+    this.world = world;
 
     this.throw();
   }
 
   throw() {
-    // evt SpeedY wert auch anpassen...
     this.speedY = 12.5;
     this.applyGravity();
-    setInterval(() => {
-      if (world.character.x < 250 && this.characterOtherDirection) {
-        this.x -= 5;
-      } 
-      
-      if (world.character.x < 250 &&  !this.characterOtherDirection) {
-        this.x += 5;
+
+    let animationInterval = setInterval(() => {
+      this.playAnimation(this.Images);
+
+      if (world.character.x < 4500 && this.characterOtherDirection) {
+        this.x -= 3;
       }
 
-      // WERTE ANPASSEN - FUNKTION STEHT FÜR WURF ENTFERNUNG JE nachdem wo man ist 
-      if (world.character.x > 250 && this.characterOtherDirection) {
-        this.x -= 35;
-      } 
-      if (world.character.x > 250 && !this.characterOtherDirection) {
-        this.x += 35;
-      } 
+      if (world.character.x < 250 && !this.characterOtherDirection) {
+        this.x += 6.5;
+      }
 
+      if (world.character.x > 200 && !this.characterOtherDirection) {
+        this.x += 9.5;
+      }
+    }, 30);
 
-      this.playAnimation(this.Images);
-    }, 25);
+    setTimeout(() => {
+      clearInterval(animationInterval);
+      this.stopGravity();
+      this.splashAnimation();
+    }, 700);
+  }
+
+  stopGravity() {
+    this.speedY = 0;
+    this.acceleration = 0;
+  }
+
+  splashAnimation() {
+    let splashInterval = setInterval(() => {
+      this.playAnimation(this.splash_Image);
+    }, 50);
+
+    setTimeout(() => {
+      clearInterval(splashInterval);
+    }, this.splash_Image.length * 50);
   }
 }

@@ -35,3 +35,4 @@ gegner gegner nicht unberrechtigt schaden bekoommt | ✔️
 13. Throw entfernung Anpassen.
 14. Boss Intro Sound Anpassen.
 15. SalsaBottle (collect) Animation anpassen oder entfernen.
+16. Bottle Damage Beeiflussung durch Coins.
