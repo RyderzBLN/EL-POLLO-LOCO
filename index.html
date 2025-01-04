@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EL POLO LOCO</title>
     <link rel="stylesheet" href="./style.css" />
+<script src="./scripts/main.js"></script>
     <script src="./scripts/classes/drawable-objekt.class.js"></script>
     <script src="./scripts/classes/movable-objekt.class.js"></script>
     <script src="./scripts/classes/character.class.js"></script>
@@ -31,59 +32,161 @@
     <script src="./scripts/game.js"></script>
   </head>
   <body onload="init()">
-    <h1>EL POLLO LOCO</h1>
+    <div class="scale-button-container">
+      <div class="start-screen"></div>
+      <div class="settings">
+        <div class="story-impressum-btn-container">
+          <button id="show-story" class="story-impressum">Story</button>
+          <button onclick="showImpressum()" class="story-impressum">Impressum</button>
+        </div>
+        <input id="checkboxInput" type="checkbox" />
+        <label class="toggleSwitch" for="checkboxInput">
+          <div class="speaker">
+            <svg
+              viewBox="0 0 75 75"
+              version="1.0"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                style="
+                  stroke: #fff;
+                  stroke-width: 5;
+                  stroke-linejoin: round;
+                  fill: #fff;
+                "
+                d="M39.389,13.769 L22.235,28.606 L6,28.606 L6,47.699 L21.989,47.699 L39.389,62.75 L39.389,13.769z"
+              ></path>
+              <path
+                style="
+                  fill: none;
+                  stroke: #fff;
+                  stroke-width: 5;
+                  stroke-linecap: round;
+                "
+                d="M48,27.6a19.5,19.5 0 0 1 0,21.4M55.1,20.5a30,30 0 0 1 0,35.6M61.6,14a38.8,38.8 0 0 1 0,48.6"
+              ></path>
+            </svg>
+          </div>
 
-    <div id="koordinatenAnzeige">Koordinaten: (0, 0)</div>
-    <div class="scale">
+          <div class="mute-speaker">
+            <svg
+              stroke-width="5"
+              stroke="#fff"
+              viewBox="0 0 75 75"
+              version="1.0"
+            >
+              <path
+                stroke-linejoin="round"
+                fill="#fff"
+                d="m39,14-17,15H6V48H22l17,15z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                fill="#fff"
+                d="m49,26 20,24m0-24-20,24"
+              ></path>
+            </svg>
+          </div>
+        </label>
+      </div>
+      <div class="game-story">
+        <div class="game-story-text">
+          <div class="story-head-back-btn">
+            <h3 class="story-head">Story</h3>
+
+            <button class="Btn story-back">
+              <div class="sign">
+                <svg viewBox="0 0 512 512">
+                  <path
+                    d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+                  ></path>
+                </svg>
+              </div>
+
+              <div class="text">Zurück</div>
+            </button>
+          </div>
+          <p class="story-text">
+            In El Polo Loco, einem aufregenden 2D-Canvas-Spiel im Browser,
+            befindet sich der mutige Charakter Pepe mitten in der Wüste. Während
+            er die endlosen Sanddünen durchstreift, bemerkt er plötzlich eine
+            Gruppe wilder Hühner, die direkt auf ihn zukommen – und sie scheinen
+            gar nicht freundlich gesinnt zu sein! Um sich zu verteidigen, muss
+            Pepe Tabasco-Flaschen sammeln, die er als Waffen einsetzen kann, um
+            die Hühner abzuwehren. Auf seinem Abenteuer stößt Pepe auch auf
+            glänzende Münzen, die er einsammeln kann. Diese Münzen füllen seine
+            Coin-Statusbar, und sobald sie voll ist und Pepe zusätzlich 10
+            Tabasco-Flaschen gesammelt hat, wird sein Wurf zu einer riesigen
+            Explosion, die alles um ihn herum vernichtet! Pepe muss also schnell
+            handeln, Tabasco-Flaschen sammeln und Münzen einsammeln, um die
+            wilde Hühnerhorde zu besiegen und die Wüste zu überleben.
+          </p>
+        </div>
+      </div>
+      <div class="key-mapping">
+        <p>LEFT: &nbsp;&nbsp;&nbsp;<mark>←</mark></p>
+        <p>RIGHT: &nbsp;&nbsp;&nbsp;<mark>→</mark></p>
+        <p>JUMP: &nbsp;&nbsp;&nbsp;<mark>SPACE</mark></p>
+        <p>ATTACK: &nbsp;&nbsp;&nbsp;<mark>D</mark></p>
+      </div>
+      <div id="impressum">
+        <div class="impressum-side">
+          <h3>IMPRESSUM</h3>
+          <p>Angaben gemäß § 5 TMG</p>
+          <p>Murat Catili</p>
+          <p>Skarbinastr. 66</p>
+          <p>12309 Berlin</p>
+          <div class="website-link" id="">
+            <p>El Polo Loco ist Teil von:</p>
+            <a href="https://catili.de">Catili.de</a>
+          </div>
+        </div>
+        <div class="back-btn">
+          <button onclick="backImpressum()" class="Btn">
+            <div class="sign">
+              <svg viewBox="0 0 512 512">
+                <path
+                  d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+                ></path>
+              </svg>
+            </div>
+
+            <div class="text">Zurück</div>
+          </button>
+        </div>
+      </div>
       <canvas id="canvas" width="720" height="480"> </canvas>
+      <div class="btn-container">
+        <div class="left btns">
+          <div class="button-border">
+            <div class="button-base">
+              <button id="walk-left" class="button">=></button>
+            </div>
+          </div>
+
+          <div class="button-border">
+            <div class="button-base">
+              <button id="walk-right" class="button">=></button>
+            </div>
+          </div>
+        </div>
+        <div class="right btns">
+          <div class="button-border">
+            <div class="button-base">
+              <button id="throw" class="button">Attack</button>
+            </div>
+          </div>
+          <div class="button-border">
+            <div class="button-base">
+              <button id="jump" class="button">Jump</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <script>
-      const zeichenCanvas = document.getElementById("canvas");
-      const zeichenContext = zeichenCanvas.getContext("2d");
-      const koordinatenAnzeige = document.getElementById("koordinatenAnzeige");
-
-      function zeichneAchsen() {
-        const mitteX = zeichenCanvas.width / 2;
-        const mitteY = zeichenCanvas.height / 2;
-
-        zeichenContext.beginPath();
-        zeichenContext.moveTo(0, mitteY);
-        zeichenContext.lineTo(zeichenCanvas.width, mitteY);
-        zeichenContext.strokeStyle = "gray";
-        zeichenContext.stroke();
-        zeichenContext.closePath();
-
-        zeichenContext.beginPath();
-        zeichenContext.moveTo(mitteX, 0);
-        zeichenContext.lineTo(mitteX, zeichenCanvas.height);
-        zeichenContext.strokeStyle = "gray";
-        zeichenContext.stroke();
-        zeichenContext.closePath();
-
-        for (let x = 0; x <= zeichenCanvas.width; x += 50) {
-          const xPos = x;
-          if (x !== mitteX) {
-            zeichenContext.fillText(xPos, x, mitteY + 15);
-          }
-        }
-
-        for (let y = 0; y <= zeichenCanvas.height; y += 50) {
-          const yPos = y;
-          if (y !== mitteY) {
-            zeichenContext.fillText(yPos, mitteX + 5, y);
-          }
-        }
-      }
-
-      zeichenCanvas.addEventListener("mousemove", (event) => {
-        const rect = zeichenCanvas.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        koordinatenAnzeige.textContent = `Koordinaten: X: (${x.toFixed()})   /   Y:  (${y.toFixed()})`; // Koordinatenanzeige aktualisieren
-      });
-
-      zeichneAchsen();
-    </script>
+    <div id="rotate-message">
+      <div class="circle-pic"><h4>Turn your Smartphone</h4></div>
+    </div>
   </body>
 </html>

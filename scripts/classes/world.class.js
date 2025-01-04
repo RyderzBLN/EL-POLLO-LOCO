@@ -36,6 +36,7 @@ class World {
       this.ifCharacterUnderGround();
       this.deleteEnemyFromGame();
       this.checkGameOver();
+    sounds.startThemeSound(); 
     }, 100);
   }
 
@@ -79,6 +80,7 @@ class World {
     return (
       !this.character.otherDirection &&
       this.character.salsaBottle >= 10 &&
+      this.character.coin >= 10 &&
       !this.character.isDead()
     );
   }
@@ -92,6 +94,7 @@ class World {
   }
 
   triggerSpecialAttack() {
+    this.character.coin -= 10;
     this.character.salsaBottle -= 10;
     setTimeout(() => {
       let explosion = new ExplosionAttack(this.character, this.sounds);

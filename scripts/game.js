@@ -2,6 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let sounds;
+let lastFrameTime = 0;
 
 function init() {
   canvas = document.getElementById("canvas");
@@ -9,7 +10,11 @@ function init() {
 
   world = new World(canvas, keyboard);
   sounds = new Sounds(world);
+
 }
+
+
+
 
 window.addEventListener("keydown", (e) => {
   if (e.keyCode == 39) {
@@ -30,9 +35,6 @@ window.addEventListener("keydown", (e) => {
   if (e.keyCode == 68) {
     keyboard.D = true;
   }
-
-
-  
 });
 
 window.addEventListener("keyup", (e) => {
@@ -54,4 +56,34 @@ window.addEventListener("keyup", (e) => {
   if (e.keyCode == 68) {
     keyboard.D = false;
   }
+});
+
+window.addEventListener('load', () => {
+  document.getElementById('walk-left').addEventListener('touchstart', () => {
+    keyboard.LEFT = true;
+  });
+  document.getElementById('walk-left').addEventListener('touchend', () => {
+    keyboard.LEFT = false;
+  });
+
+  document.getElementById('walk-right').addEventListener('touchstart', () => {
+    keyboard.RIGHT = true;
+  });
+  document.getElementById('walk-right').addEventListener('touchend', () => {
+    keyboard.RIGHT = false;
+  });
+
+  document.getElementById('throw').addEventListener('touchstart', () => {
+    keyboard.D = true;
+  });
+  document.getElementById('throw').addEventListener('touchend', () => {
+    keyboard.D = false;
+  });
+
+  document.getElementById('jump').addEventListener('touchstart', () => {
+    keyboard.SPACE = true;
+  });
+  document.getElementById('jump').addEventListener('touchend', () => {
+    keyboard.SPACE = false;
+  });
 });

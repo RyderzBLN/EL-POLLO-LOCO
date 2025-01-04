@@ -8,13 +8,9 @@ class ExplosionAttack extends ThrowableObject {
     "../assets/img/explosion/01_explosion.png",
     "../assets/img/explosion/02_explosion.png",
     "../assets/img/explosion/03_explosion.png",
-
-
-
     "../assets/img/explosion/04_explosion.png",
     "../assets/img/explosion/04_explosion.png",
     "../assets/img/explosion/05_explosion.png",
-
     "../assets/img/explosion/06_explosion.png",
     "../assets/img/explosion/07_explosion.png",
   ];
@@ -30,24 +26,21 @@ class ExplosionAttack extends ThrowableObject {
     this.animate();
     this.throw();
   }
+
+  
   animate() {
     const interval = setInterval(() => {
       this.throw();
-
-        sounds.explosionSound()
-      
+      sounds.explosionSound();
     }, 100);
-  
-    // Stop the animation after the duration based on the number of images
+
     setTimeout(() => {
       clearInterval(interval);
-      this.img = null; // Entferne das Bild nach der Animation
+      this.img = null;
     }, this.Images.length * 87);
   }
-  
+
   throw() {
     this.playAnimation(this.Images);
-
-    
   }
 }

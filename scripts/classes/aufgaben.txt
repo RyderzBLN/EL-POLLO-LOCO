@@ -1,25 +1,3 @@
-
-
-
-
-1. einstellen das flasche wenn oben trifft = > KILL  | ✔️
------
-2. idle counter zurück setzen wenn schaden+
-unverwundbar temporär , und move Blocking bei schaden 
-= > wegen abspielenn der animation ( walk bug )
-------
-3. opt. coins / bottle -  collect animation | ✔️
-////
-
-4. Endboss ( moveLeft mit moves umschreiben ) | ✔️
-
-
-
-this.y muss auf 173 bei char beim laufen konstant sein, damit
-gegner gegner nicht unberrechtigt schaden bekoommt | ✔️
-
-
-! ---- ! ------- !
 1. kleine Chicken | ✔️
 2. Endboss Angriff sounds | ✔️
 3. Anfangs Animation und Sound Boss ( Intro )
@@ -27,12 +5,16 @@ gegner gegner nicht unberrechtigt schaden bekoommt | ✔️
 5. StatusBar Coins | ✔️
 6. Game Over screen
 7. Start Screen 
-8.  Buttons
+8.  Buttons (Responsiv)
 9. Responsiv
 10. Sound Lautstärke
 11. Map vergrößern | ✔️
 12. Statusbar BOSS | ✔️
-13. Throw entfernung Anpassen.
+13. Throw entfernung Anpassen. | ✔️
 14. Boss Intro Sound Anpassen.
-15. SalsaBottle (collect) Animation anpassen oder entfernen.
-16. Bottle Damage Beeiflussung durch Coins.
+
+15. Bottle Damage Beeiflussung durch Coins. | ✔️ 
+16.SOUNDS Komplett
+17. Lautstärke regelung / Stumm.
+18. salsabottle höhen unterschied 
+19. Salsabottles links und rechts 

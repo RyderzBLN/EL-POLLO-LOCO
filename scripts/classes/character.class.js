@@ -78,8 +78,9 @@ class Character extends MovableObjekt {
   world;
   walking_sound = new Audio("../assets/audio/walk.mp3");
 
-  constructor() {
+  constructor(sounds) {
     super();
+    this.sounds = sounds;
     this.loadImage(this.Images_Idle[0]);
     this.loadImages(this.Images_Idle);
     this.loadImages(this.Images_LongIdle);
@@ -156,11 +157,11 @@ class Character extends MovableObjekt {
     ) {
       this.isJumping = true;
       this.idleCounter = 0;
-      this.jump(); // Sofortiger Sprung
-  
+      this.jump();
+      sounds.jumpSound();
       setTimeout(() => {
         this.isJumping = false;
-      }, 250); // Setze isJumping nach 500ms zurück
+      }, 100); 
     }
   }
 
