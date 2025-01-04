@@ -4,7 +4,7 @@ class Endboss extends MovableObjekt {
   energy = 100;
   speed = 5;
   y = 60;
-  x = 500;
+  x = 5500;
 
   ImagesAlert = [
     "../assets/img/4_enemie_boss_chicken/2_alert/G5.png",
@@ -105,7 +105,7 @@ class Endboss extends MovableObjekt {
           this.speed = 15;
         }
       }, 100);
-    }, 3000);
+    }, 5000);
   }
 
   logBossMove() {

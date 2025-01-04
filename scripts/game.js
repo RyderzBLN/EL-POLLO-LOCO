@@ -5,16 +5,15 @@ let sounds;
 let lastFrameTime = 0;
 
 function init() {
-  canvas = document.getElementById("canvas");
-  console.log(canvas);
+  disableStartElements();
 
-  world = new World(canvas, keyboard);
-  sounds = new Sounds(world);
+  setTimeout(() => {
+    canvas = document.getElementById("canvas");
+    world = new World(canvas, keyboard);
+    sounds = new Sounds(world);
+  }, 2200);
 
 }
-
-
-
 
 window.addEventListener("keydown", (e) => {
   if (e.keyCode == 39) {

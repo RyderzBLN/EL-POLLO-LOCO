@@ -25,11 +25,12 @@ class SmallChicken extends MovableObjekt {
     this.animate();
     this.energy = 32;
     this.x =
-      Math.random() * 4500 +
+    1000 +
+     ( Math.random() * 4500 +
       Math.random() +
       Math.random() +
-      Math.random() * 100;
-    this.speed = (Math.random() + 0.5) * 15;
+      Math.random() * 100 ) 
+    this.speed = (Math.random() + 0.5) * 10;
   }
 
   animate() {

@@ -6,7 +6,7 @@ class Character extends MovableObjekt {
   coin = 0;
   salsaBottle = 20;
   idleCounter = 0;
-  invulnerableMode = true;
+  invulnerableMode = false;
   hitByBoss = false;
   objekt_is_dead = false;
   isJumping = false;

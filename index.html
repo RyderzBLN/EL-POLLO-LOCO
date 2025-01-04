@@ -31,12 +31,13 @@
     <script src="./scripts/level1.js"></script>
     <script src="./scripts/game.js"></script>
   </head>
-  <body onload="init()">
+
+  <body>
     <div class="scale-button-container">
-      <div class="start-screen"></div>
+      <div id="start-screen" class="start-screen"></div>
       <div class="settings">
-        <div class="story-impressum-btn-container">
-          <button id="show-story" class="story-impressum">Story</button>
+        <div id="story-impressum" class="story-impressum-btn-container">
+          <button onclick="showStory()" class="story-impressum">Story</button>
           <button onclick="showImpressum()" class="story-impressum">Impressum</button>
         </div>
         <input id="checkboxInput" type="checkbox" />
@@ -89,12 +90,12 @@
           </div>
         </label>
       </div>
-      <div class="game-story">
+      <div id="story" class="game-story">
         <div class="game-story-text">
           <div class="story-head-back-btn">
             <h3 class="story-head">Story</h3>
 
-            <button class="Btn story-back">
+            <button onclick="backStory()" class="Btn story-back">
               <div class="sign">
                 <svg viewBox="0 0 512 512">
                   <path
@@ -188,5 +189,10 @@
     <div id="rotate-message">
       <div class="circle-pic"><h4>Turn your Smartphone</h4></div>
     </div>
+
+<div id="start-btn" class="start-btn-container">
+<button  onclick="init()" class="start-button">Start</button>
+</div>
+
   </body>
 </html>
