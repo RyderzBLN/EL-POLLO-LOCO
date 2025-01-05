@@ -56,6 +56,7 @@ class Endboss extends MovableObjekt {
   image_final_dead = ["../assets/img/2_character_pepe/5_dead/D-57.png"];
 
   chicken_isKilled_sound = new Audio("../assets/audio/chicken_small_dead.mp3");
+  bossInterval = [];
 
   constructor(world, sounds) {
     super();
@@ -71,6 +72,12 @@ class Endboss extends MovableObjekt {
     this.BossMove = false;
     this.isAttacking = false;
     this.animate();
+
+    setTimeout(() => {
+      this.bossInterval.forEach((interval) => {
+        intervalIds.push(interval);
+      });
+    }, 5000);
   }
 
   animate() {
@@ -81,17 +88,18 @@ class Endboss extends MovableObjekt {
   }
 
   handleHurt() {
-    setInterval(() => {
+    let handleHurtInterval = setInterval(() => {
       if (this.isHurt() && !this.isDead()) {
         this.BossMove = false;
         this.playAnimation(this.Images_Hurt);
       }
     }, 100);
+    this.bossInterval.push(handleHurtInterval);
   }
 
   handleMovement() {
     setTimeout(() => {
-      setInterval(() => {
+      let handleMovementInterval = setInterval(() => {
         let distance = this.x - world.character.x;
         if (Math.abs(distance) < 400 && !this.isHurt() && !this.isDead()) {
           this.BossMove = true;
@@ -105,25 +113,29 @@ class Endboss extends MovableObjekt {
           this.speed = 15;
         }
       }, 100);
+      this.bossInterval.push(handleMovementInterval);
     }, 5000);
   }
 
   logBossMove() {
-    setInterval(() => {
+    let logBossMoveInterval = setInterval(() => {
       console.log("BOSSMOVE = ", this.BossMove);
     }, 1000);
+    this.bossInterval.push(logBossMoveInterval);
   }
 
   handleAnimations() {
-    setInterval(() => {
+    let handleAnimationsInterval1 = setInterval(() => {
       if (this.BossMove) {
         this.moveLeft();
       }
     }, 100);
+    this.bossInterval.push(handleAnimationsInterval1);
 
-    setInterval(() => {
+    let handleAnimationsInterval2 = setInterval(() => {
       this.updateAnimations();
     }, 100);
+    this.bossInterval.push(handleAnimationsInterval2);
   }
 
   updateAnimations() {

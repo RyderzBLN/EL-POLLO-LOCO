@@ -8,18 +8,26 @@ class Sounds {
   boss_attack_sound = new Audio("../assets/audio/Boss_Attack.mp3");
   explosion_sound = new Audio("../assets/audio/explosion.mp3");
   jump_sound = new Audio("../assets/audio/jump.mp3");
+  soundInterval = [];
 
   constructor(world) {
     this.world = world;
     this.BossThemeSound.loop = true;
     this.soundSystem();
+
+    setTimeout(() => {
+      this.soundInterval.forEach((interval) => {
+        intervalIds.push(interval);
+      });
+    }, 5000);
   }
 
   soundSystem() {
     this.checkPlayBossTheme();
-    setInterval(() => {
+    let soundSystemInterval = setInterval(() => {
       this.checkPlayBossTheme();
-    }, 500); 
+    }, 500);
+    this.soundInterval.push(soundSystemInterval);
   }
 
   checkPlayBossTheme() {
@@ -37,7 +45,6 @@ class Sounds {
 
   startThemeSound() {
     this.GameThemeSound.loop = true;
-
     this.GameThemeSound.volume = 0.15;
   }
 

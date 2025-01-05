@@ -13,6 +13,8 @@ class Chicken extends MovableObjekt {
     "../assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png",
   ];
 
+  chickenInterval = [];
+
   
 
   constructor(world) {
@@ -28,12 +30,17 @@ class Chicken extends MovableObjekt {
     this.energy = 32;
     this.x = 400 + (Math.random() * 5500);
     this.speed += Math.random() + 2 * 3; 
+    setTimeout(() => {
+      this.chickenInterval.forEach((interval) => {
+        intervalIds.push(interval);
+      });
+    }, 5000);
   }
 
 
 
   animate() {
-    setInterval(() => {
+   let chickenAnimation =  setInterval(() => {
       if (!this.isDead()) {
         this.moveLeft();
         this.playAnimation(this.ImagesIdle);
@@ -42,5 +49,8 @@ class Chicken extends MovableObjekt {
         this.playAnimation(this.Image_Dead);
       }
     }, 95);
+    this.chickenInterval.push(chickenAnimation);
+    console.log(this.chickenInterval);
+    
   }
 }

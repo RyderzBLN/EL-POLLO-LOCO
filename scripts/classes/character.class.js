@@ -6,7 +6,7 @@ class Character extends MovableObjekt {
   coin = 0;
   salsaBottle = 20;
   idleCounter = 0;
-  invulnerableMode = false;
+  invulnerableMode = true;
   hitByBoss = false;
   objekt_is_dead = false;
   isJumping = false;
@@ -76,6 +76,7 @@ class Character extends MovableObjekt {
   ];
 
   world;
+  charInterval = [];
   walking_sound = new Audio("../assets/audio/walk.mp3");
 
   constructor(sounds) {
@@ -93,6 +94,11 @@ class Character extends MovableObjekt {
     this.x = -300;
     this.animate();
     this.energy = 100;
+    setTimeout(() => {
+      this.charInterval.forEach((interval) => {
+        intervalIds.push(interval);
+      });
+    }, 5000);
   }
 
   animate() {
@@ -107,13 +113,14 @@ class Character extends MovableObjekt {
   }
 
   moveAndJump() {
-    setInterval(() => {
+    let moveAndJumpInterval = setInterval(() => {
       this.walking_sound.pause();
       this.moveRightIfNeeded();
       this.moveLeftIfNeeded();
       this.jumpIfNeeded();
       this.world.camera_x = -this.x + 125;
     }, 1000 / 60);
+    this.charInterval.push(moveAndJumpInterval);
   }
 
   moveRightIfNeeded() {
@@ -166,7 +173,7 @@ class Character extends MovableObjekt {
   }
 
   handleIdleCounter() {
-    setInterval(() => {
+    let idleCounterInterval = setInterval(() => {
       if (
         !this.world.keyboard.RIGHT &&
         !this.world.keyboard.LEFT &&
@@ -176,10 +183,12 @@ class Character extends MovableObjekt {
         console.log(this.idleCounter);
       }
     }, 1000);
+    this.charInterval.push(idleCounterInterval);
+    console.log(this.charInterval);
   }
 
   invulnerableTime() {
-    setInterval(() => {
+    let invulnerableTimeInterval = setInterval(() => {
       if (this.isHurt() && !this.invulnerableMode) {
         this.invulnerableMode = true;
         console.log("INVULNERABLE");
@@ -190,10 +199,11 @@ class Character extends MovableObjekt {
         }, 2000);
       }
     }, 100);
+    this.charInterval.push(invulnerableTimeInterval);
   }
 
   animateWalking() {
-    setInterval(() => {
+    let animateWalkingInterval = setInterval(() => {
       if (
         !this.isDead() &&
         !this.isHurt() &&
@@ -203,27 +213,30 @@ class Character extends MovableObjekt {
         this.playAnimation(this.Images_Walk);
       }
     }, 100);
+    this.charInterval.push(animateWalkingInterval);
   }
 
   animateJumping() {
-    setInterval(() => {
+    let animateJumpingInterval = setInterval(() => {
       if (this.isAboveGround()) {
         this.playAnimation(this.images_Jump);
       }
     }, 140);
+    this.charInterval.push(animateJumpingInterval);
   }
 
   animateHurt() {
-    setInterval(() => {
+    let animateHurtInterval = setInterval(() => {
       if (this.isHurt()) {
         this.playAnimation(this.images_Hurt);
         this.idleCounter = 0;
       }
     }, 100);
+    this.charInterval.push(animateHurtInterval);
   }
 
   animateDead() {
-    setInterval(() => {
+    let animateDeadInterval = setInterval(() => {
       if (this.isDead()) {
         if (!this.objekt_is_dead) {
           this.playAnimation(this.images_Dead);
@@ -235,10 +248,11 @@ class Character extends MovableObjekt {
         }
       }
     }, 100);
+    this.charInterval.push(animateDeadInterval);
   }
 
   animateIdle() {
-    setInterval(() => {
+    let idleInterval = setInterval(() => {
       if (
         !this.isDead() &&
         !this.isHurt() &&
@@ -254,5 +268,10 @@ class Character extends MovableObjekt {
         }
       }
     }, 100);
+    this.charInterval.push(idleInterval);
+    console.log(this.charInterval);
   }
+
 }
+
+

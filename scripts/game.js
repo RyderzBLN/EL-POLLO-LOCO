@@ -3,6 +3,7 @@ let world;
 let keyboard = new Keyboard();
 let sounds;
 let lastFrameTime = 0;
+intervalIds = [];
 
 function init() {
   disableStartElements();
@@ -11,6 +12,7 @@ function init() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
     sounds = new Sounds(world);
+
   }, 2200);
 
 }
@@ -85,4 +87,6 @@ window.addEventListener('load', () => {
   document.getElementById('jump').addEventListener('touchend', () => {
     keyboard.SPACE = false;
   });
+
+
 });

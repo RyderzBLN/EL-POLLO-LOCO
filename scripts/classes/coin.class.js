@@ -5,15 +5,12 @@ class Coin extends DrawableObejekt {
   Images = [
     "../assets/img/8_coin/coin_1.png",
     "../assets/img/8_coin/coin_2.png",
-
   ];
 
-
-  image = [
-
-  ]
+  image = [];
 
   collect_coin_sound = new Audio("../assets/audio/collect_coin.mp3");
+  coinInterval = [];
 
   constructor(sounds) {
     super();
@@ -22,42 +19,49 @@ class Coin extends DrawableObejekt {
     this.loadImages(this.Images);
     this.animate();
 
-    this.isCollect = false; 
+    this.isCollect = false;
     this.oneTimeCollect = false;
-    this.x = Math.random() * 4500 + Math.random() + Math.random()  + Math.random()  * 100;
-    this.y = Math.random() * 300 + 50; 
-    this.yDirection = 1; 
+    this.x = Math.random() * 4500 + Math.random() + Math.random() + Math.random() * 100;
+    this.y = Math.random() * 300 + 50;
+    this.yDirection = 1;
+
+    setTimeout(() => {
+      this.coinInterval.forEach((interval) => {
+        intervalIds.push(interval);
+      });
+    }, 5000);
   }
 
   animate() {
-    setInterval(() => {
-      this.y += this.yDirection * 2; 
+    let animateInterval = setInterval(() => {
+      this.y += this.yDirection * 2;
       if (this.y >= 204) {
-        this.yDirection = -0.3; 
+        this.yDirection = -0.3;
       } else if (this.y <= 200) {
-        this.yDirection = 0.3; 
+        this.yDirection = 0.3;
       }
-    }, 125); 
+    }, 125);
+    this.coinInterval.push(animateInterval);
   }
 
   collectAnimation(character) {
     sounds.collectCoinSound();
-    let interval = setInterval(() => {
-      this.y -= 4.5; 
+    let collectAnimationInterval = setInterval(() => {
+      this.y -= 4.5;
       this.x -= 9.5;
-      this.width -= 0.8; 
-      this.height -= 0.75; 
+      this.width -= 0.8;
+      this.height -= 0.75;
       if (this.width <= 0 || this.height <= 0) {
-        clearInterval(interval); 
+        clearInterval(collectAnimationInterval);
         this.isCollect = true;
       }
-    }, 15); 
+    }, 15);
+    this.coinInterval.push(collectAnimationInterval);
   }
 
-
-  notToHeight(){
+  notToHeight() {
     if (this.y > 85) {
-      this.y +  (Math.random() * 10 + 20);
+      this.y + (Math.random() * 10 + 20);
     }
   }
 }

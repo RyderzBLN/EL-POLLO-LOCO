@@ -14,6 +14,7 @@ class SmallChicken extends MovableObjekt {
   ];
 
   chicken_isKilled_sound = new Audio("../assets/audio/chicken_small_dead.mp3");
+  smallChickenInterval = [];
 
   constructor() {
     super();
@@ -25,16 +26,23 @@ class SmallChicken extends MovableObjekt {
     this.animate();
     this.energy = 32;
     this.x =
-    1000 +
-     ( Math.random() * 4500 +
-      Math.random() +
-      Math.random() +
-      Math.random() * 100 ) 
+      1000 +
+      (Math.random() * 4500 +
+        Math.random() +
+        Math.random() +
+        Math.random() * 100);
     this.speed = (Math.random() + 0.5) * 10;
+
+    setTimeout(() => {
+      this.smallChickenInterval.forEach((interval) => {
+        intervalIds.push(interval);
+        console.log("smal", this.smallChickenInterval);
+      });
+    }, 3000);
   }
 
   animate() {
-    setInterval(() => {
+    let animateInterval = setInterval(() => {
       if (!this.isDead()) {
         this.moveLeft();
         this.playAnimation(this.ImagesIdle);
@@ -43,5 +51,6 @@ class SmallChicken extends MovableObjekt {
         this.playAnimation(this.Image_Dead);
       }
     }, 55);
+    this.smallChickenInterval.push(animateInterval);
   }
 }

@@ -14,6 +14,8 @@ class World {
   throwableObjekts = [];
   explosions = [];
   specialAttack = false;
+  intervalIds = [];
+  worldInterval = [];
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -22,6 +24,12 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
+
+    setTimeout(() => {
+      this.worldInterval.forEach((interval) => {
+        intervalIds.push(interval);
+      });
+    }, 5000);
   }
 
   setWorld() {
@@ -29,7 +37,7 @@ class World {
   }
 
   run() {
-    setInterval(() => {
+    let runInterval = setInterval(() => {
       this.checkCollisions();
       this.checkThrowObjeks();
       this.checkCollections();
@@ -38,6 +46,7 @@ class World {
       this.checkGameOver();
       sounds.startThemeSound();
     }, 100);
+    this.worldInterval.push(runInterval);
   }
 
   ifCharacterUnderGround() {
@@ -122,9 +131,13 @@ class World {
       }
       if (this.gameOver) {
         gameOverScreen.style.display = "flex";
+
         setTimeout(() => {
           gameOverScreen.classList.add("addOpacity");
         }, 300);
+        setTimeout(() => {
+          this.clearAllIntervals();
+        }, 1200);
       }
     }, 100);
   }
@@ -363,5 +376,10 @@ class World {
   flipImageBack(mo) {
     mo.x = mo.x * -1;
     this.ctx.restore();
+  }
+
+  clearAllIntervals() {
+    intervalIds.forEach((id) => clearInterval(id));
+    intervalIds = [];
   }
 }
