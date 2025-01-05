@@ -6,7 +6,7 @@ class Character extends MovableObjekt {
   coin = 0;
   salsaBottle = 20;
   idleCounter = 0;
-  invulnerableMode = false;
+  invulnerableMode = true;
   hitByBoss = false;
   objekt_is_dead = false;
   isJumping = false;
@@ -93,7 +93,7 @@ class Character extends MovableObjekt {
     this.applyGravity();
     this.x = -300;
     this.animate();
-    this.energy = 100;
+    this.energy = 25;
     setTimeout(() => {
       this.charInterval.forEach((interval) => {
         intervalIds.push(interval);
@@ -110,6 +110,7 @@ class Character extends MovableObjekt {
     this.animateHurt();
     this.animateDead();
     this.animateIdle();
+    this.maxEnergy();
   }
 
   moveAndJump() {
@@ -270,6 +271,13 @@ class Character extends MovableObjekt {
     }, 100);
     this.charInterval.push(idleInterval);
     console.log(this.charInterval);
+  }
+
+
+  maxEnergy() {
+    if (this.energy >= 100) {
+      this.energy = 100;
+    }
   }
 
 }

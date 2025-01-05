@@ -291,6 +291,19 @@ class World {
   checkCollections() {
     this.checkCoinCollection();
     this.checkBottleCollection();
+    this.checkHealthCollection();
+  }
+
+  checkHealthCollection() {
+    this.level.health.forEach((health, index) => {
+      if (this.character.isColliding(health)) {
+        this.character.energy += 25;
+        this.statusBar.setPercentage(this.character.energy);
+        this.removeElementFromArray(this.level.health, index);
+        console.log("health: ", this.character.energy);
+        
+      }
+    });
   }
 
   checkCoinCollection() {
@@ -352,6 +365,7 @@ class World {
     this.addToMap(this.displayBottle);
     this.ctx.translate(this.camera_x, 0);
     this.addObjektToMap(this.level.coins);
+    this.addObjektToMap(this.level.health);
     this.addObjektToMap(this.level.drawObjects);
     this.addObjektToMap(this.level.salsaBottles);
     this.addObjektToMap(this.level.enemies);

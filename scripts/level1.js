@@ -28,12 +28,24 @@ const level1 = new Level(
     new Chicken(),
   ],
   [new Endboss()],
-  [new Coin(), new Coin(), new Coin(),
-    new Coin(), new Coin(), new Coin(),
-    new Coin(), new Coin(), new Coin(),
-    new Coin(), new Coin(), new Coin(),
-    new Coin(), new Coin(), new Coin()
+  [
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
   ],
+  [new HealtItem(), new HealtItem(), new HealtItem()],
   [
     new SalsaBottle(),
     new SalsaBottle(),
@@ -43,12 +55,16 @@ const level1 = new Level(
     new SalsaBottle(),
     new SalsaBottle(),
     new SalsaBottle(),
-    new SalsaBottle(), new SalsaBottle(),
-    new SalsaBottle(), new SalsaBottle(),
-    new SalsaBottle(), new SalsaBottle()],
+    new SalsaBottle(),
+    new SalsaBottle(),
+    new SalsaBottle(),
+    new SalsaBottle(),
+    new SalsaBottle(),
+    new SalsaBottle(),
+  ],
   [new Shield()],
 
-  [new Cloud(),
+  [
     new Cloud(),
     new Cloud(),
     new Cloud(),
@@ -62,8 +78,8 @@ const level1 = new Level(
     new Cloud(),
     new Cloud(),
     new Cloud(),
-    new Cloud()
-
+    new Cloud(),
+    new Cloud(),
   ],
 
   [
@@ -124,19 +140,19 @@ const level1 = new Level(
     ),
     new BackgroundObjekt(
       "../assets/img/5_background/layers/air-3.png",
-      719 * 2 
+      719 * 2
     ),
     new BackgroundObjekt(
       "../assets/img/5_background/layers/3_third_layer/1.png",
-      719 * 2 
+      719 * 2
     ),
     new BackgroundObjekt(
       "../assets/img/5_background/layers/2_second_layer/1.png",
-      719 * 2 
+      719 * 2
     ),
     new BackgroundObjekt(
       "../assets/img/5_background/layers/1_first_layer/1.png",
-      719 * 2 
+      719 * 2
     ),
     new BackgroundObjekt(
       "../assets/img/5_background/layers/air-3.png",
