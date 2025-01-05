@@ -4,7 +4,7 @@ class Endboss extends MovableObjekt {
   energy = 100;
   speed = 5;
   y = 60;
-  x = 5500;
+  x = 400;
 
   ImagesAlert = [
     "../assets/img/4_enemie_boss_chicken/2_alert/G5.png",

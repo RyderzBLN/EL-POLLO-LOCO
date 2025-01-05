@@ -3,10 +3,10 @@
 3. Anfangs Animation und Sound Boss ( Intro )
 4. Statusbar bottle | ✔️
 5. StatusBar Coins | ✔️
-6. Game Over screen
-7. Start Screen 
-8.  Buttons (Responsiv)
-9. Responsiv
+6. Game Over screen | ✔️ 
+7. Start Screen  | ✔️
+8.  Buttons (Responsiv) | ✔️
+9. Responsiv | ✔️
 10. Sound Lautstärke
 11. Map vergrößern | ✔️
 12. Statusbar BOSS | ✔️
@@ -15,6 +15,22 @@
 
 15. Bottle Damage Beeiflussung durch Coins. | ✔️ 
 16.SOUNDS Komplett
-17. Lautstärke regelung / Stumm.
+17. Lautstärke  Stumm.
 18. salsabottle höhen unterschied 
 19. Salsabottles links und rechts 
+
+//
+erste aufgaben morgen:
+ game over screeen machen | ✔️ 
+ setintervalle stoppen 
+ reseten des games / intervalle
+
+  flaschen nr. 18/ 19 erledigen.#
+  herz hinzufügen
+ level feinheiten / erweitern /
+
+
+ sounds alle überprüfen = > volume = > mute funktion
+ FERTIG !!!
+
+

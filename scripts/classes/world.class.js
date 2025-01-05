@@ -36,7 +36,7 @@ class World {
       this.ifCharacterUnderGround();
       this.deleteEnemyFromGame();
       this.checkGameOver();
-    sounds.startThemeSound(); 
+      sounds.startThemeSound();
     }, 100);
   }
 
@@ -115,14 +115,18 @@ class World {
   }
 
   checkGameOver() {
+    const gameOverScreen = document.getElementById("gameover-screen");
     this.level.endboss.forEach((boss) => {
       if (boss.isDead() && !this.gameOver) {
         this.gameOver = true;
       }
       if (this.gameOver) {
-        console.log("Game Over");
+        gameOverScreen.style.display = "flex";
+        setTimeout(() => {
+          gameOverScreen.classList.add("addOpacity");
+        }, 300);
       }
-    });
+    }, 100);
   }
 
   checkCollisions() {

@@ -161,7 +161,7 @@ class Character extends MovableObjekt {
       sounds.jumpSound();
       setTimeout(() => {
         this.isJumping = false;
-      }, 100); 
+      }, 100);
     }
   }
 
@@ -197,7 +197,7 @@ class Character extends MovableObjekt {
       if (
         !this.isDead() &&
         !this.isHurt() &&
-        !this.isAboveGround() && 
+        !this.isAboveGround() &&
         (this.world.keyboard.RIGHT || this.world.keyboard.LEFT)
       ) {
         this.playAnimation(this.Images_Walk);
@@ -209,9 +209,8 @@ class Character extends MovableObjekt {
     setInterval(() => {
       if (this.isAboveGround()) {
         this.playAnimation(this.images_Jump);
-        }
-
-    },140);
+      }
+    }, 140);
   }
 
   animateHurt() {

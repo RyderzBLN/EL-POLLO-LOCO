@@ -19,6 +19,7 @@ body {
   background-image: url(./assets/img/background_game.png);
   background-size: cover;
   overflow-y: hidden;
+  font-family: Courier New, Arial, Helvetica, sans-serif;
 }
 
 .start-screen {
@@ -31,6 +32,40 @@ body {
   position: relative;
   z-index: 300;
   transition: all 1s ease-in-out;
+}
+
+.game-over-screen {
+  position: absolute;
+  padding-top: 48px;
+  padding-right: 96px;
+top: 0;
+left: 0;
+display: none;
+justify-content: end;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(22, 22, 22, 0.3);
+  backdrop-filter: blur(7px);
+  background-image: url(./assets/img/9_intro_outro_screens/game_over/game-over.png);
+background-position: center;
+  background-size: cover;
+  z-index: 315;
+  transition: all 0.7s ease-in-out;
+  opacity: 0;
+
+}
+@media (max-width: 850px) {
+  .game-over-screen {
+    padding-top: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (max-width: 650px) {
+  .game-over-screen {
+    padding-top: 12px;
+
+  }
 }
 
 .game-story {

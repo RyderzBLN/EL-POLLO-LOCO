@@ -48,7 +48,23 @@ const level1 = new Level(
     new SalsaBottle(), new SalsaBottle()],
   [new Shield()],
 
-  [new Cloud()],
+  [new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud()
+
+  ],
 
   [
     new BackgroundObjekt(

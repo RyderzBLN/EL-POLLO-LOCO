@@ -3,7 +3,6 @@ class BottleDisplay extends DrawableObejekt {
 
 
     constructor(world) {
-
         super();
         this.world = world;
         this.loadImage(this.Image);
