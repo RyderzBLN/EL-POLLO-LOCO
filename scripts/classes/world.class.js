@@ -5,6 +5,8 @@ class World {
   ctx;
   keyboard;
   gameOver = false;
+  gameWon = false;
+  gameLose = false;
   camera_x = 0;
   statusBar = new Statusbar();
   statusBarBoss = new StatusbarBoss(this);
@@ -44,6 +46,7 @@ class World {
       this.ifCharacterUnderGround();
       this.deleteEnemyFromGame();
       this.checkGameOver();
+      this.displayGameOverScreen();
       sounds.startThemeSound();
     }, 100);
     this.worldInterval.push(runInterval);
@@ -124,22 +127,47 @@ class World {
   }
 
   checkGameOver() {
-    const gameOverScreen = document.getElementById("gameover-screen");
     this.level.endboss.forEach((boss) => {
       if (boss.isDead() && !this.gameOver) {
         this.gameOver = true;
+        this.gameWon = true;
       }
-      if (this.gameOver) {
-        gameOverScreen.style.display = "flex";
 
-        setTimeout(() => {
-          gameOverScreen.classList.add("addOpacity");
-        }, 300);
-        setTimeout(() => {
-          this.clearAllIntervals();
-        }, 1200);
+      if (this.character.isDead()) {
+        this.gameOver = true;
+        this.gameLose = true;
       }
     }, 100);
+  }
+
+  displayGameOverScreen() {
+    if (this.gameOver && this.gameWon) {
+      this.playerHasWon();
+    }
+    if (this.gameOver && this.gameLose) {
+      this.enemyHasWon();
+    }
+  }
+
+  playerHasWon() {
+    if (this.gameOver && this.gameWon) {
+      const gameOverScreen = document.getElementById("gameover-screen");
+      gameOverScreen.style.display = "flex";
+      setTimeout(() => gameOverScreen.classList.add("addOpacity"), 300);
+      setTimeout(() => this.clearAllIntervals(), 1200);
+    }
+  }
+
+  enemyHasWon() {
+    if (this.gameOver && !this.gameWon) {
+      const gameOverScreen = document.getElementById("gameover-screen");
+      gameOverScreen.style.display = "flex";
+      gameOverScreen.style.background =
+        "url(./assets/img/9_intro_outro_screens/game_over/game-over.png) center/cover no-repeat";
+
+      setTimeout(() => gameOverScreen.classList.add("addOpacity"), 300);
+      setTimeout(() => this.clearAllIntervals(), 1200);
+    }
   }
 
   checkCollisions() {

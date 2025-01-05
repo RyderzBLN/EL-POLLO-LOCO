@@ -15,6 +15,8 @@ class ExplosionAttack extends ThrowableObject {
     "../assets/img/explosion/07_explosion.png",
   ];
 
+  explosionInterval = [];
+
   constructor(character, sounds) {
     super();
     this.sounds = sounds;
@@ -25,14 +27,20 @@ class ExplosionAttack extends ThrowableObject {
     this.speedY = 0;
     this.animate();
     this.throw();
+
+    setTimeout(() => {
+      this.explosionInterval.forEach((interval) => {
+        intervalIds.push(interval);
+      });
+    }, 5000);
   }
 
-  
   animate() {
     const interval = setInterval(() => {
       this.throw();
       sounds.explosionSound();
     }, 100);
+    this.explosionInterval.push(interval);
 
     setTimeout(() => {
       clearInterval(interval);
