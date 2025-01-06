@@ -4,7 +4,7 @@ class Endboss extends MovableObjekt {
   energy = 100;
   speed = 5;
   y = 60;
-  x = 400;
+  x = 700;
 
   ImagesAlert = [
     "../assets/img/4_enemie_boss_chicken/2_alert/G5.png",
@@ -71,6 +71,7 @@ class Endboss extends MovableObjekt {
     this.loadImages(this.image_final_dead);
     this.BossMove = false;
     this.isAttacking = false;
+    this.firstContact = true;
     this.animate();
 
     setTimeout(() => {
@@ -101,7 +102,7 @@ class Endboss extends MovableObjekt {
     setTimeout(() => {
       let handleMovementInterval = setInterval(() => {
         let distance = this.x - world.character.x;
-        if (Math.abs(distance) < 400 && !this.isHurt() && !this.isDead()) {
+        if (Math.abs(distance) < 500 && !this.isHurt() && !this.isDead()) {
           this.BossMove = true;
           this.speed = 5;
         }
@@ -164,8 +165,6 @@ class Endboss extends MovableObjekt {
     console.log(world.character.energy);
   }
 
-
-
   attack() {
     if (this.isAttacking) {
       setTimeout(() => {
@@ -175,11 +174,5 @@ class Endboss extends MovableObjekt {
     }
   }
 
-  reset(){
-    this.energy = 100;
-    this.x = 400;
-    this.BossMove = false;
-    this.isAttacking = false;
-    this.speed = 5;
-  }
+
 }

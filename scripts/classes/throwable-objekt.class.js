@@ -38,16 +38,16 @@ class ThrowableObject extends MovableObjekt {
     let animationInterval = setInterval(() => {
       this.playAnimation(this.Images);
 
-      if (world.character.x < 4500 && this.characterOtherDirection) {
+      if (world.character.x < 5000 && this.characterOtherDirection) {
         this.x -= 3;
       }
 
-      if (world.character.x < 250 && !this.characterOtherDirection) {
-        this.x += 6.5;
+      if (world.character.x < 5000 && !this.characterOtherDirection) {
+        this.x +=  7;
       }
-
-      if (world.character.x > 200 && !this.characterOtherDirection) {
-        this.x += 9.5;
+      
+      if (world.character.x >= 5000 && !this.characterOtherDirection) {
+        this.x += 12;
       }
     }, 30);
 

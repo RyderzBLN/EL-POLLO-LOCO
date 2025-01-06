@@ -111,6 +111,7 @@ class Character extends MovableObjekt {
     this.animateHurt();
     this.animateDead();
     this.animateIdle();
+    this.notUnderZeroEnergy();
   }
 
   moveAndJump() {
@@ -170,7 +171,17 @@ class Character extends MovableObjekt {
       setTimeout(() => {
         this.isJumping = false;
       }, 100);
+      this.playHurtsSound();
     }
+  }
+
+  playHurtsSound() {
+    let hurtsSoundInterval = setInterval(() => {
+      if (this.isHurt()) {
+        sounds.thisHurts();
+      }
+    }, 100);
+    this.charInterval.push(hurtsSoundInterval);
   }
 
   handleIdleCounter() {
@@ -185,7 +196,7 @@ class Character extends MovableObjekt {
       }
     }, 1000);
     this.charInterval.push(idleCounterInterval);
-    console.log(this.charInterval);
+
   }
 
   invulnerableTime() {
@@ -230,6 +241,7 @@ class Character extends MovableObjekt {
     setInterval(() => {
       if (this.isHurt()) {
         this.playAnimation(this.images_Hurt);
+
         this.idleCounter = 0;
       }
     }, 100);
@@ -251,15 +263,6 @@ class Character extends MovableObjekt {
     this.charInterval.push(animateDeadInterval);
   }
 
-  reset() {
-    this.x = -300;
-    this.coin = 0;
-    this.salsaBottle = 0;
-    this.objekt_is_dead = false;
-    this.invulnerableMode = false;
-    this.hitByBoss = false;
-    this.energy = 100;
-  }
 
   animateIdle() {
     let idleInterval = setInterval(() => {
@@ -282,9 +285,20 @@ class Character extends MovableObjekt {
     console.log(this.charInterval);
   }
 
-  reset(){
-    this.energy = 100;
+  notUnderZeroEnergy() {
+    if (this.energy < 0) {
+      this.energy = 0;
+    }
   }
 
+  reset() {
+    this.x = -300;
+    this.coin = 0;
+    this.salsaBottle = 0;
+    this.objekt_is_dead = false;
+    this.invulnerableMode = false;
+    this.hitByBoss = false;
+    this.energy = 100;
+  }
 
 }

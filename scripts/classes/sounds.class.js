@@ -8,6 +8,11 @@ class Sounds {
   boss_attack_sound = new Audio("../assets/audio/Boss_Attack.mp3");
   explosion_sound = new Audio("../assets/audio/explosion.mp3");
   jump_sound = new Audio("../assets/audio/jump.mp3");
+  onclick_sound = new Audio("../assets/audio/onclick.mp3");
+  boss_hello_sound = new Audio("../assets/audio/boss-hello.mp3");
+  hurts_sound = new Audio("../assets/audio/thisHurts.mp3");
+  game_over_sound = new Audio("../assets/audio/gameOverBuh.mp3");
+  win_sound = new Audio("../assets/audio/winSound.mp3");
   soundInterval = [];
 
   constructor(world) {
@@ -22,23 +27,53 @@ class Sounds {
     }, 5000);
   }
 
+  gameIsOverSound() {
+    if (this.game_over_sound.paused) {
+      this.game_over_sound.volume = 0.2;
+      this.game_over_sound.play();
+    }
+  }
+
   soundSystem() {
-    this.checkPlayBossTheme();
     let soundSystemInterval = setInterval(() => {
       this.checkPlayBossTheme();
     }, 500);
     this.soundInterval.push(soundSystemInterval);
   }
 
+  gameWinSound() {
+    if (this.win_sound.paused) {
+      this.win_sound.volume = 0.7;
+      this.win_sound.playbackRate = 0.8;
+      this.win_sound.play();
+    }
+  }
+
+  thisHurts(){
+    this.hurts_sound.play();
+    this.hurts_sound.volume = 0.3;
+  }
+
+  bossSayHello() {
+    this.boss_hello_sound.play();
+    this.boss_hello_sound.volume = 0.75;
+    this.boss_hello_sound.playbackRate = 1.5;
+  }
+
+  onclickSound(){
+    this.onclick_sound.play();
+  }
+
   checkPlayBossTheme() {
-    if (world.character.x > 1000 && !this.BossStompIntroSound.played.length) {
+    if (world.character.x > 300 && !this.BossStompIntroSound.played.length) {
       this.BossStompIntroSound.play();
       this.BossStompIntroSound.playbackRate = 1.5;
-      this.BossStompIntroSound.volume = 1;
+      this.BossStompIntroSound.volume = 0.3;
+      this.bossSayHello();
     }
     if (world.character.x > 300 && !this.BossThemeSound.played.length) {
       this.BossThemeSound.play();
-      this.BossThemeSound.volume = 0.5;
+      this.BossThemeSound.volume = 0.25;
       this.GameThemeSound.pause();
     }
   }
@@ -50,6 +85,7 @@ class Sounds {
 
   collectCoinSound() {
     this.CoinCollectSound.play();
+    this.CoinCollectSound.volume = 0.5;
   }
 
   jumpSound() {
@@ -65,10 +101,12 @@ class Sounds {
 
   openBottleSound() {
     this.open_bottle_sound.play();
+    this.open_bottle_sound.volume = 0.6;
   }
 
   bossAttacksCharSound() {
     this.boss_attack_sound.play();
+    this.boss_attack_sound.volume = 0.5;
   }
 
   explosionSound() {

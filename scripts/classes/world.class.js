@@ -4,7 +4,6 @@ class World {
   canvas;
   ctx;
   keyboard;
-
   camera_x = 0;
   statusBar = new Statusbar();
   statusBarBoss = new StatusbarBoss(this);
@@ -17,10 +16,11 @@ class World {
   intervalIds = [];
   worldInterval = [];
 
-  constructor(canvas, keyboard) {
+  constructor(canvas, keyboard, sounds) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
+    this.sounds = sounds;
     this.draw();
     this.setWorld();
     this.run();
@@ -46,6 +46,7 @@ class World {
       this.deleteEnemyFromGame();
       this.checkGameOver();
       sounds.startThemeSound();
+      this.playGameOverSound();
 
       this.worldInterval.push(runInterval);
     }, 100);
@@ -57,6 +58,15 @@ class World {
       console.log("gameWon", gameWon);
       console.log("gameLos", gameLose);
     }, 1000);
+  }
+
+  playGameOverSound() {
+    if (gameLose && !gameWon) {
+      sounds.gameIsOverSound();
+    }
+    if (gameWon && !gameLose) {
+      sounds.gameWinSound();
+    }
   }
 
   ifCharacterUnderGround() {
@@ -145,6 +155,8 @@ class World {
 
       if (gameWon || gameLose) {
         gameOver = true;
+        
+
       }
       this.displayGameOverScreen();
     });
@@ -152,14 +164,13 @@ class World {
 
   resetGame() {
     this.character.reset();
-
     gameLose = false;
     gameWon = false;
     gameOver = false;
   }
 
   displayGameOverScreen() {
-    const gameOverScreen = document.getElementById("gameover-screen");
+
     if (gameOver && gameWon && !gameLose) {
       this.playerHasWon();
     }
@@ -289,18 +300,6 @@ class World {
     });
   }
 
-  checkBottleHitBoss() {
-    this.throwableObjekts.forEach((bottle) => {
-      this.level.endboss.forEach((boss) => {
-        if (this.enemyIsHited(bottle, boss)) {
-          boss.hit();
-          this.statusBarBoss.setPercentage(boss.energy);
-          console.log("Bottle hit endboss!", boss);
-        }
-      });
-    });
-  }
-
   checkCollections() {
     this.checkCoinCollection();
     this.checkBottleCollection();
@@ -335,11 +334,16 @@ class World {
     });
   }
 
-  coinCollectProcess(coin) {
-    this.character.coin += 1;
-    coin.oneTimeCollect = true;
-    this.statusBarCoin.setPercentage(this.character.coin);
-    coin.collectAnimation(this.character);
+  checkBottleHitBoss() {
+    this.throwableObjekts.forEach((bottle) => {
+      this.level.endboss.forEach((boss) => {
+        if (this.enemyIsHited(bottle, boss)) {
+          boss.hit();
+          this.statusBarBoss.setPercentage(boss.energy);
+          console.log("Bottle hit endboss!", boss);
+        }
+      });
+    });
   }
 
   checkBottleCollection() {
@@ -352,8 +356,11 @@ class World {
     });
   }
 
-  removeElementFromArray(array, index) {
-    array.splice(index, 1);
+  coinCollectProcess(coin) {
+    this.character.coin += 1;
+    coin.oneTimeCollect = true;
+    this.statusBarCoin.setPercentage(this.character.coin);
+    coin.collectAnimation(this.character);
   }
 
   bottleCollectProcess(bottle) {
@@ -361,6 +368,10 @@ class World {
     this.statusBarBottle.setPercentage(this.character.salsaBottle);
     bottle.isCollect = true;
     sounds.openBottleSound();
+  }
+
+  removeElementFromArray(array, index) {
+    array.splice(index, 1);
   }
 
   draw() {

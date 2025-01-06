@@ -64,7 +64,7 @@ class MovableObjekt extends DrawableObejekt {
   }
 
   hit() {
-    this.energy -= 55;
+    this.energy -= (17 + (Math.random() * 10));
     if (this.energy < 0) {
       this.energy = 0;
     } else {

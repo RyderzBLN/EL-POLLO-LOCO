@@ -13,16 +13,18 @@ function init() {
   initLevel();
   disableStartElements();
 
+
   setTimeout(() => {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
     sounds = new Sounds(world);
     initLevel();
-  }, 2200);
+  }, 800);
 }
 
 function restartGame() {
 clearAllIntervals();
+sounds.onclickSound();
 
 
   setTimeout(() => {
@@ -30,12 +32,12 @@ clearAllIntervals();
     gameOverScreen.style.display = "none";
     gameOverScreen.classList.remove("addOpacity");
     
-  }, 2200);
+  }, 800);
 
   setTimeout(() => {
     world.resetGame();
     
-  }, 2150);
+  }, 600);
   init();
 
 
