@@ -34,4 +34,10 @@ class HealtItem extends DrawableObejekt {
         }, 125);
         this.healthInterval.push(animateInterval);
       }
+
+      reset(){
+        this.isCollect = false;
+        this.oneTimeCollect = false;
+        this.x = 1000 + (Math.random() * 4500 )
+      }
 }

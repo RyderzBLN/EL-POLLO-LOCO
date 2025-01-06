@@ -92,7 +92,7 @@ class MovableObjekt extends DrawableObejekt {
   }
 
   isDead() {
-    return this.energy == 0;
+    return this.energy <= 0;
   }
 
   moveRight() {
@@ -105,4 +105,8 @@ class MovableObjekt extends DrawableObejekt {
   jump() {
     this.speedY += 24;
   }
+
+
+
+
 }

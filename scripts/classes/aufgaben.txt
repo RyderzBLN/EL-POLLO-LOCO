@@ -7,7 +7,7 @@
 7. Start Screen  | ✔️
 8.  Buttons (Responsiv) | ✔️
 9. Responsiv | ✔️
-10. Sound Lautstärke
+10. Sound Lautstärke 
 11. Map vergrößern | ✔️
 12. Statusbar BOSS | ✔️
 13. Throw entfernung Anpassen. | ✔️
@@ -22,11 +22,11 @@
 //
 erste aufgaben morgen:
  game over screeen machen | ✔️ 
- setintervalle stoppen 
- reseten des games / intervalle
+ setintervalle stoppen | ✔️ 
+ reseten des games / intervalle 
 
   flaschen nr. 18/ 19 erledigen.#
-  herz hinzufügen
+  herz hinzufügen | ✔️ 
  level feinheiten / erweitern /
 
 

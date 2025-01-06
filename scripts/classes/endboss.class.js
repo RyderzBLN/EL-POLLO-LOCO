@@ -174,4 +174,12 @@ class Endboss extends MovableObjekt {
       }, 100);
     }
   }
+
+  reset(){
+    this.energy = 100;
+    this.x = 400;
+    this.BossMove = false;
+    this.isAttacking = false;
+    this.speed = 5;
+  }
 }

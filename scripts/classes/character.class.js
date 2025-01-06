@@ -6,10 +6,11 @@ class Character extends MovableObjekt {
   coin = 0;
   salsaBottle = 20;
   idleCounter = 0;
-  invulnerableMode = true;
+  invulnerableMode = false;
   hitByBoss = false;
   objekt_is_dead = false;
   isJumping = false;
+  energy = 100;
 
   Images_Idle = [
     "../assets/img/2_character_pepe/1_idle/idle/I-1.png",
@@ -93,7 +94,7 @@ class Character extends MovableObjekt {
     this.applyGravity();
     this.x = -300;
     this.animate();
-    this.energy = 25;
+    this.energy = 100;
     setTimeout(() => {
       this.charInterval.forEach((interval) => {
         intervalIds.push(interval);
@@ -110,7 +111,6 @@ class Character extends MovableObjekt {
     this.animateHurt();
     this.animateDead();
     this.animateIdle();
-    this.maxEnergy();
   }
 
   moveAndJump() {
@@ -227,13 +227,12 @@ class Character extends MovableObjekt {
   }
 
   animateHurt() {
-    let animateHurtInterval = setInterval(() => {
+    setInterval(() => {
       if (this.isHurt()) {
         this.playAnimation(this.images_Hurt);
         this.idleCounter = 0;
       }
     }, 100);
-    this.charInterval.push(animateHurtInterval);
   }
 
   animateDead() {
@@ -250,6 +249,16 @@ class Character extends MovableObjekt {
       }
     }, 100);
     this.charInterval.push(animateDeadInterval);
+  }
+
+  reset() {
+    this.x = -300;
+    this.coin = 0;
+    this.salsaBottle = 0;
+    this.objekt_is_dead = false;
+    this.invulnerableMode = false;
+    this.hitByBoss = false;
+    this.energy = 100;
   }
 
   animateIdle() {
@@ -273,13 +282,9 @@ class Character extends MovableObjekt {
     console.log(this.charInterval);
   }
 
-
-  maxEnergy() {
-    if (this.energy >= 100) {
-      this.energy = 100;
-    }
+  reset(){
+    this.energy = 100;
   }
 
+
 }
-
-

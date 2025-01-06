@@ -64,4 +64,12 @@ class Coin extends DrawableObejekt {
       this.y + (Math.random() * 10 + 20);
     }
   }
+
+  reset() {
+    this.x = Math.random() * 4500 + Math.random() + Math.random() + Math.random() * 100;
+    this.y = Math.random() * 300 + 50;
+    this.isCollect = false;
+    this.oneTimeCollect = false;
+
+  }
 }

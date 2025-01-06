@@ -53,4 +53,11 @@ class SmallChicken extends MovableObjekt {
     }, 55);
     this.smallChickenInterval.push(animateInterval);
   }
+
+
+  reset(){
+    this.x = 1000 + (Math.random() * 4500 + Math.random() + Math.random() + Math.random() * 100);
+    this.energy = 32;
+    this.speed = (Math.random() + 0.5) * 10;
+  }
 }

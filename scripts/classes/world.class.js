@@ -4,9 +4,7 @@ class World {
   canvas;
   ctx;
   keyboard;
-  gameOver = false;
-  gameWon = false;
-  gameLose = false;
+
   camera_x = 0;
   statusBar = new Statusbar();
   statusBarBoss = new StatusbarBoss(this);
@@ -26,6 +24,7 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
+    this.logs();
 
     setTimeout(() => {
       this.worldInterval.forEach((interval) => {
@@ -46,10 +45,18 @@ class World {
       this.ifCharacterUnderGround();
       this.deleteEnemyFromGame();
       this.checkGameOver();
-      this.displayGameOverScreen();
       sounds.startThemeSound();
+
+      this.worldInterval.push(runInterval);
     }, 100);
-    this.worldInterval.push(runInterval);
+  }
+
+  logs() {
+    setInterval(() => {
+      console.log("gameover", gameOver);
+      console.log("gameWon", gameWon);
+      console.log("gameLos", gameLose);
+    }, 1000);
   }
 
   ifCharacterUnderGround() {
@@ -128,46 +135,52 @@ class World {
 
   checkGameOver() {
     this.level.endboss.forEach((boss) => {
-      if (boss.isDead() && !this.gameOver) {
-        this.gameOver = true;
-        this.gameWon = true;
+      if (boss.isDead()) {
+        gameWon = true;
+        this.character.invulnerableMode = true;
+      }
+      if (this.character.isDead()) {
+        gameLose = true;
       }
 
-      if (this.character.isDead()) {
-        this.gameOver = true;
-        this.gameLose = true;
+      if (gameWon || gameLose) {
+        gameOver = true;
       }
-    }, 100);
+      this.displayGameOverScreen();
+    });
+  }
+
+  resetGame() {
+    this.character.reset();
+
+    gameLose = false;
+    gameWon = false;
+    gameOver = false;
   }
 
   displayGameOverScreen() {
-    if (this.gameOver && this.gameWon) {
+    const gameOverScreen = document.getElementById("gameover-screen");
+    if (gameOver && gameWon && !gameLose) {
       this.playerHasWon();
     }
-    if (this.gameOver && this.gameLose) {
+    if (gameOver && gameLose && !gameWon) {
       this.enemyHasWon();
     }
   }
 
   playerHasWon() {
-    if (this.gameOver && this.gameWon) {
-      const gameOverScreen = document.getElementById("gameover-screen");
-      gameOverScreen.style.display = "flex";
-      setTimeout(() => gameOverScreen.classList.add("addOpacity"), 300);
-      setTimeout(() => this.clearAllIntervals(), 1200);
-    }
+    const gameOverScreen = document.getElementById("gameover-screen");
+    gameOverScreen.style.display = "flex";
+    setTimeout(() => gameOverScreen.classList.add("addOpacity"), 300);
   }
 
   enemyHasWon() {
-    if (this.gameOver && !this.gameWon) {
-      const gameOverScreen = document.getElementById("gameover-screen");
-      gameOverScreen.style.display = "flex";
-      gameOverScreen.style.background =
-        "url(./assets/img/9_intro_outro_screens/game_over/game-over.png) center/cover no-repeat";
+    const gameOverScreen = document.getElementById("gameover-screen");
+    gameOverScreen.style.display = "flex";
+    gameOverScreen.style.background =
+      "url(./assets/img/9_intro_outro_screens/game_over/game-over.png) center/cover no-repeat";
 
-      setTimeout(() => gameOverScreen.classList.add("addOpacity"), 300);
-      setTimeout(() => this.clearAllIntervals(), 1200);
-    }
+    setTimeout(() => gameOverScreen.classList.add("addOpacity"), 300);
   }
 
   checkCollisions() {
@@ -301,7 +314,6 @@ class World {
         this.statusBar.setPercentage(this.character.energy);
         this.removeElementFromArray(this.level.health, index);
         console.log("health: ", this.character.energy);
-        
       }
     });
   }
@@ -418,10 +430,5 @@ class World {
   flipImageBack(mo) {
     mo.x = mo.x * -1;
     this.ctx.restore();
-  }
-
-  clearAllIntervals() {
-    intervalIds.forEach((id) => clearInterval(id));
-    intervalIds = [];
   }
 }

@@ -53,4 +53,13 @@ class Chicken extends MovableObjekt {
     console.log(this.chickenInterval);
     
   }
+
+  reset(){
+    this.x = 400 + (Math.random() * 5500);
+    this.energy = 32;
+    this.speed += Math.random() + 2 * 3;
+    this.isKilled = false;
+    this.DamageMode = true;
+  }
+
 }

@@ -20,4 +20,10 @@ class SalsaBottle extends MovableObjekt {
     SalsaBottle.lastBottleX += randomDistance;
     return SalsaBottle.lastBottleX;
   }
+
+  reset() {
+    this.isCollect = false;
+    this.x = this.getNextBottlePosition();
+  }
+
 }

@@ -54,4 +54,6 @@ class StatusbarBoss extends Statusbar {
     this.updatePosition();
     super.draw(ctx);
   }
+
+  
 }

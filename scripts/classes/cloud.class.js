@@ -28,4 +28,8 @@ class Cloud extends MovableObjekt {
     }, 1000 / 60);
     this.cloudInterval.push(moveLeftInterval);
   }
+
+  reset() {
+    this.x = 0 + Math.random() * 4500;
+  }
 }
