@@ -10,7 +10,6 @@ class World {
   statusBarBoss = new StatusbarBoss(this);
   statusBarBottle = new StatusbarBottle();
   statusBarCoin = new StatusbarCoin();
-  displayBottle = new BottleDisplay(this);
   throwableObjekts = [];
   explosions = [];
   specialAttack = false;
@@ -113,7 +112,7 @@ class World {
     return (
       !this.character.otherDirection &&
       this.character.salsaBottle >= 10 &&
-      this.character.coin >= 10 &&
+      this.character.coin == 25 &&
       !this.character.isDead()
     );
   }
@@ -134,7 +133,7 @@ class World {
    * Triggers a special attack.
    */
   triggerSpecialAttack() {
-    this.character.coin -= 10;
+    this.character.coin -= 25;
     this.character.salsaBottle -= 10;
     setTimeout(() => {
       let explosion = new ExplosionAttack(this.character, this.sounds);
@@ -378,7 +377,7 @@ class World {
     this.throwableObjekts.forEach((bottle) => {
       this.level.endboss.forEach((boss) => {
         if (this.enemyIsHited(bottle, boss)) {
-          boss.hit();
+          boss.hitsBoss();
           this.statusBarBoss.setPercentage(boss.energy);
         }
       });
@@ -400,7 +399,8 @@ class World {
   checkHealthCollection() {
     this.level.health.forEach((health, index) => {
       if (this.character.isColliding(health)) {
-        this.character.energy += 25;
+        this.character.energy += 40;
+        sounds.collectHeartSound();
         this.statusBar.setPercentage(this.character.energy);
         this.removeElementFromArray(this.level.health, index);
       }
@@ -475,8 +475,10 @@ class World {
    */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.height, this.canvas.width);
+    
     this.ctx.translate(this.camera_x, 0);
     this.addObjektToMap(this.level.backgroundObjekts);
+
     this.addToMap(this.statusBarBoss);
     this.addToMap(this.character);
     this.addObjektToMap(this.level.clouds);
@@ -484,7 +486,6 @@ class World {
     this.addToMap(this.statusBar);
     this.addToMap(this.statusBarBottle);
     this.addToMap(this.statusBarCoin);
-    this.addToMap(this.displayBottle);
     this.ctx.translate(this.camera_x, 0);
     this.addObjektToMap(this.level.coins);
     this.addObjektToMap(this.level.health);

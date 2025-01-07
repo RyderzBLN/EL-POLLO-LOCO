@@ -21,7 +21,7 @@ class HealtItem extends DrawableObejekt {
     this.isCollect = false;
     this.oneTimeCollect = false;
     this.x = isSpecial ? 4650 : 1000 + Math.random() * 3500;
-    this.y = Math.random() * 300 + 50;
+    this.y = 310 + (Math.random() * 50);
     setTimeout(() => {
       this.healthInterval.forEach((interval) => {
         intervalIds.push(interval);

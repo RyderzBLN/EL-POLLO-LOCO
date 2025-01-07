@@ -9,18 +9,20 @@ let soundsMute = false;
 
 let intervalIds = [];
 
-function init() {
-  intervalIds = [];
-  initLevel();
-  disableStartElements();
 
-  setTimeout(() => {
-    canvas = document.getElementById("canvas");
-    world = new World(canvas, keyboard);
-    sounds = new Sounds(world);
+function init() {
+    intervalIds = [];
     initLevel();
-  }, 800);
-}
+    disableStartElements();
+
+    setTimeout(() => {
+      canvas = document.getElementById("canvas");
+      world = new World(canvas, keyboard);
+      sounds = new Sounds(world);
+      initLevel();
+    }, 800);
+  }
+
 
 function restartGame() {
   sounds.stopAllSounds();

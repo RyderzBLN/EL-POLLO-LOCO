@@ -4,11 +4,11 @@
  */
 class Character extends MovableObjekt {
   height = 260;
-  width = 120;
+  width = 105;
   y = 173;
-  speed = 3.5;
+  speed = 7;
   coin = 0;
-  salsaBottle = 0;
+  salsaBottle = 10;
   idleCounter = 0;
   invulnerableMode = false;
   hitByBoss = false;
@@ -99,7 +99,7 @@ class Character extends MovableObjekt {
     this.loadImages(this.image_final_dead);
     this.loadImages(this.images_Hurt);
     this.applyGravity();
-    this.x = -200;
+    this.x = 4800;
     this.animate();
     this.energy = 100;
     setTimeout(() => {
@@ -127,10 +127,12 @@ class Character extends MovableObjekt {
       this.moveRightIfNeeded();
       this.moveLeftIfNeeded();
       this.jumpIfNeeded();
-      this.world.camera_x = -this.x + 125;
-    }, 1000 / 60);
+
+      this.world.camera_x = -this.x; + 120;
+    }, 30);
     this.charInterval.push(moveAndJumpInterval);
   }
+
 
   moveRightIfNeeded() {
     if (
@@ -151,8 +153,9 @@ class Character extends MovableObjekt {
     if (
       this.world.keyboard.LEFT &&
       this.x > -719 * 1.5 &&
+      this.x > 4550 &&
       !this.isDead() &&
-      !this.isHurt()
+      !this.isHurt() 
     ) {
       this.moveLeft();
 
@@ -192,7 +195,7 @@ class Character extends MovableObjekt {
       sounds.jumpSound();
       setTimeout(() => {
         this.isJumping = false;
-      }, 100);
+      }, 30);
       this.playHurtsSound();
     }
   }
@@ -259,7 +262,6 @@ class Character extends MovableObjekt {
     setInterval(() => {
       if (this.isHurt()) {
         this.playAnimation(this.images_Hurt);
-
         this.idleCounter = 0;
       }
     }, 100);

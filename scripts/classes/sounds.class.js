@@ -92,6 +92,7 @@ class Sounds {
   soundSystem() {
     let soundSystemInterval = setInterval(() => {
       this.checkPlayBossTheme();
+      this.startThemeSound();
     }, 500);
     this.soundInterval.push(soundSystemInterval);
   }
@@ -144,22 +145,30 @@ class Sounds {
    */
   checkPlayBossTheme() {
     let checkSoundInterval = setInterval(() => {
-    if (!soundsMute) {
-      if (world.character.x > 4150 && !this.BossStompIntroSound.played.length) {
-        this.GameThemeSound.pause();
-        this.BossStompIntroSound.play();
-        this.BossStompIntroSound.playbackRate = 1.5;
-        this.BossStompIntroSound.volume = 1;
-
+      if (!soundsMute) {
+        if (
+          world.character.x > 4150 &&
+          !this.BossStompIntroSound.played.length &&
+          !soundsMute
+        ) {
+          this.GameThemeSound.pause();
+          this.BossStompIntroSound.play();
+          this.BossStompIntroSound.playbackRate = 1.5;
+          this.BossStompIntroSound.volume = 1;
+        }
+        if (
+          world.character.x > 4850 &&
+          !this.BossThemeSound.played.length &&
+          !soundsMute
+        ) {
+          this.GameThemeSound.pause();
+          this.BossThemeSound.play();
+          this.BossThemeSound.loop = true;
+          this.BossThemeSound.volume = 0.15;
+          this.bossSayHello();
+        }
       }
-      if (world.character.x > 4850 && !this.BossThemeSound.played.length) {
-        this.GameThemeSound.pause(); // Stop GameThemeSound when BossThemeSound is played
-        this.BossThemeSound.play();
-        this.BossThemeSound.loop = true;
-        this.BossThemeSound.volume = 0.15;
-        this.bossSayHello();
-      }
-    } }, 100)
+    }, 100);
     this.soundInterval.push(checkSoundInterval);
   }
 
@@ -177,10 +186,13 @@ class Sounds {
    * Starts the theme sound.
    */
   startThemeSound() {
-    if (!soundsMute) {
+    if (!soundsMute && world.character.x < 4150) {
       this.GameThemeSound.play();
       this.GameThemeSound.loop = true;
       this.GameThemeSound.volume = 0.3;
+    }
+    if (soundsMute) {
+      this.GameThemeSound.pause();
     }
   }
 
@@ -245,11 +257,11 @@ class Sounds {
     }
   }
 
-/**
- * Stops all currently playing sounds.
- */
-stopAllSounds() {
-  this.BossThemeSound.pause();
-  this.GameThemeSound.pause();
-}
+  /**
+   * Stops all currently playing sounds.
+   */
+  stopAllSounds() {
+    this.BossThemeSound.pause();
+    this.GameThemeSound.pause();
+  }
 }

@@ -20,7 +20,7 @@ class Level {
   backgroundObjekts;
 
   /** @type {number} */
-  level_end_x = 5300;
+  level_end_x = 5550;
 
   /**
    * Creates an instance of Level.

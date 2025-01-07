@@ -59,7 +59,6 @@ class Endboss extends MovableObjekt {
 
   image_final_dead = ["../assets/img/2_character_pepe/5_dead/D-57.png"];
 
-
   bossInterval = [];
 
   /**
@@ -121,14 +120,17 @@ class Endboss extends MovableObjekt {
         let distance = this.x - world.character.x;
         if (Math.abs(distance) < 500 && !this.isHurt() && !this.isDead()) {
           this.BossMove = true;
-          this.speed = 5;
+          this.speed = 8;
         }
         if (Math.abs(distance) < 50 && distance > 0) {
           this.BossMove = false;
           this.isAttacking = true;
         }
+        if (Math.abs(distance) > 50 && distance < 0) {
+          this.isAttacking = false;
+        }
         if (Math.abs(distance) < 250 && distance > 0) {
-          this.speed = 15;
+          this.speed = 18;
         }
       }, 100);
       this.bossInterval.push(handleMovementInterval);
@@ -178,6 +180,7 @@ class Endboss extends MovableObjekt {
   playAttackAnimation() {
     this.playAnimation(this.Images_Attack);
     sounds.bossAttacksCharSound();
+
     world.character.hitFromBoss();
     world.statusBar.setPercentage(world.character.energy);
   }

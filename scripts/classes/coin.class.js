@@ -3,8 +3,8 @@
  * @extends DrawableObejekt
  */
 class Coin extends DrawableObejekt {
-  height = 110;
-  width = 110;
+  height = 25;
+  width = 20;
 
   Images = [
     "../assets/img/8_coin/coin_1.png",
@@ -30,7 +30,7 @@ class Coin extends DrawableObejekt {
     this.isCollect = false;
     this.oneTimeCollect = false;
     this.x = Math.random() * 7000 ;
-    this.y = Math.random() * 300 + 50;
+    this.y = 340 + (Math.random() * Math.random() * 10);
     this.yDirection = 1;
 
     setTimeout(() => {

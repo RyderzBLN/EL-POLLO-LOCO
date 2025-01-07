@@ -116,6 +116,20 @@ class MovableObjekt extends DrawableObejekt {
     }
   }
 
+/**
+ * Reduces the energy of the object when it hits the boss.
+ * If the energy drops below 0, it is set to 0.
+ * Updates the last hit time if the energy is reduced.
+ */
+hitsBoss() {
+  this.energy -= 20;
+  if (this.energy < 0) {
+    this.energy = 0;
+  } else {
+    this.lasthit = new Date().getTime();
+  }
+}
+
   /**
    * Sets the energy of the object to 0 when hit by an enemy.
    */
