@@ -36,11 +36,13 @@ class SmallChicken extends MovableObjekt {
     setTimeout(() => {
       this.smallChickenInterval.forEach((interval) => {
         intervalIds.push(interval);
-        console.log("smal", this.smallChickenInterval);
       });
     }, 3000);
   }
 
+  /**
+   * Animates the small chicken by moving it left and playing the idle animation.
+   */
   animate() {
     let animateInterval = setInterval(() => {
       if (!this.isDead()) {
@@ -54,9 +56,16 @@ class SmallChicken extends MovableObjekt {
     this.smallChickenInterval.push(animateInterval);
   }
 
-
-  reset(){
-    this.x = 1000 + (Math.random() * 4500 + Math.random() + Math.random() + Math.random() * 100);
+  /**
+   * Resets the small chicken's position, energy, and speed.
+   */
+  reset() {
+    this.x =
+      1000 +
+      (Math.random() * 4500 +
+        Math.random() +
+        Math.random() +
+        Math.random() * 100);
     this.energy = 32;
     this.speed = (Math.random() + 0.5) * 10;
   }

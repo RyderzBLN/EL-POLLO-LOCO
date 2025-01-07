@@ -5,6 +5,7 @@ let sounds;
 let gameOver = false;
 let gameWon = false;
 let gameLose = false;
+let soundsMute = false;
 
 let intervalIds = [];
 
@@ -12,7 +13,6 @@ function init() {
   intervalIds = [];
   initLevel();
   disableStartElements();
-
 
   setTimeout(() => {
     canvas = document.getElementById("canvas");
@@ -23,28 +23,28 @@ function init() {
 }
 
 function restartGame() {
-clearAllIntervals();
-sounds.onclickSound();
-
+  clearAllIntervals();
+  sounds.onclickSound();
 
   setTimeout(() => {
     const gameOverScreen = document.getElementById("gameover-screen");
     gameOverScreen.style.display = "none";
     gameOverScreen.classList.remove("addOpacity");
-    
   }, 800);
 
   setTimeout(() => {
     world.resetGame();
-    
   }, 600);
   init();
-
-
 }
 
+function toggleSoundMute() {
+  const checkbox = document.getElementById("checkboxInput");
+  soundsMute = !soundsMute;
 
-// maybe noch brauchbar
+  checkbox.checked = soundsMute;
+}
+
 function clearAllIntervals() {
   for (let i = 1; i < 99999; i++) {
     window.clearInterval(i);

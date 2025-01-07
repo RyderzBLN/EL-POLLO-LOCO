@@ -49,9 +49,7 @@ class Chicken extends MovableObjekt {
         this.playAnimation(this.Image_Dead);
       }
     }, 95);
-    this.chickenInterval.push(chickenAnimation);
-    console.log(this.chickenInterval);
-    
+    this.chickenInterval.push(chickenAnimation);  
   }
 
   reset(){

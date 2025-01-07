@@ -44,4 +44,7 @@ function disableStartElements() {
   setTimeout(() => {
     elements.slice(1).forEach((id) => (getElement(id).style.display = "none"));
   }, 1000);
+
+
 }
+

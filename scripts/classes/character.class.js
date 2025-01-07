@@ -1,3 +1,7 @@
+/**
+ * Class representing a character.
+ * @extends MovableObjekt
+ */
 class Character extends MovableObjekt {
   height = 260;
   width = 120;
@@ -78,8 +82,11 @@ class Character extends MovableObjekt {
 
   world;
   charInterval = [];
-  walking_sound = new Audio("../assets/audio/walk.mp3");
 
+  /**
+   * Create a character.
+   * @param {Object} sounds - The sounds object.
+   */
   constructor(sounds) {
     super();
     this.sounds = sounds;
@@ -112,11 +119,11 @@ class Character extends MovableObjekt {
     this.animateDead();
     this.animateIdle();
     this.notUnderZeroEnergy();
+    this.checkWalkSound();
   }
 
   moveAndJump() {
     let moveAndJumpInterval = setInterval(() => {
-      this.walking_sound.pause();
       this.moveRightIfNeeded();
       this.moveLeftIfNeeded();
       this.jumpIfNeeded();
@@ -134,8 +141,7 @@ class Character extends MovableObjekt {
       !this.isHurt()
     ) {
       this.moveRight();
-      this.walking_sound.playbackRate = 3;
-      this.walking_sound.play();
+
       this.otherDirection = false;
       this.idleCounter = 0;
     }
@@ -149,11 +155,27 @@ class Character extends MovableObjekt {
       !this.isHurt()
     ) {
       this.moveLeft();
-      this.walking_sound.playbackRate = 3;
-      this.walking_sound.play();
+
       this.otherDirection = true;
       this.idleCounter = 0;
     }
+  }
+
+  checkWalkSound() {
+    let walkSoundInterval = setInterval(() => {
+      if (
+        this.world.keyboard.RIGHT ||
+        (this.world.keyboard.LEFT &&
+          !this.isDead() &&
+          !this.isHurt() &&
+          !this.isAboveGround())
+      ) {
+        sounds.walkSound();
+      } else {
+        sounds.walkSoundStop();
+      }
+    }, 70);
+    this.charInterval.push(walkSoundInterval);
   }
 
   jumpIfNeeded() {
@@ -192,22 +214,18 @@ class Character extends MovableObjekt {
         !this.world.keyboard.SPACE
       ) {
         this.idleCounter++;
-        console.log(this.idleCounter);
       }
     }, 1000);
     this.charInterval.push(idleCounterInterval);
-
   }
 
   invulnerableTime() {
     let invulnerableTimeInterval = setInterval(() => {
       if (this.isHurt() && !this.invulnerableMode) {
         this.invulnerableMode = true;
-        console.log("INVULNERABLE");
 
         setTimeout(() => {
           this.invulnerableMode = false;
-          console.log("NOT INVULNERABLE");
         }, 2000);
       }
     }, 100);
@@ -263,7 +281,6 @@ class Character extends MovableObjekt {
     this.charInterval.push(animateDeadInterval);
   }
 
-
   animateIdle() {
     let idleInterval = setInterval(() => {
       if (
@@ -282,7 +299,6 @@ class Character extends MovableObjekt {
       }
     }, 100);
     this.charInterval.push(idleInterval);
-    console.log(this.charInterval);
   }
 
   notUnderZeroEnergy() {
@@ -300,5 +316,4 @@ class Character extends MovableObjekt {
     this.hitByBoss = false;
     this.energy = 100;
   }
-
 }

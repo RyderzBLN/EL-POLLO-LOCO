@@ -4,6 +4,7 @@ class World {
   canvas;
   ctx;
   keyboard;
+
   camera_x = 0;
   statusBar = new Statusbar();
   statusBarBoss = new StatusbarBoss(this);
@@ -16,15 +17,13 @@ class World {
   intervalIds = [];
   worldInterval = [];
 
-  constructor(canvas, keyboard, sounds) {
+  constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
-    this.sounds = sounds;
     this.draw();
     this.setWorld();
     this.run();
-    this.logs();
 
     setTimeout(() => {
       this.worldInterval.forEach((interval) => {
@@ -33,10 +32,16 @@ class World {
     }, 5000);
   }
 
+  /**
+   * Sets the world for the character.
+   */
   setWorld() {
     this.character.world = this;
   }
 
+  /**
+   * Runs the game loop, checking for collisions, throwable objects, collections, and game over conditions.
+   */
   run() {
     let runInterval = setInterval(() => {
       this.checkCollisions();
@@ -46,35 +51,23 @@ class World {
       this.deleteEnemyFromGame();
       this.checkGameOver();
       sounds.startThemeSound();
-      this.playGameOverSound();
 
       this.worldInterval.push(runInterval);
     }, 100);
   }
 
-  logs() {
-    setInterval(() => {
-      console.log("gameover", gameOver);
-      console.log("gameWon", gameWon);
-      console.log("gameLos", gameLose);
-    }, 1000);
-  }
-
-  playGameOverSound() {
-    if (gameLose && !gameWon) {
-      sounds.gameIsOverSound();
-    }
-    if (gameWon && !gameLose) {
-      sounds.gameWinSound();
-    }
-  }
-
+  /**
+   * Ensures the character does not go underground.
+   */
   ifCharacterUnderGround() {
     if (this.character.y > 173) {
       this.character.y = 173;
     }
   }
 
+  /**
+   * Checks if the character can throw a bottle and handles the process.
+   */
   checkThrowObjeks() {
     if (this.canThrowBottle()) {
       let bottle = this.createThrowableObject();
@@ -86,6 +79,10 @@ class World {
     }
   }
 
+  /**
+   * Creates a throwable object (bottle).
+   * @returns {ThrowableObject} The created throwable object.
+   */
   createThrowableObject() {
     let bottleX = this.character.otherDirection
       ? this.character.x - 25
@@ -97,6 +94,10 @@ class World {
     );
   }
 
+  /**
+   * Checks if the character can throw a bottle.
+   * @returns {boolean} True if the character can throw a bottle, false otherwise.
+   */
   canThrowBottle() {
     return (
       this.keyboard.D &&
@@ -105,6 +106,10 @@ class World {
     );
   }
 
+  /**
+   * Checks if the character can perform a special attack.
+   * @returns {boolean} True if the character can perform a special attack, false otherwise.
+   */
   canThrowSpecialAttack() {
     return (
       !this.character.otherDirection &&
@@ -114,6 +119,10 @@ class World {
     );
   }
 
+  /**
+   * Handles the process of removing a bottle after it is thrown.
+   * @param {ThrowableObject} bottle - The bottle to be removed.
+   */
   bottleRemoveProcess(bottle) {
     this.character.salsaBottle--;
     setTimeout(() => {
@@ -122,6 +131,9 @@ class World {
     }, 1000);
   }
 
+  /**
+   * Triggers a special attack.
+   */
   triggerSpecialAttack() {
     this.character.coin -= 10;
     this.character.salsaBottle -= 10;
@@ -135,6 +147,9 @@ class World {
     }, 800);
   }
 
+  /**
+   * Deletes enemies from the game if they are killed.
+   */
   deleteEnemyFromGame() {
     this.level.enemies.forEach((enemy, enemyIndex) => {
       if (enemy.isKilled) {
@@ -143,34 +158,42 @@ class World {
     });
   }
 
+  /**
+   * Checks if the game is over and handles the game over conditions.
+   */
   checkGameOver() {
     this.level.endboss.forEach((boss) => {
       if (boss.isDead()) {
         gameWon = true;
         this.character.invulnerableMode = true;
-      }
+      } 
       if (this.character.isDead()) {
         gameLose = true;
       }
-
       if (gameWon || gameLose) {
         gameOver = true;
-        
-
       }
       this.displayGameOverScreen();
     });
   }
 
+  /**
+   * Resets the game state.
+   */
   resetGame() {
-    this.character.reset();
+    this.character.energy = 100;
+    this.level.endboss.forEach((boss) => {
+      boss.energy = 100;
+    });
     gameLose = false;
     gameWon = false;
     gameOver = false;
   }
 
+  /**
+   * Displays the game over screen based on the game outcome.
+   */
   displayGameOverScreen() {
-
     if (gameOver && gameWon && !gameLose) {
       this.playerHasWon();
     }
@@ -179,12 +202,18 @@ class World {
     }
   }
 
+  /**
+   * Displays the screen when the player has won.
+   */
   playerHasWon() {
     const gameOverScreen = document.getElementById("gameover-screen");
     gameOverScreen.style.display = "flex";
     setTimeout(() => gameOverScreen.classList.add("addOpacity"), 300);
   }
 
+  /**
+   * Displays the screen when the enemy has won.
+   */
   enemyHasWon() {
     const gameOverScreen = document.getElementById("gameover-screen");
     gameOverScreen.style.display = "flex";
@@ -194,6 +223,9 @@ class World {
     setTimeout(() => gameOverScreen.classList.add("addOpacity"), 300);
   }
 
+  /**
+   * Checks for various types of collisions in the game.
+   */
   checkCollisions() {
     this.checkEnemyCollisionAbove();
     this.checkEnemyCollision();
@@ -203,6 +235,9 @@ class World {
     this.checkExplosionHitBoss();
   }
 
+  /**
+   * Checks if the character collides with an enemy from above.
+   */
   checkEnemyCollisionAbove() {
     this.level.enemies.forEach((enemy) => {
       if (this.enemyIsHitedfromTop(enemy)) {
@@ -216,6 +251,11 @@ class World {
     });
   }
 
+  /**
+   * Checks if an enemy is hit from the top by the character.
+   * @param {Enemy} enemy - The enemy to check.
+   * @returns {boolean} True if the enemy is hit from the top, false otherwise.
+   */
   enemyIsHitedfromTop(enemy) {
     return (
       this.character.isCollidingFromTop(enemy) &&
@@ -224,21 +264,32 @@ class World {
     );
   }
 
+  /**
+   * Handles the process when an enemy is killed.
+   * @param {Enemy} enemy - The enemy that is killed.
+   */
   enemyIsKilledProcess(enemy) {
     enemy.hitEnemy();
     enemy.DamageMode = false;
     sounds.enemyKillSound();
   }
 
+  /**
+   * Checks if the character collides with an enemy.
+   */
   checkEnemyCollision() {
     this.level.enemies.forEach((enemy) => {
       if (this.charIsHited(enemy)) {
         this.characterHitedProcess();
-        console.log(this.character.energy);
       }
     });
   }
 
+  /**
+   * Checks if the character is hit by an enemy.
+   * @param {Enemy} enemy - The enemy to check.
+   * @returns {boolean} True if the character is hit by the enemy, false otherwise.
+   */
   charIsHited(enemy) {
     return (
       this.character.isColliding(enemy) &&
@@ -249,11 +300,17 @@ class World {
     );
   }
 
+  /**
+   * Handles the process when the character is hit.
+   */
   characterHitedProcess() {
     this.character.hit();
     this.statusBar.setPercentage(this.character.energy);
   }
 
+  /**
+   * Checks if a bottle hits an enemy.
+   */
   checkBottleHitEnemy() {
     this.throwableObjekts.forEach((bottle) => {
       this.level.enemies.forEach((enemy) => {
@@ -268,6 +325,12 @@ class World {
     });
   }
 
+  /**
+   * Checks if an enemy is hit by a bottle.
+   * @param {ThrowableObject} bottle - The bottle to check.
+   * @param {Enemy} enemy - The enemy to check.
+   * @returns {boolean} True if the enemy is hit by the bottle, false otherwise.
+   */
   enemyIsHited(bottle, enemy) {
     return (
       bottle.isColliding(enemy) ||
@@ -275,6 +338,9 @@ class World {
     );
   }
 
+  /**
+   * Checks if an explosion hits an enemy.
+   */
   checkExplosionHitEnemy() {
     this.explosions.forEach((explosion) => {
       this.level.enemies.forEach((enemy) => {
@@ -288,6 +354,9 @@ class World {
     });
   }
 
+  /**
+   * Checks if an explosion hits the boss.
+   */
   checkExplosionHitBoss() {
     this.explosions.forEach((explosion) => {
       this.level.endboss.forEach((boss) => {
@@ -300,23 +369,45 @@ class World {
     });
   }
 
+  /**
+   * Checks if a bottle hits the boss.
+   */
+  checkBottleHitBoss() {
+    this.throwableObjekts.forEach((bottle) => {
+      this.level.endboss.forEach((boss) => {
+        if (this.enemyIsHited(bottle, boss)) {
+          boss.hit();
+          this.statusBarBoss.setPercentage(boss.energy);
+        }
+      });
+    });
+  }
+
+  /**
+   * Checks for various types of collections in the game.
+   */
   checkCollections() {
     this.checkCoinCollection();
     this.checkBottleCollection();
     this.checkHealthCollection();
   }
 
+  /**
+   * Checks if the character collects a health item.
+   */
   checkHealthCollection() {
     this.level.health.forEach((health, index) => {
       if (this.character.isColliding(health)) {
         this.character.energy += 25;
         this.statusBar.setPercentage(this.character.energy);
         this.removeElementFromArray(this.level.health, index);
-        console.log("health: ", this.character.energy);
       }
     });
   }
 
+  /**
+   * Checks if the character collects a coin.
+   */
   checkCoinCollection() {
     this.level.coins.forEach((coin, index) => {
       if (
@@ -334,28 +425,10 @@ class World {
     });
   }
 
-  checkBottleHitBoss() {
-    this.throwableObjekts.forEach((bottle) => {
-      this.level.endboss.forEach((boss) => {
-        if (this.enemyIsHited(bottle, boss)) {
-          boss.hit();
-          this.statusBarBoss.setPercentage(boss.energy);
-          console.log("Bottle hit endboss!", boss);
-        }
-      });
-    });
-  }
-
-  checkBottleCollection() {
-    this.level.salsaBottles.forEach((bottle, index) => {
-      if (this.character.isColliding(bottle)) {
-        this.bottleCollectProcess(bottle);
-        console.log("salsabottles: ", this.character.salsaBottle);
-        this.removeElementFromArray(this.level.salsaBottles, index);
-      }
-    });
-  }
-
+  /**
+   * Handles the process when a coin is collected.
+   * @param {Coin} coin - The coin that is collected.
+   */
   coinCollectProcess(coin) {
     this.character.coin += 1;
     coin.oneTimeCollect = true;
@@ -363,6 +436,31 @@ class World {
     coin.collectAnimation(this.character);
   }
 
+  /**
+   * Checks if the character collects a bottle.
+   */
+  checkBottleCollection() {
+    this.level.salsaBottles.forEach((bottle, index) => {
+      if (this.character.isColliding(bottle)) {
+        this.bottleCollectProcess(bottle);
+        this.removeElementFromArray(this.level.salsaBottles, index);
+      }
+    });
+  }
+
+  /**
+   * Removes an element from an array.
+   * @param {Array} array - The array to remove the element from.
+   * @param {number} index - The index of the element to remove.
+   */
+  removeElementFromArray(array, index) {
+    array.splice(index, 1);
+  }
+
+  /**
+   * Handles the process when a bottle is collected.
+   * @param {Bottle} bottle - The bottle that is collected.
+   */
   bottleCollectProcess(bottle) {
     this.character.salsaBottle += 1;
     this.statusBarBottle.setPercentage(this.character.salsaBottle);
@@ -370,10 +468,9 @@ class World {
     sounds.openBottleSound();
   }
 
-  removeElementFromArray(array, index) {
-    array.splice(index, 1);
-  }
-
+  /**
+   * Draws the game elements on the canvas.
+   */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.height, this.canvas.width);
     this.ctx.translate(this.camera_x, 0);
@@ -402,6 +499,10 @@ class World {
     });
   }
 
+  /**
+   * Adds objects to the map.
+   * @param {Array} objects - The objects to add to the map.
+   */
   addObjektToMap(objects) {
     objects.forEach((o) => {
       if (o.hasOwnProperty("isCollect")) {
@@ -418,6 +519,10 @@ class World {
     });
   }
 
+  /**
+   * Adds an object to the map.
+   * @param {MovableObject} mo - The object to add to the map.
+   */
   addToMap(mo) {
     if (mo.otherDirection) {
       this.flipImage(mo);
@@ -431,6 +536,10 @@ class World {
     }
   }
 
+  /**
+   * Flips an image horizontally.
+   * @param {MovableObject} mo - The object to flip.
+   */
   flipImage(mo) {
     this.ctx.save();
     this.ctx.translate(mo.width, 0);
@@ -438,6 +547,10 @@ class World {
     mo.x = mo.x * -1;
   }
 
+  /**
+   * Flips an image back to its original orientation.
+   * @param {MovableObject} mo - The object to flip back.
+   */
   flipImageBack(mo) {
     mo.x = mo.x * -1;
     this.ctx.restore();

@@ -84,7 +84,6 @@ class Endboss extends MovableObjekt {
   animate() {
     this.handleHurt();
     this.handleMovement();
-    this.logBossMove();
     this.handleAnimations();
   }
 
@@ -116,13 +115,6 @@ class Endboss extends MovableObjekt {
       }, 100);
       this.bossInterval.push(handleMovementInterval);
     }, 5000);
-  }
-
-  logBossMove() {
-    let logBossMoveInterval = setInterval(() => {
-      console.log("BOSSMOVE = ", this.BossMove);
-    }, 1000);
-    this.bossInterval.push(logBossMoveInterval);
   }
 
   handleAnimations() {
@@ -159,10 +151,8 @@ class Endboss extends MovableObjekt {
   playAttackAnimation() {
     this.playAnimation(this.Images_Attack);
     sounds.bossAttacksCharSound();
-
     world.character.hitFromBoss();
     world.statusBar.setPercentage(world.character.energy);
-    console.log(world.character.energy);
   }
 
   attack() {
