@@ -1,3 +1,7 @@
+/**
+ * Class representing a coin.
+ * @extends DrawableObejekt
+ */
 class Coin extends DrawableObejekt {
   height = 110;
   width = 110;
@@ -12,6 +16,10 @@ class Coin extends DrawableObejekt {
   collect_coin_sound = new Audio("../assets/audio/collect_coin.mp3");
   coinInterval = [];
 
+  /**
+   * Create a coin.
+   * @param {Object} sounds - The sounds object.
+   */
   constructor(sounds) {
     super();
     this.sounds = sounds;
@@ -21,7 +29,7 @@ class Coin extends DrawableObejekt {
 
     this.isCollect = false;
     this.oneTimeCollect = false;
-    this.x = Math.random() * 4500 + Math.random() + Math.random() + Math.random() * 100;
+    this.x = Math.random() * 7000 ;
     this.y = Math.random() * 300 + 50;
     this.yDirection = 1;
 
@@ -32,6 +40,9 @@ class Coin extends DrawableObejekt {
     }, 5000);
   }
 
+  /**
+   * Animate the coin.
+   */
   animate() {
     let animateInterval = setInterval(() => {
       this.y += this.yDirection * 2;
@@ -44,6 +55,10 @@ class Coin extends DrawableObejekt {
     this.coinInterval.push(animateInterval);
   }
 
+  /**
+   * Play the collect animation for the coin.
+   * @param {Object} character - The character object.
+   */
   collectAnimation(character) {
     sounds.collectCoinSound();
     let collectAnimationInterval = setInterval(() => {
@@ -59,17 +74,22 @@ class Coin extends DrawableObejekt {
     this.coinInterval.push(collectAnimationInterval);
   }
 
+  /**
+   * Ensure the coin does not go too high.
+   */
   notToHeight() {
     if (this.y > 85) {
       this.y + (Math.random() * 10 + 20);
     }
   }
 
+  /**
+   * Reset the coin's position and state.
+   */
   reset() {
     this.x = Math.random() * 4500 + Math.random() + Math.random() + Math.random() * 100;
     this.y = Math.random() * 300 + 50;
     this.isCollect = false;
     this.oneTimeCollect = false;
-
   }
 }

@@ -1,3 +1,7 @@
+/**
+ * Class representing an explosion attack.
+ * @extends ThrowableObject
+ */
 class ExplosionAttack extends ThrowableObject {
   height = 550;
   width = 550;
@@ -17,6 +21,11 @@ class ExplosionAttack extends ThrowableObject {
 
   explosionInterval = [];
 
+  /**
+   * Create an explosion attack.
+   * @param {Object} character - The character object.
+   * @param {Object} sounds - The sounds object.
+   */
   constructor(character, sounds) {
     super();
     this.sounds = sounds;
@@ -35,6 +44,9 @@ class ExplosionAttack extends ThrowableObject {
     }, 5000);
   }
 
+  /**
+   * Animate the explosion attack.
+   */
   animate() {
     const interval = setInterval(() => {
       this.throw();
@@ -48,6 +60,9 @@ class ExplosionAttack extends ThrowableObject {
     }, this.Images.length * 87);
   }
 
+  /**
+   * Play the throw animation for the explosion attack.
+   */
   throw() {
     this.playAnimation(this.Images);
   }

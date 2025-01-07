@@ -1,10 +1,14 @@
+/**
+ * Class representing the end boss.
+ * @extends MovableObjekt
+ */
 class Endboss extends MovableObjekt {
   height = 400;
   width = 250;
-  energy = 100;
+  energy = 120;
   speed = 5;
   y = 60;
-  x = 700;
+  x = 5500;
 
   ImagesAlert = [
     "../assets/img/4_enemie_boss_chicken/2_alert/G5.png",
@@ -55,9 +59,14 @@ class Endboss extends MovableObjekt {
 
   image_final_dead = ["../assets/img/2_character_pepe/5_dead/D-57.png"];
 
-  chicken_isKilled_sound = new Audio("../assets/audio/chicken_small_dead.mp3");
+
   bossInterval = [];
 
+  /**
+   * Create an end boss.
+   * @param {Object} world - The world object.
+   * @param {Object} sounds - The sounds object.
+   */
   constructor(world, sounds) {
     super();
     this.world = world;
@@ -81,12 +90,18 @@ class Endboss extends MovableObjekt {
     }, 5000);
   }
 
+  /**
+   * Animate the end boss.
+   */
   animate() {
     this.handleHurt();
     this.handleMovement();
     this.handleAnimations();
   }
 
+  /**
+   * Handle the hurt state of the end boss.
+   */
   handleHurt() {
     let handleHurtInterval = setInterval(() => {
       if (this.isHurt() && !this.isDead()) {
@@ -97,6 +112,9 @@ class Endboss extends MovableObjekt {
     this.bossInterval.push(handleHurtInterval);
   }
 
+  /**
+   * Handle the movement of the end boss.
+   */
   handleMovement() {
     setTimeout(() => {
       let handleMovementInterval = setInterval(() => {
@@ -109,7 +127,7 @@ class Endboss extends MovableObjekt {
           this.BossMove = false;
           this.isAttacking = true;
         }
-        if (Math.abs(distance) < 150 && distance > 0) {
+        if (Math.abs(distance) < 250 && distance > 0) {
           this.speed = 15;
         }
       }, 100);
@@ -117,6 +135,9 @@ class Endboss extends MovableObjekt {
     }, 5000);
   }
 
+  /**
+   * Handle the animations of the end boss.
+   */
   handleAnimations() {
     let handleAnimationsInterval1 = setInterval(() => {
       if (this.BossMove) {
@@ -131,6 +152,9 @@ class Endboss extends MovableObjekt {
     this.bossInterval.push(handleAnimationsInterval2);
   }
 
+  /**
+   * Update the animations of the end boss.
+   */
   updateAnimations() {
     if (this.isDead() && !this.isKilled) {
       this.playAnimation(this.Images_Dead);
@@ -148,6 +172,9 @@ class Endboss extends MovableObjekt {
     }
   }
 
+  /**
+   * Play the attack animation of the end boss.
+   */
   playAttackAnimation() {
     this.playAnimation(this.Images_Attack);
     sounds.bossAttacksCharSound();
@@ -155,6 +182,9 @@ class Endboss extends MovableObjekt {
     world.statusBar.setPercentage(world.character.energy);
   }
 
+  /**
+   * Handle the attack state of the end boss.
+   */
   attack() {
     if (this.isAttacking) {
       setTimeout(() => {
@@ -163,6 +193,4 @@ class Endboss extends MovableObjekt {
       }, 100);
     }
   }
-
-
 }

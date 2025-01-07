@@ -1,3 +1,7 @@
+/**
+ * Class representing a chicken.
+ * @extends MovableObjekt
+ */
 class Chicken extends MovableObjekt {
   height = 80;
   width = 70;
@@ -15,15 +19,16 @@ class Chicken extends MovableObjekt {
 
   chickenInterval = [];
 
-  
-
+  /**
+   * Create a chicken.
+   * @param {Object} world - The world object.
+   */
   constructor(world) {
     super();
     this.world = world;
     this.loadImage(
       "../assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png"
     );
-  
     this.loadImages(this.ImagesIdle);
     this.loadImages(this.Image_Dead);
     this.animate();
@@ -37,10 +42,11 @@ class Chicken extends MovableObjekt {
     }, 5000);
   }
 
-
-
+  /**
+   * Animate the chicken.
+   */
   animate() {
-   let chickenAnimation =  setInterval(() => {
+    let chickenAnimation = setInterval(() => {
       if (!this.isDead()) {
         this.moveLeft();
         this.playAnimation(this.ImagesIdle);
@@ -52,12 +58,14 @@ class Chicken extends MovableObjekt {
     this.chickenInterval.push(chickenAnimation);  
   }
 
-  reset(){
+  /**
+   * Reset the chicken's state.
+   */
+  reset() {
     this.x = 400 + (Math.random() * 5500);
     this.energy = 32;
     this.speed += Math.random() + 2 * 3;
     this.isKilled = false;
     this.DamageMode = true;
   }
-
 }

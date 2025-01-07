@@ -1,3 +1,6 @@
+/**
+ * Class representing a drawable object.
+ */
 class DrawableObejekt {
   x = 100;
   y = 280;
@@ -7,17 +10,29 @@ class DrawableObejekt {
   currentImage = 0;
   imgCache = {};
 
+  /**
+   * Load an image.
+   * @param {string} path - The path to the image.
+   */
   loadImage(path) {
     this.img = new Image();
     this.img.src = path;
   }
 
+  /**
+   * Draw the object on the canvas.
+   * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+   */
   draw(ctx) {
     if (this.img) {
       ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
   }
 
+  /**
+   * Draw a border around the object.
+   * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+   */
   drawBorder(ctx) {
     if (
       this instanceof Character ||
@@ -35,6 +50,10 @@ class DrawableObejekt {
     }
   }
 
+  /**
+   * Load multiple images.
+   * @param {string[]} arr - Array of image paths.
+   */
   loadImages(arr) {
     arr.forEach((path) => {
       let img = new Image();

@@ -23,8 +23,9 @@ function init() {
 }
 
 function restartGame() {
-  clearAllIntervals();
+  sounds.stopAllSounds();
   sounds.onclickSound();
+  clearAllIntervals();
 
   setTimeout(() => {
     const gameOverScreen = document.getElementById("gameover-screen");

@@ -1,4 +1,9 @@
+/**
+ * Represents the status bar for the boss in the game.
+ * @extends Statusbar
+ */
 class StatusbarBoss extends Statusbar {
+  /** @type {Array<string>} */
   IMAGES = [
     "../assets/img/7_statusbars/2_statusbar_endboss/blue/blue0.png",
     "../assets/img/7_statusbars/2_statusbar_endboss/blue/blue20.png",
@@ -8,8 +13,13 @@ class StatusbarBoss extends Statusbar {
     "../assets/img/7_statusbars/2_statusbar_endboss/blue/blue100.png",
   ];
 
+  /** @type {number} */
   percentage = 100;
 
+  /**
+   * Creates an instance of StatusbarBoss.
+   * @param {Object} world - The game world.
+   */
   constructor(world) {
     super();
     this.world = world;
@@ -20,14 +30,22 @@ class StatusbarBoss extends Statusbar {
     this.setPercentage(100);
   }
 
+  /**
+   * Sets the percentage of the boss's status bar.
+   * @param {number} percentage - The percentage to set.
+   */
   setPercentage(percentage) {
     this.percentage = percentage;
     let path = this.IMAGES[this.resolveImageIndex()];
     this.img = this.imgCache[path];
   }
 
+  /**
+   * Resolves the image index based on the percentage.
+   * @returns {number} - The index of the image.
+   */
   resolveImageIndex() {
-    if (this.percentage == 100) {
+    if (this.percentage >= 100) {
       return 5;
     } else if (this.percentage > 80) {
       return 4;
@@ -42,6 +60,9 @@ class StatusbarBoss extends Statusbar {
     }
   }
 
+  /**
+   * Updates the position of the boss's status bar.
+   */
   updatePosition() {
     let endboss = this.world.level.endboss[0];
     if (endboss) {
@@ -50,10 +71,12 @@ class StatusbarBoss extends Statusbar {
     }
   }
 
+  /**
+   * Draws the boss's status bar.
+   * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+   */
   draw(ctx) {
     this.updatePosition();
     super.draw(ctx);
   }
-
-  
 }

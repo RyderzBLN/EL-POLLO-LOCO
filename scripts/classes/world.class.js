@@ -50,7 +50,6 @@ class World {
       this.ifCharacterUnderGround();
       this.deleteEnemyFromGame();
       this.checkGameOver();
-      sounds.startThemeSound();
 
       this.worldInterval.push(runInterval);
     }, 100);
@@ -196,9 +195,11 @@ class World {
   displayGameOverScreen() {
     if (gameOver && gameWon && !gameLose) {
       this.playerHasWon();
+      sounds.gameWinSound();
     }
     if (gameOver && gameLose && !gameWon) {
       this.enemyHasWon();
+      sounds.gameIsOverSound();
     }
   }
 
@@ -306,6 +307,7 @@ class World {
   characterHitedProcess() {
     this.character.hit();
     this.statusBar.setPercentage(this.character.energy);
+    sounds.thisHurts();
   }
 
   /**
@@ -527,10 +529,7 @@ class World {
     if (mo.otherDirection) {
       this.flipImage(mo);
     }
-
     mo.draw(this.ctx);
-    mo.drawBorder(this.ctx);
-
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }

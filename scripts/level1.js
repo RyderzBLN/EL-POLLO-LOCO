@@ -47,9 +47,29 @@ function initLevel(){
     new Coin(),
     new Coin(),
     new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
   ],
-  [new HealtItem(), new HealtItem(), new HealtItem()],
+  [new HealtItem(this.isSpecial = true), new HealtItem(this.isSpecial = false), new HealtItem(this.isSpecial = false)],
   [
+    new SalsaBottle(),
+    new SalsaBottle(),
+    new SalsaBottle(),
+    new SalsaBottle(),
+    new SalsaBottle(),
+    new SalsaBottle(),
+    new SalsaBottle(),
+    new SalsaBottle(),
+    new SalsaBottle(),
+    new SalsaBottle(),
     new SalsaBottle(),
     new SalsaBottle(),
     new SalsaBottle(),
@@ -236,6 +256,22 @@ function initLevel(){
     new BackgroundObjekt(
       "../assets/img/5_background/layers/1_first_layer/2.png",
       719 * 7
+    ),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/air-3.png",
+      719 * 8
+    ),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/3_third_layer/2.png",
+      719 * 8
+    ),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/2_second_layer/2.png",
+      719 * 8
+    ),
+    new BackgroundObjekt(
+      "../assets/img/5_background/layers/1_first_layer/2.png",
+      719 * 8
     ),
   ]);
 } 

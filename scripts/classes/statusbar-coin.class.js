@@ -1,4 +1,9 @@
+/**
+ * Represents the status bar for the coins in the game.
+ * @extends Statusbar
+ */
 class StatusbarCoin extends Statusbar {
+  /** @type {Array<string>} */
   IMAGES = [
     "../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/green/0.png",
     "../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/20.png",
@@ -8,8 +13,13 @@ class StatusbarCoin extends Statusbar {
     "../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/green/100.png",
   ];
 
+  /** @type {number} */
   percentage = 0;
 
+  /**
+   * Creates an instance of StatusbarCoin.
+   * @param {Object} world - The game world.
+   */
   constructor(world) {
     super();
     this.world = world;
@@ -21,12 +31,20 @@ class StatusbarCoin extends Statusbar {
     this.setPercentage(0);
   }
 
+  /**
+   * Sets the percentage of the coin status bar.
+   * @param {number} percentage - The percentage to set.
+   */
   setPercentage(percentage) {
     this.percentage = percentage;
     let path = this.IMAGES[this.resolveImageIndex()];
     this.img = this.imgCache[path];
   }
 
+  /**
+   * Resolves the image index based on the percentage.
+   * @returns {number} - The index of the image.
+   */
   resolveImageIndex() {
     if (this.percentage >= 10) {
       return 5;

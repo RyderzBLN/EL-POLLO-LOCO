@@ -1,21 +1,33 @@
+/**
+ * Represents a small chicken in the game.
+ * @extends MovableObjekt
+ */
 class SmallChicken extends MovableObjekt {
+  /** @type {number} */
   height = 60;
+  /** @type {number} */
   width = 50;
+  /** @type {number} */
   y = 367;
 
+  /** @type {Array<string>} */
   ImagesIdle = [
     "../assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
     "../assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
     "../assets/img/3_enemies_chicken/chicken_small/1_walk/3_w.png",
   ];
 
+  /** @type {Array<string>} */
   Image_Dead = [
     "../assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png",
   ];
 
-  chicken_isKilled_sound = new Audio("../assets/audio/chicken_small_dead.mp3");
+  /** @type {Array<number>} */
   smallChickenInterval = [];
 
+  /**
+   * Creates an instance of SmallChicken.
+   */
   constructor() {
     super();
     this.loadImage(
@@ -25,12 +37,7 @@ class SmallChicken extends MovableObjekt {
     this.loadImages(this.Image_Dead);
     this.animate();
     this.energy = 32;
-    this.x =
-      1000 +
-      (Math.random() * 4500 +
-        Math.random() +
-        Math.random() +
-        Math.random() * 100);
+    this.x = 1500 + (Math.random() * 4500);
     this.speed = (Math.random() + 0.5) * 10;
 
     setTimeout(() => {
