@@ -60,6 +60,20 @@ class MovableObjekt extends DrawableObejekt {
     );
   }
 
+    /**
+   * Checks if the object is colliding with another object (coin).
+   * @param {Object} other - The other object.
+   * @returns {boolean} - True if colliding, false otherwise.
+   */
+
+    isCollidingCoin(coin) {
+      // Horizontale Zentrierung
+      coin.x = character.x + (character.width / 2) - (coin.width / 2);
+
+      // Vertikale Positionierung (Coin über dem Charakter)
+      coin.y = character.y - coin.height;
+  }
+
   /**
    * Checks if the object is colliding with another object from the top.
    * @param {Object} mo - The other object.
@@ -122,7 +136,7 @@ class MovableObjekt extends DrawableObejekt {
  * Updates the last hit time if the energy is reduced.
  */
 hitsBoss() {
-  this.energy -= 20;
+  this.energy -= 5;
   if (this.energy < 0) {
     this.energy = 0;
   } else {

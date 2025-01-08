@@ -6,10 +6,13 @@ let gameOver = false;
 let gameWon = false;
 let gameLose = false;
 let soundsMute = false;
-
+let firstSound = true;
+let bonusCounter = 0;
 let intervalIds = [];
 
-
+/**
+ * Initializes the game by setting up the canvas, world, and sounds.
+ */
 function init() {
     intervalIds = [];
     initLevel();
@@ -21,9 +24,11 @@ function init() {
       sounds = new Sounds(world);
       initLevel();
     }, 800);
-  }
+}
 
-
+/**
+ * Restarts the game by stopping all sounds, clearing intervals, and resetting the game world.
+ */
 function restartGame() {
   sounds.stopAllSounds();
   sounds.onclickSound();
@@ -38,9 +43,13 @@ function restartGame() {
   setTimeout(() => {
     world.resetGame();
   }, 600);
+
   init();
 }
 
+/**
+ * Toggles the sound mute state and updates the checkbox input.
+ */
 function toggleSoundMute() {
   const checkbox = document.getElementById("checkboxInput");
   soundsMute = !soundsMute;
@@ -48,6 +57,9 @@ function toggleSoundMute() {
   checkbox.checked = soundsMute;
 }
 
+/**
+ * Clears all intervals to stop any ongoing interval-based operations.
+ */
 function clearAllIntervals() {
   for (let i = 1; i < 99999; i++) {
     window.clearInterval(i);

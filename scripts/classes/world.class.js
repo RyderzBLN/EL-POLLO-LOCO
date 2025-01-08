@@ -13,6 +13,7 @@ class World {
   throwableObjekts = [];
   explosions = [];
   specialAttack = false;
+  bottleDelay = false;
   intervalIds = [];
   worldInterval = [];
 
@@ -23,6 +24,8 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
+    this.bossRun();
+    this.explosionsBonusCounter();
 
     setTimeout(() => {
       this.worldInterval.forEach((interval) => {
@@ -55,6 +58,18 @@ class World {
   }
 
   /**
+   * Initiates a repeated check to see if the character is colliding with any end boss in the level.
+   * If a collision is detected, the end boss's attack animation is played.
+   * This check runs every 100 milliseconds.
+   */
+  bossRun() {
+    let bossRunIntervall = setInterval(() => {
+      this.attackBoss();
+    }, 100);
+    this.worldInterval.push(bossRunIntervall);
+  }
+
+  /**
    * Ensures the character does not go underground.
    */
   ifCharacterUnderGround() {
@@ -70,6 +85,7 @@ class World {
     if (this.canThrowBottle()) {
       let bottle = this.createThrowableObject();
       this.throwableObjekts.push(bottle);
+      this.bottleDelay = true;
       this.bottleRemoveProcess(bottle);
       if (this.canThrowSpecialAttack()) {
         this.triggerSpecialAttack();
@@ -100,6 +116,7 @@ class World {
     return (
       this.keyboard.D &&
       this.character.salsaBottle > 0 &&
+      !this.bottleDelay &&
       !this.character.isDead()
     );
   }
@@ -112,7 +129,8 @@ class World {
     return (
       !this.character.otherDirection &&
       this.character.salsaBottle >= 10 &&
-      this.character.coin == 25 &&
+      this.character.coin >= 25 &&
+      bonusCounter <= 50 &&
       !this.character.isDead()
     );
   }
@@ -123,10 +141,15 @@ class World {
    */
   bottleRemoveProcess(bottle) {
     this.character.salsaBottle--;
+
     setTimeout(() => {
       this.throwableObjekts.pop(bottle);
       this.statusBarBottle.setPercentage(this.character.salsaBottle);
     }, 1000);
+
+    setTimeout(() => {
+      this.bottleDelay = false;
+    }, 1800);
   }
 
   /**
@@ -135,6 +158,8 @@ class World {
   triggerSpecialAttack() {
     this.character.coin -= 25;
     this.character.salsaBottle -= 10;
+    this.statusBarCoin.setPercentage(this.character.coin);
+    this.statusBarBottle.setPercentage(this.character.salsaBottle);
     setTimeout(() => {
       let explosion = new ExplosionAttack(this.character, this.sounds);
       this.explosions.push(explosion);
@@ -164,7 +189,7 @@ class World {
       if (boss.isDead()) {
         gameWon = true;
         this.character.invulnerableMode = true;
-      } 
+      }
       if (this.character.isDead()) {
         gameLose = true;
       }
@@ -183,6 +208,7 @@ class World {
     this.level.endboss.forEach((boss) => {
       boss.energy = 100;
     });
+    bonusCounter = 0;
     gameLose = false;
     gameWon = false;
     gameOver = false;
@@ -194,18 +220,27 @@ class World {
   displayGameOverScreen() {
     if (gameOver && gameWon && !gameLose) {
       this.playerHasWon();
-      sounds.gameWinSound();
+      setTimeout(() => {
+        firstSound = false;
+      }, 7000);
     }
     if (gameOver && gameLose && !gameWon) {
       this.enemyHasWon();
-      sounds.gameIsOverSound();
+      setTimeout(() => {
+        firstSound = false;
+      }, 7000);
     }
+    
   }
 
   /**
    * Displays the screen when the player has won.
    */
   playerHasWon() {
+    if (firstSound) {
+      sounds.gameWinSound();
+    }
+
     const gameOverScreen = document.getElementById("gameover-screen");
     gameOverScreen.style.display = "flex";
     setTimeout(() => gameOverScreen.classList.add("addOpacity"), 300);
@@ -215,6 +250,10 @@ class World {
    * Displays the screen when the enemy has won.
    */
   enemyHasWon() {
+    if (firstSound) {
+      sounds.gameIsOverSound();
+    }
+
     const gameOverScreen = document.getElementById("gameover-screen");
     gameOverScreen.style.display = "flex";
     gameOverScreen.style.background =
@@ -249,6 +288,19 @@ class World {
         }, 1200);
       }
     });
+  }
+
+  /**
+   * Checks if the character is colliding with any end boss in the level.
+   * If a collision is detected, the end boss's attack animation is played.
+   */
+  attackBoss() {
+    if (!this.character.isDead())
+      this.level.endboss.forEach((boss) => {
+        if (this.character.isColliding(boss)) {
+          boss.playAttackAnimation();
+        }
+      });
   }
 
   /**
@@ -470,12 +522,20 @@ class World {
     sounds.openBottleSound();
   }
 
+  explosionsBonusCounter() {
+    let explosionCounterInterval = setInterval(() => {
+      bonusCounter++;
+      console.log(bonusCounter);
+    }, 1000);
+    this.worldInterval.push(explosionCounterInterval);
+  }
+
   /**
    * Draws the game elements on the canvas.
    */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.height, this.canvas.width);
-    
+
     this.ctx.translate(this.camera_x, 0);
     this.addObjektToMap(this.level.backgroundObjekts);
 

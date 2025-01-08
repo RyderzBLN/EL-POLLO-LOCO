@@ -60,6 +60,9 @@ function initLevel(){
     new Coin(),
     new Coin(),
     new Coin(),
+    new Coin(),
+    new Coin(),
+    new Coin(),
   ],
   [new HealtItem(this.isSpecial = true), new HealtItem(this.isSpecial = false), new HealtItem(this.isSpecial = false)],
   [

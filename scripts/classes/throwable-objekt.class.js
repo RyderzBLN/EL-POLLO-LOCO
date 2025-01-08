@@ -60,7 +60,7 @@ class ThrowableObject extends MovableObjekt {
       }
       
       if (world.character.x >= 4000 && !this.characterOtherDirection) {
-        this.x += 12;
+        this.x += 3.5;
       }
     }, 30);
 

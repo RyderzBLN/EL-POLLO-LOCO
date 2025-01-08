@@ -20,8 +20,9 @@ class Coin extends DrawableObejekt {
    * Create a coin.
    * @param {Object} sounds - The sounds object.
    */
-  constructor(sounds) {
+  constructor(sounds, world) {
     super();
+    this.world = world;
     this.sounds = sounds;
     this.loadImage("../assets/img/8_coin/coin_1.png");
     this.loadImages(this.Images);
@@ -29,8 +30,8 @@ class Coin extends DrawableObejekt {
 
     this.isCollect = false;
     this.oneTimeCollect = false;
-    this.x = Math.random() * 7000 ;
-    this.y = 340 + (Math.random() * Math.random() * 10);
+    this.x = Math.random() * 4500 ;
+    this.y = 350 + (Math.random() * (Math.random() * (Math.random() * 30)));
     this.yDirection = 1;
 
     setTimeout(() => {
@@ -62,17 +63,23 @@ class Coin extends DrawableObejekt {
   collectAnimation(character) {
     sounds.collectCoinSound();
     let collectAnimationInterval = setInterval(() => {
-      this.y -= 4.5;
-      this.x -= 9.5;
-      this.width -= 0.8;
-      this.height -= 0.75;
-      if (this.width <= 0 || this.height <= 0) {
-        clearInterval(collectAnimationInterval);
-        this.isCollect = true;
-      }
-    }, 15);
+        const dx = character.x - this.x;
+        const dy = character.y - this.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const speed = 20; 
+
+        if (distance < speed) {
+            this.x = character.x;
+            this.y = character.y;
+            clearInterval(collectAnimationInterval);
+            this.isCollect = true;
+        } else {
+            this.x += dx / distance * speed;
+            this.y += dy / distance * speed;
+        }
+    }, 30);
     this.coinInterval.push(collectAnimationInterval);
-  }
+}
 
   /**
    * Ensure the coin does not go too high.

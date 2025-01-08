@@ -46,7 +46,7 @@ class StatusbarCoin extends Statusbar {
    * @returns {number} - The index of the image.
    */
   resolveImageIndex() {
-    if (this.percentage >= 20) {
+    if (this.percentage >= 25) {
       return 5;
     } else if (this.percentage >= 15) {
       return 4;

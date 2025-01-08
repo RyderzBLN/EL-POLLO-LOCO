@@ -99,7 +99,8 @@ class Character extends MovableObjekt {
     this.loadImages(this.image_final_dead);
     this.loadImages(this.images_Hurt);
     this.applyGravity();
-    this.x = 4800;
+    this.x = 4500;
+    this.y = 250;
     this.animate();
     this.energy = 100;
     setTimeout(() => {
@@ -128,11 +129,11 @@ class Character extends MovableObjekt {
       this.moveLeftIfNeeded();
       this.jumpIfNeeded();
 
-      this.world.camera_x = -this.x; + 120;
+      this.world.camera_x = -this.x;
+      +120;
     }, 30);
     this.charInterval.push(moveAndJumpInterval);
   }
-
 
   moveRightIfNeeded() {
     if (
@@ -143,24 +144,29 @@ class Character extends MovableObjekt {
       !this.isHurt()
     ) {
       this.moveRight();
-
       this.otherDirection = false;
       this.idleCounter = 0;
     }
   }
 
   moveLeftIfNeeded() {
-    if (
-      this.world.keyboard.LEFT &&
-      this.x > -719 * 1.5 &&
-      this.x > 4550 &&
-      !this.isDead() &&
-      !this.isHurt() 
-    ) {
-      this.moveLeft();
+    if (this.x < 4500 || (this.x > 4505 && this.x < 5300)) {
+      if (
+        this.world.keyboard.LEFT &&
+        this.x > -719 * 1.5 &&
+        !this.isDead() &&
+        !this.isHurt()
+      ) {
+        this.moveLeft();
 
-      this.otherDirection = true;
-      this.idleCounter = 0;
+        this.otherDirection = true;
+        this.idleCounter = 0;
+      }
+      if (this.world.keyboard.LEFT && this.x > 4500) {
+        this.speed = 3;
+      } else {
+        this.speed = 7;
+      }
     }
   }
 
@@ -245,6 +251,9 @@ class Character extends MovableObjekt {
       ) {
         this.playAnimation(this.Images_Walk);
       }
+      if (this.world.keyboard.LEFT && !this.x > 4500) {
+        this.playAnimation(this.Images_Walk);
+      }
     }, 100);
     this.charInterval.push(animateWalkingInterval);
   }
@@ -274,7 +283,7 @@ class Character extends MovableObjekt {
           this.playAnimation(this.images_Dead);
           setTimeout(() => {
             this.objekt_is_dead = true;
-          }, 220);
+          }, 250);
         } else {
           this.playAnimation(this.image_final_dead);
         }

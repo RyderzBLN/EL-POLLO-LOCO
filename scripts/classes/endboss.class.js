@@ -4,9 +4,9 @@
  */
 class Endboss extends MovableObjekt {
   height = 400;
-  width = 250;
-  energy = 120;
-  speed = 5;
+  width = 173;
+  energy = 125;
+  speed = 11;
   y = 60;
   x = 5500;
 
@@ -118,21 +118,18 @@ class Endboss extends MovableObjekt {
     setTimeout(() => {
       let handleMovementInterval = setInterval(() => {
         let distance = this.x - world.character.x;
-        if (Math.abs(distance) < 500 && !this.isHurt() && !this.isDead()) {
+        if (Math.abs(distance) < 700 && !this.isHurt() && !this.isDead()) {
           this.BossMove = true;
-          this.speed = 8;
+          this.speed = 15;
         }
-        if (Math.abs(distance) < 50 && distance > 0) {
+        if (Math.abs(distance) < 50 && distance > 5) {
           this.BossMove = false;
           this.isAttacking = true;
         }
-        if (Math.abs(distance) > 50 && distance < 0) {
-          this.isAttacking = false;
+        if (Math.abs(distance) < 255 && distance > 5) {
+          this.speed = 22;
         }
-        if (Math.abs(distance) < 250 && distance > 0) {
-          this.speed = 18;
-        }
-      }, 100);
+      }, 50);
       this.bossInterval.push(handleMovementInterval);
     }, 5000);
   }
@@ -165,11 +162,9 @@ class Endboss extends MovableObjekt {
       this.playAnimation(this.image_final_dead);
     } else if (this.BossMove) {
       this.playAnimation(this.Images_Walk);
-    } else if (this.isAttacking && !world.character.energy == 0) {
-      this.playAttackAnimation();
     } else if (this.isHurt()) {
       this.playAnimation(this.Images_Hurt);
-    } else {
+    } else if (!this.isAttacking && !this.isHurt() && !this.isDead() && !this.BossMove) {
       this.playAnimation(this.ImagesAlert);
     }
   }
@@ -180,20 +175,8 @@ class Endboss extends MovableObjekt {
   playAttackAnimation() {
     this.playAnimation(this.Images_Attack);
     sounds.bossAttacksCharSound();
-
     world.character.hitFromBoss();
     world.statusBar.setPercentage(world.character.energy);
   }
 
-  /**
-   * Handle the attack state of the end boss.
-   */
-  attack() {
-    if (this.isAttacking) {
-      setTimeout(() => {
-        this.isAttacking = false;
-        this.BossMove = true;
-      }, 100);
-    }
-  }
 }

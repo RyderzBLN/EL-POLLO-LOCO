@@ -6,7 +6,7 @@ class SalsaBottle extends MovableObjekt {
   /** @type {number} */
   height = 60;
   /** @type {number} */
-  width = 50;
+  width = 20;
   /** @type {boolean} */
   isCollect = false;
 
