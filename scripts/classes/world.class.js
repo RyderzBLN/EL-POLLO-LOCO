@@ -10,6 +10,7 @@ class World {
   statusBarBoss = new StatusbarBoss(this);
   statusBarBottle = new StatusbarBottle();
   statusBarCoin = new StatusbarCoin();
+  timeCounter = new BonusTimer();
   throwableObjekts = [];
   explosions = [];
   specialAttack = false;
@@ -373,6 +374,7 @@ class World {
   characterHitedProcess() {
     this.character.hit();
     this.statusBar.setPercentage(this.character.energy);
+    if(!this.character.isDead())
     sounds.thisHurts();
   }
 
@@ -430,7 +432,7 @@ class World {
       this.level.endboss.forEach((boss) => {
         if (this.enemyIsHited(explosion, boss)) {
           if (boss.energy >= 90) {
-            boss.energy = 10;
+            boss.energy = 70;
           }
           this.statusBarBoss.setPercentage(boss.energy);
         }
@@ -540,8 +542,7 @@ class World {
 
   explosionsBonusCounter() {
     let explosionCounterInterval = setInterval(() => {
-      bonusCounter++;
-      console.log(bonusCounter);
+      bonusCounter++; 
     }, 1000);
     this.worldInterval.push(explosionCounterInterval);
   }
@@ -559,6 +560,7 @@ class World {
     this.addToMap(this.character);
     this.addObjektToMap(this.level.clouds);
     this.ctx.translate(-this.camera_x, 0);
+    this.addToMap(this.timeCounter);
     this.addToMap(this.statusBar);
     this.addToMap(this.statusBarBottle);
     this.addToMap(this.statusBarCoin);

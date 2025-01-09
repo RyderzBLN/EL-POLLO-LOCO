@@ -43,7 +43,6 @@ function restartGame() {
   setTimeout(() => {
     world.resetGame();
   }, 600);
-
   init();
 }
 

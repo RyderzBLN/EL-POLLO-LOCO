@@ -30,6 +30,7 @@
     <script src="./scripts/classes/endboss.class.js"></script>
     <script src="./scripts/classes/statusbar-boss.class.js"></script>
     <script src="./scripts/level1.js"></script>
+    <script src="./scripts/classes/timer-display.class.js"></script>
     <script src="./scripts/game.js"></script>
   </head>
 
@@ -120,11 +121,16 @@
             </button>
           </div>
           <p class="story-text">           
-In El Polo Loco, einem aufregenden 2D-Canvas-Spiel 
-im Browser, befindet sich der mutige Charakter Pepe mitten in der Wüste. Während er die endlosen Sanddünen durchstreift, bemerkt er plötzlich eine Gruppe wilder Hühner, die direkt auf ihn zukommen – und sie scheinen alles andere als freundlich gesinnt zu sein!
-Um sich zu verteidigen, muss Pepe Tabasco-Flaschen sammeln, die er als Waffen einsetzen kann, um die Hühner abzuwehren. Gleichzeitig stößt Pepe auf glänzende Münzen, die er ebenfalls einsammeln muss. Diese Münzen füllen seine Coin-Statusbar, während die Tabasco-Flaschen seine Tabasco-Statusbar auffüllen. Sobald beide Statusbars vollständig gefüllt sind, entfesselt Pepe mit seinem Wurf eine gewaltige Explosion, die alles um ihn herum vernichtet.
-Doch es gibt einen Haken: Pepe hat nur 45 Sekunden Zeit, um alle notwendigen Münzen und Tabasco-Flaschen zu sammeln und die Explosion auszulösen! Schnelligkeit ist also entscheidend, um die wilde Hühnerhorde zu besiegen und die Wüste zu überleben.
-Als Pepe jedoch auf den riesigen Boss-Hahn trifft, überkommt ihn eine solche Angst, dass er plötzlich zögert. Seine normalerweise blitzschnellen Bewegungen verlangsamen sich, und er schafft es nur mit Verzögerung, die Tabasco-Flaschen zu werfen. Die Zeit wird knapp, und Pepe muss all seinen Mut zusammennehmen, um diese übermächtige Bedrohung zu besiegen und den Tag zu retten!
+
+            In El Polo Loco, einem aufregenden 2D-Canvas-Spiel im Browser, befindet sich der mutige Charakter Pepe mitten in der Wüste. Während er die endlosen Sanddünen durchstreift, bemerkt er plötzlich eine Gruppe wilder Hühner, die direkt auf ihn zukommen – und sie scheinen alles andere als freundlich gesinnt zu sein!
+
+            Um sich zu verteidigen, muss Pepe Tabasco-Flaschen sammeln, die er als Waffen einsetzen kann, um die Hühner abzuwehren. Gleichzeitig stößt Pepe auf glänzende Münzen, die er ebenfalls einsammeln muss. Diese Münzen füllen seine Coin-Statusbar, während die Tabasco-Flaschen seine Tabasco-Statusbar auffüllen. Sobald beide Statusbars vollständig gefüllt sind, entfesselt Pepe mit seinem Wurf eine gewaltige Explosion, die alles um ihn herum vernichtet.
+            
+            Doch es gibt einen Haken: Pepe hat nur 45 Sekunden Zeit, um alle notwendigen Münzen und Tabasco-Flaschen zu sammeln und die Explosion auszulösen! Schnelligkeit ist also entscheidend, um die wilde Hühnerhorde zu besiegen und die Wüste zu überleben.
+            
+            Als Pepe jedoch auf den riesigen Boss-Hahn trifft, überkommt ihn eine solche Angst, dass er plötzlich zögert. Seine normalerweise blitzschnellen Bewegungen verlangsamen sich, und er schafft es nur mit Verzögerung, die Tabasco-Flaschen zu werfen. Die Zeit wird knapp, und Pepe muss all seinen Mut zusammennehmen, um diese übermächtige Bedrohung zu besiegen.
+            
+            Doch Vorsicht: Trifft der Boss-Hahn Pepe, ist es vorbei! Ein einziger Treffer reicht aus, um Pepe zu erledigen. Der Spieler muss daher geschickt ausweichen, schnell handeln und seine Chancen nutzen, um den Tag zu retten!
           </p>
         </div>
       </div>
@@ -169,7 +175,7 @@ Als Pepe jedoch auf den riesigen Boss-Hahn trifft, überkommt ihn eine solche An
           </div>
           <div class="button-border">
             <div class="button-base">
-              <button id="walk-right" class="button">=></button>
+              <button id="walk-right" class="button">→</button>
             </div>
           </div>
         </div>

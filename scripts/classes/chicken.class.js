@@ -33,7 +33,7 @@ class Chicken extends MovableObjekt {
     this.loadImages(this.Image_Dead);
     this.animate();
     this.energy = 32;
-    this.x = 400 + (Math.random() * 5500);
+    this.x = 400 + (Math.random() * 4500);
     this.speed += Math.random() + 2 * 3; 
     setTimeout(() => {
       this.chickenInterval.forEach((interval) => {

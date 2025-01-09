@@ -220,20 +220,7 @@ class Character extends MovableObjekt {
       setTimeout(() => {
         this.isJumping = false;
       }, 30);
-      this.playHurtsSound();
     }
-  }
-
-  /**
-   * Play hurt sound if the character is hurt.
-   */
-  playHurtsSound() {
-    let hurtsSoundInterval = setInterval(() => {
-      if (this.isHurt()) {
-        sounds.thisHurts();
-      }
-    }, 100);
-    this.charInterval.push(hurtsSoundInterval);
   }
 
   /**
