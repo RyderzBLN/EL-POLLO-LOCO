@@ -1,20 +1,16 @@
 class BonusTimer extends DrawableObejekt {
   Image = "../assets/img/red-timer.png";
-  counter = 0;
+  counter = 28;
   counterInterval = [];
 
   constructor(world) {
     super();
     this.world = world;
     this.loadImage(this.Image);
-    this.y = 20;
-    this.x = 635;
-    this.width = 20;
-    this.height = 20;
-    this.y = 5;
-    this.x = 615;
-    this.width = 35;
-    this.height = 35;
+    this.width = 25;
+    this.height = 25;
+    this.y = 10;
+    this.x = 625;
     this.counterMinus();
   }
 
@@ -32,7 +28,13 @@ class BonusTimer extends DrawableObejekt {
 
   drawBottleCount(ctx) {
     ctx.font = "24px Arial";
-    ctx.fillStyle = "white";
-    ctx.fillText(this.counter, this.x + 50, this.y + 25);
+    ctx.fillStyle = "green";
+    if (this.counter > 35) {
+      ctx.fillStyle = "orange";
+    }
+    if (this.counter > 45) {
+      ctx.fillStyle = "red";
+    }
+    ctx.fillText(this.counter, this.x + 35, this.y + 21);
   }
 }

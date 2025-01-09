@@ -245,7 +245,7 @@ class World {
       this.enemyHasWon();
       setTimeout(() => {
         firstSound = false;
-      }, 7000);
+      }, 2500);
     }
   }
 
