@@ -108,7 +108,6 @@
         <div class="game-story-text">
           <div class="story-head-back-btn">
             <h3 class="story-head">Story</h3>
-
             <button onclick="backStory()" class="Btn story-back">
               <div class="sign">
                 <svg viewBox="0 0 512 512">
@@ -117,24 +116,15 @@
                   ></path>
                 </svg>
               </div>
-
               <div class="text">Zurück</div>
             </button>
           </div>
-          <p class="story-text">
-            In El Polo Loco, einem aufregenden 2D-Canvas-Spiel im Browser,
-            befindet sich der mutige Charakter Pepe mitten in der Wüste. Während
-            er die endlosen Sanddünen durchstreift, bemerkt er plötzlich eine
-            Gruppe wilder Hühner, die direkt auf ihn zukommen – und sie scheinen
-            gar nicht freundlich gesinnt zu sein! Um sich zu verteidigen, muss
-            Pepe Tabasco-Flaschen sammeln, die er als Waffen einsetzen kann, um
-            die Hühner abzuwehren. Auf seinem Abenteuer stößt Pepe auch auf
-            glänzende Münzen, die er einsammeln kann. Diese Münzen füllen seine
-            Coin-Statusbar, und sobald sie voll ist und Pepe zusätzlich 10
-            Tabasco-Flaschen gesammelt hat und desen Statusbar auch voll ist, wird sein Wurf zu einer riesigen
-            Explosion, die alles um ihn herum vernichtet! Pepe muss also schnell
-            handeln, Tabasco-Flaschen sammeln und Münzen einsammeln, um die
-            wilde Hühnerhorde zu besiegen und die Wüste zu überleben.
+          <p class="story-text">           
+In El Polo Loco, einem aufregenden 2D-Canvas-Spiel 
+im Browser, befindet sich der mutige Charakter Pepe mitten in der Wüste. Während er die endlosen Sanddünen durchstreift, bemerkt er plötzlich eine Gruppe wilder Hühner, die direkt auf ihn zukommen – und sie scheinen alles andere als freundlich gesinnt zu sein!
+Um sich zu verteidigen, muss Pepe Tabasco-Flaschen sammeln, die er als Waffen einsetzen kann, um die Hühner abzuwehren. Gleichzeitig stößt Pepe auf glänzende Münzen, die er ebenfalls einsammeln muss. Diese Münzen füllen seine Coin-Statusbar, während die Tabasco-Flaschen seine Tabasco-Statusbar auffüllen. Sobald beide Statusbars vollständig gefüllt sind, entfesselt Pepe mit seinem Wurf eine gewaltige Explosion, die alles um ihn herum vernichtet.
+Doch es gibt einen Haken: Pepe hat nur 45 Sekunden Zeit, um alle notwendigen Münzen und Tabasco-Flaschen zu sammeln und die Explosion auszulösen! Schnelligkeit ist also entscheidend, um die wilde Hühnerhorde zu besiegen und die Wüste zu überleben.
+Als Pepe jedoch auf den riesigen Boss-Hahn trifft, überkommt ihn eine solche Angst, dass er plötzlich zögert. Seine normalerweise blitzschnellen Bewegungen verlangsamen sich, und er schafft es nur mit Verzögerung, die Tabasco-Flaschen zu werfen. Die Zeit wird knapp, und Pepe muss all seinen Mut zusammennehmen, um diese übermächtige Bedrohung zu besiegen und den Tag zu retten!
           </p>
         </div>
       </div>
@@ -165,20 +155,18 @@
                 ></path>
               </svg>
             </div>
-
             <div class="text">Zurück</div>
           </button>
         </div>
       </div>
-      <canvas id="canvas" width="720" height="480"> </canvas>
+      <canvas id="canvas" width="720" height="480">→</canvas>
       <div class="btn-container">
         <div class="left btns">
           <div class="button-border">
             <div class="button-base">
-              <button id="walk-left" class="button"> / </button>
+              <button id="walk-left" class="button">←</button>
             </div>
           </div>
-
           <div class="button-border">
             <div class="button-base">
               <button id="walk-right" class="button">=></button>

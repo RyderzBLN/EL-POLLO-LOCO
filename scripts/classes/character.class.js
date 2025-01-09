@@ -8,7 +8,7 @@ class Character extends MovableObjekt {
   y = 173;
   speed = 7;
   coin = 0;
-  salsaBottle = 10;
+  salsaBottle = 0;
   idleCounter = 0;
   invulnerableMode = false;
   hitByBoss = false;
@@ -99,7 +99,7 @@ class Character extends MovableObjekt {
     this.loadImages(this.image_final_dead);
     this.loadImages(this.images_Hurt);
     this.applyGravity();
-    this.x = 4500;
+    this.x = 0;
     this.y = 250;
     this.animate();
     this.energy = 100;

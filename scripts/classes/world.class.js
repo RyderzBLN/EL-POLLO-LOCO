@@ -57,6 +57,12 @@ class World {
     }, 100);
   }
 
+  fastRun() {
+    setInterval(() => {
+      this.checkThrowObjeks();
+    }, 50);
+  }
+
   /**
    * Initiates a repeated check to see if the character is colliding with any end boss in the level.
    * If a collision is detected, the end boss's attack animation is played.
@@ -130,7 +136,7 @@ class World {
       !this.character.otherDirection &&
       this.character.salsaBottle >= 10 &&
       this.character.coin >= 25 &&
-      bonusCounter <= 50 &&
+      bonusCounter <= 45 &&
       !this.character.isDead()
     );
   }
@@ -147,9 +153,19 @@ class World {
       this.statusBarBottle.setPercentage(this.character.salsaBottle);
     }, 1000);
 
+    this.setBottleDelay();
+  }
+
+  /**
+   * Sets a delay for the bottle throwing process based on the character's x position.
+   * If the character's x position is less than 4500, the delay is 1000 milliseconds.
+   * Otherwise, the delay is 1600 milliseconds.
+   */
+  setBottleDelay() {
+    const delay = this.character.x < 4500 ? 1000 : 1600;
     setTimeout(() => {
       this.bottleDelay = false;
-    }, 1800);
+    }, delay);
   }
 
   /**
@@ -222,7 +238,7 @@ class World {
       this.playerHasWon();
       setTimeout(() => {
         firstSound = false;
-      }, 7000);
+      }, 5000);
     }
     if (gameOver && gameLose && !gameWon) {
       this.enemyHasWon();
@@ -230,7 +246,6 @@ class World {
         firstSound = false;
       }, 7000);
     }
-    
   }
 
   /**
@@ -414,8 +429,9 @@ class World {
     this.explosions.forEach((explosion) => {
       this.level.endboss.forEach((boss) => {
         if (this.enemyIsHited(explosion, boss)) {
-          boss.hit();
-          boss.hit();
+          if (boss.energy >= 90) {
+            boss.energy = 10;
+          }
           this.statusBarBoss.setPercentage(boss.energy);
         }
       });
