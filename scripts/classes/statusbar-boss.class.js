@@ -14,7 +14,7 @@ class StatusbarBoss extends Statusbar {
   ];
 
   /** @type {number} */
-  percentage = 100;
+  percentage = 125;
 
   /**
    * Creates an instance of StatusbarBoss.
@@ -27,7 +27,7 @@ class StatusbarBoss extends Statusbar {
     this.y = 45;
     this.width = 150;
     this.height = 50;
-    this.setPercentage(100);
+    this.setPercentage(125);
   }
 
   /**

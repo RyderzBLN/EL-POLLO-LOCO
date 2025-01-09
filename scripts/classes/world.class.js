@@ -226,6 +226,7 @@ class World {
       boss.energy = 100;
     });
     bonusCounter = 0;
+    firstSound = true;
     gameLose = false;
     gameWon = false;
     gameOver = false;
@@ -256,7 +257,7 @@ class World {
     if (firstSound) {
       sounds.gameWinSound();
     }
-
+    this.character.invulnerableMode = true;
     const gameOverScreen = document.getElementById("gameover-screen");
     gameOverScreen.style.display = "flex";
     setTimeout(() => gameOverScreen.classList.add("addOpacity"), 300);
@@ -269,7 +270,7 @@ class World {
     if (firstSound) {
       sounds.gameIsOverSound();
     }
-
+    this.character.invulnerableMode = true;
     const gameOverScreen = document.getElementById("gameover-screen");
     gameOverScreen.style.display = "flex";
     gameOverScreen.style.background =
@@ -311,7 +312,7 @@ class World {
    * If a collision is detected, the end boss's attack animation is played.
    */
   attackBoss() {
-    if (!this.character.isDead())
+  if (!this.character.isDead() && !gameOver)
       this.level.endboss.forEach((boss) => {
         if (this.character.isColliding(boss)) {
           boss.playAttackAnimation();
@@ -328,6 +329,7 @@ class World {
     return (
       this.character.isCollidingFromTop(enemy) &&
       this.character.y <= 155 &&
+      this.character.speedY < 0 &&
       !enemy.isDead()
     );
   }
@@ -374,8 +376,7 @@ class World {
   characterHitedProcess() {
     this.character.hit();
     this.statusBar.setPercentage(this.character.energy);
-    if(!this.character.isDead())
-    sounds.thisHurts();
+    if (!this.character.isDead()) sounds.thisHurts();
   }
 
   /**
@@ -432,7 +433,7 @@ class World {
       this.level.endboss.forEach((boss) => {
         if (this.enemyIsHited(explosion, boss)) {
           if (boss.energy >= 90) {
-            boss.energy = 70;
+            boss.explosionHitsBoss();
           }
           this.statusBarBoss.setPercentage(boss.energy);
         }
@@ -542,7 +543,7 @@ class World {
 
   explosionsBonusCounter() {
     let explosionCounterInterval = setInterval(() => {
-      bonusCounter++; 
+      bonusCounter++;
     }, 1000);
     this.worldInterval.push(explosionCounterInterval);
   }

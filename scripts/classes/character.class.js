@@ -100,7 +100,6 @@ class Character extends MovableObjekt {
     this.loadImages(this.images_Hurt);
     this.applyGravity();
     this.x = 0;
-    this.y = 250;
     this.animate();
     this.energy = 100;
     setTimeout(() => {
@@ -131,10 +130,11 @@ class Character extends MovableObjekt {
    */
   moveAndJump() {
     let moveAndJumpInterval = setInterval(() => {
+
       this.moveRightIfNeeded();
       this.moveLeftIfNeeded();
       this.jumpIfNeeded();
-
+      
       this.world.camera_x = -this.x;
       +120;
     }, 30);
@@ -149,6 +149,7 @@ class Character extends MovableObjekt {
       this.world &&
       this.world.keyboard.RIGHT &&
       this.x < this.world.level.level_end_x &&
+      !gameOver &&
       !this.isDead() &&
       !this.isHurt()
     ) {
@@ -165,6 +166,7 @@ class Character extends MovableObjekt {
     if (this.x < 4500 || (this.x > 4505 && this.x < 5300)) {
       if (
         this.world.keyboard.LEFT &&
+        !gameOver &&
         this.x > -719 * 1.5 &&
         !this.isDead() &&
         !this.isHurt()
@@ -190,6 +192,7 @@ class Character extends MovableObjekt {
       if (
         this.world.keyboard.RIGHT ||
         (this.world.keyboard.LEFT &&
+          !gameOver &&
           !this.isDead() &&
           !this.isHurt() &&
           !this.isAboveGround())
@@ -208,6 +211,7 @@ class Character extends MovableObjekt {
   jumpIfNeeded() {
     if (
       this.world.keyboard.SPACE &&
+      !gameOver &&
       !this.isAboveGround() &&
       !this.isDead() &&
       !this.isHurt() &&
@@ -261,6 +265,7 @@ class Character extends MovableObjekt {
   animateWalking() {
     let animateWalkingInterval = setInterval(() => {
       if (
+        !gameOver &&
         !this.isDead() &&
         !this.isHurt() &&
         !this.isAboveGround() &&

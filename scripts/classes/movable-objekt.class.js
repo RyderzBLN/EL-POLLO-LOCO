@@ -144,6 +144,11 @@ hitsBoss() {
   }
 }
 
+explosionHitsBoss(){
+  this.energy = 70;
+  this.lasthit = new Date().getTime();
+}
+
   /**
    * Sets the energy of the object to 0 when hit by an enemy.
    */

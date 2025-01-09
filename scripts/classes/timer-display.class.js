@@ -1,6 +1,6 @@
 class BonusTimer extends DrawableObejekt {
   Image = "../assets/img/red-timer.png";
-  counter = 28;
+  counter = 0;
   counterInterval = [];
 
   constructor(world) {
@@ -12,6 +12,11 @@ class BonusTimer extends DrawableObejekt {
     this.y = 10;
     this.x = 625;
     this.counterMinus();
+    setTimeout(() => {
+        this.counterInterval.forEach((interval) => {
+          intervalIds.push(interval);
+        });
+      }, 5000);
   }
 
   counterMinus() {

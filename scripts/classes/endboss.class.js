@@ -120,14 +120,14 @@ class Endboss extends MovableObjekt {
         let distance = this.x - world.character.x;
         if (Math.abs(distance) < 700 && !this.isHurt() && !this.isDead()) {
           this.BossMove = true;
-          this.speed = 15;
+          this.speed = 13;
         }
         if (Math.abs(distance) < 50 && distance > 5) {
           this.BossMove = false;
           this.isAttacking = true;
         }
         if (Math.abs(distance) < 255 && distance > 5) {
-          this.speed = 22;
+          this.speed = 19;
         }
       }, 50);
       this.bossInterval.push(handleMovementInterval);
