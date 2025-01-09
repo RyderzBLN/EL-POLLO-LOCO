@@ -110,6 +110,9 @@ class Character extends MovableObjekt {
     }, 5000);
   }
 
+  /**
+   * Animate the character.
+   */
   animate() {
     this.moveAndJump();
     this.handleIdleCounter();
@@ -123,6 +126,9 @@ class Character extends MovableObjekt {
     this.checkWalkSound();
   }
 
+  /**
+   * Handle character movement and jumping.
+   */
   moveAndJump() {
     let moveAndJumpInterval = setInterval(() => {
       this.moveRightIfNeeded();
@@ -135,6 +141,9 @@ class Character extends MovableObjekt {
     this.charInterval.push(moveAndJumpInterval);
   }
 
+  /**
+   * Move the character to the right if needed.
+   */
   moveRightIfNeeded() {
     if (
       this.world &&
@@ -149,6 +158,9 @@ class Character extends MovableObjekt {
     }
   }
 
+  /**
+   * Move the character to the left if needed.
+   */
   moveLeftIfNeeded() {
     if (this.x < 4500 || (this.x > 4505 && this.x < 5300)) {
       if (
@@ -170,6 +182,9 @@ class Character extends MovableObjekt {
     }
   }
 
+  /**
+   * Check and play walk sound.
+   */
   checkWalkSound() {
     let walkSoundInterval = setInterval(() => {
       if (
@@ -187,6 +202,9 @@ class Character extends MovableObjekt {
     this.charInterval.push(walkSoundInterval);
   }
 
+  /**
+   * Make the character jump if needed.
+   */
   jumpIfNeeded() {
     if (
       this.world.keyboard.SPACE &&
@@ -206,6 +224,9 @@ class Character extends MovableObjekt {
     }
   }
 
+  /**
+   * Play hurt sound if the character is hurt.
+   */
   playHurtsSound() {
     let hurtsSoundInterval = setInterval(() => {
       if (this.isHurt()) {
@@ -215,6 +236,9 @@ class Character extends MovableObjekt {
     this.charInterval.push(hurtsSoundInterval);
   }
 
+  /**
+   * Handle the idle counter.
+   */
   handleIdleCounter() {
     let idleCounterInterval = setInterval(() => {
       if (
@@ -228,6 +252,9 @@ class Character extends MovableObjekt {
     this.charInterval.push(idleCounterInterval);
   }
 
+  /**
+   * Handle invulnerable time when the character is hurt.
+   */
   invulnerableTime() {
     let invulnerableTimeInterval = setInterval(() => {
       if (this.isHurt() && !this.invulnerableMode) {
@@ -241,6 +268,9 @@ class Character extends MovableObjekt {
     this.charInterval.push(invulnerableTimeInterval);
   }
 
+  /**
+   * Animate the character walking.
+   */
   animateWalking() {
     let animateWalkingInterval = setInterval(() => {
       if (
@@ -258,6 +288,9 @@ class Character extends MovableObjekt {
     this.charInterval.push(animateWalkingInterval);
   }
 
+  /**
+   * Animate the character jumping.
+   */
   animateJumping() {
     let animateJumpingInterval = setInterval(() => {
       if (this.isAboveGround()) {
@@ -267,6 +300,9 @@ class Character extends MovableObjekt {
     this.charInterval.push(animateJumpingInterval);
   }
 
+  /**
+   * Animate the character when hurt.
+   */
   animateHurt() {
     setInterval(() => {
       if (this.isHurt()) {
@@ -276,6 +312,9 @@ class Character extends MovableObjekt {
     }, 100);
   }
 
+  /**
+   * Animate the character when dead.
+   */
   animateDead() {
     let animateDeadInterval = setInterval(() => {
       if (this.isDead()) {
@@ -292,6 +331,9 @@ class Character extends MovableObjekt {
     this.charInterval.push(animateDeadInterval);
   }
 
+  /**
+   * Animate the character when idle.
+   */
   animateIdle() {
     let idleInterval = setInterval(() => {
       if (
@@ -312,12 +354,18 @@ class Character extends MovableObjekt {
     this.charInterval.push(idleInterval);
   }
 
+  /**
+   * Ensure the character's energy does not go below zero.
+   */
   notUnderZeroEnergy() {
     if (this.energy < 0) {
       this.energy = 0;
     }
   }
 
+  /**
+   * Reset the character's properties.
+   */
   reset() {
     this.x = -300;
     this.coin = 0;
