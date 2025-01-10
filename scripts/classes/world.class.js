@@ -260,6 +260,8 @@ class World {
     this.character.invulnerableMode = true;
     const gameOverScreen = document.getElementById("gameover-screen");
     gameOverScreen.style.display = "flex";
+    gameOverScreen.style.background =
+      "url(./assets/img/9_intro_outro_screens/win/win_2.png) center/contain no-repeat";
     setTimeout(() => gameOverScreen.classList.add("addOpacity"), 300);
   }
 
